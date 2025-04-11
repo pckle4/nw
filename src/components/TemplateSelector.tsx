@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileText, ArrowRight, CheckCircle } from 'lucide-react';
+import { FileText, ArrowRight, CheckCircle, Download } from 'lucide-react';
 import { templates } from '@/data/templates';
 import {
   Carousel,

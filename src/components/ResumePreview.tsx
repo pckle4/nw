@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ResumeData } from '@/types/resume';
@@ -71,7 +70,7 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ data, templateId }) => {
       toast({
         title: "Resume downloaded successfully!",
         description: `Saved as ${filename}`,
-        variant: "success",
+        variant: "default",
       });
     } catch (error) {
       console.error('Error generating PDF:', error);
