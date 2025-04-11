@@ -1,10 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import TemplateSelector from '@/components/TemplateSelector';
 import ResumeForm from '@/components/ResumeForm';
 import ResumePreview from '@/components/ResumePreview';
+import AboutSection from '@/components/AboutSection';
+import FaqSection from '@/components/FaqSection';
+import PreloadingScreen from '@/components/PreloadingScreen';
 import { initialResumeData } from '@/data/initialData';
 import { ResumeData } from '@/types/resume';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -13,6 +16,15 @@ const Index = () => {
   const [step, setStep] = useState<'templates' | 'form' | 'preview'>('templates');
   const [selectedTemplate, setSelectedTemplate] = useState('');
   const [resumeData, setResumeData] = useState<ResumeData>(initialResumeData);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading assets
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSelectTemplate = (templateId: string) => {
     setSelectedTemplate(templateId);
@@ -39,16 +51,22 @@ const Index = () => {
 
   return (
     <TooltipProvider>
+      {isLoading && <PreloadingScreen />}
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-slate-100">
         <Header />
         
         <main className="container mx-auto px-4 py-8 flex-grow">
           {step === 'templates' && (
-            <TemplateSelector
-              selectedTemplate={selectedTemplate}
-              onSelectTemplate={handleSelectTemplate}
-              onNext={handleStartForm}
-            />
+            <>
+              <TemplateSelector
+                selectedTemplate={selectedTemplate}
+                onSelectTemplate={handleSelectTemplate}
+                onNext={handleStartForm}
+              />
+              
+              <AboutSection />
+              <FaqSection />
+            </>
           )}
           
           {step === 'form' && (
@@ -76,7 +94,7 @@ const Index = () => {
                 <p className="text-lg text-gray-600">
                   Your professional resume has been created. Download it now or go back to make changes.
                 </p>
-                <div className="flex justify-center gap-4">
+                <div className="flex flex-wrap justify-center gap-4">
                   <button 
                     onClick={() => setStep('form')}
                     className="px-6 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
@@ -97,7 +115,7 @@ const Index = () => {
                 </div>
               </div>
               
-              <div className="h-[calc(100vh-16rem)] max-w-4xl mx-auto">
+              <div className="max-w-4xl mx-auto">
                 <ResumePreview 
                   data={resumeData} 
                   templateId={selectedTemplate} 
