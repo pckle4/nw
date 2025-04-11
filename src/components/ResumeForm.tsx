@@ -10,6 +10,12 @@ import SkillsForm from './forms/SkillsForm';
 import ProjectsForm from './forms/ProjectsForm';
 import { useToast } from '@/components/ui/use-toast';
 import { ResumeData } from '@/types/resume';
+import { Info, ArrowLeft, ArrowRight } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ResumeFormProps {
   initialData: ResumeData;
@@ -19,11 +25,11 @@ interface ResumeFormProps {
 }
 
 const steps = [
-  { id: 1, label: 'Personal' },
-  { id: 2, label: 'Experience' },
-  { id: 3, label: 'Education' },
-  { id: 4, label: 'Skills' },
-  { id: 5, label: 'Projects' },
+  { id: 1, label: 'Personal', description: 'Enter your personal and contact information' },
+  { id: 2, label: 'Experience', description: 'Add your work experience details' },
+  { id: 3, label: 'Education', description: 'Include your educational background' },
+  { id: 4, label: 'Skills', description: 'List your professional skills and competencies' },
+  { id: 5, label: 'Projects', description: 'Showcase your notable projects and achievements' },
 ];
 
 const ResumeForm: React.FC<ResumeFormProps> = ({ 
@@ -84,9 +90,33 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl animate-fade-in">
+      <div className="mb-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold">
+            {steps[currentStep-1].label} Information
+          </h2>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="sm">
+                <Info className="h-4 w-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="max-w-xs">
+              <p>{steps[currentStep-1].description}</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Step {currentStep} of {steps.length}
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+        <p className="text-gray-600 mt-1">
+          {steps[currentStep-1].description}
+        </p>
+      </div>
+
       <StepIndicator currentStep={currentStep} steps={steps} />
       
-      <Card className="form-section">
+      <Card className="form-section mt-6">
         {renderStepContent()}
       </Card>
       
@@ -94,14 +124,18 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         <Button 
           variant="outline" 
           onClick={handlePrevStep}
+          className="flex items-center gap-2"
         >
+          <ArrowLeft className="h-4 w-4" />
           {currentStep === 1 ? 'Back to Templates' : 'Previous'}
         </Button>
         
         <Button 
           onClick={handleNextStep}
+          className="flex items-center gap-2"
         >
           {currentStep === steps.length ? 'Complete' : 'Next'}
+          {currentStep !== steps.length && <ArrowRight className="h-4 w-4" />}
         </Button>
       </div>
     </div>

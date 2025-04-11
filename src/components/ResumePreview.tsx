@@ -1,13 +1,20 @@
+
 import React, { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ResumeData } from '@/types/resume';
 import ModernTemplate from './templates/ModernTemplate';
 import MinimalTemplate from './templates/MinimalTemplate';
 import ColorfulTemplate from './templates/ColorfulTemplate';
-import { Download, Eye } from 'lucide-react';
+import { Download, Eye, FileText, Settings } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ResumePreviewProps {
   data: ResumeData;
@@ -40,25 +47,29 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ data, templateId }) => {
     });
 
     try {
+      // Higher quality settings for better PDF output
       const canvas = await html2canvas(resumeRef.current, {
-        scale: 2,
+        scale: 4, // Increased from 2 to 4 for higher quality
         logging: false,
         useCORS: true,
         allowTaint: true,
+        backgroundColor: null,
+        imageTimeout: 0,
       });
 
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL('image/png', 1.0);
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4',
+        compress: true,
       });
 
       // A4 size: 210 x 297 mm
       const imgWidth = 210;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST');
       
       // Use the person's name in the filename, or default to "resume"
       const filename = data.personalInfo.fullName 
@@ -89,10 +100,34 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ data, templateId }) => {
         <h3 className="font-medium flex items-center gap-2">
           <Eye className="h-4 w-4" /> Resume Preview
         </h3>
-        <Button size="sm" onClick={handleDownload} className="bg-resume-purple hover:bg-resume-dark-purple">
-          <Download className="h-4 w-4 mr-2" />
-          Download PDF
-        </Button>
+        <div className="flex items-center gap-2">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Settings className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Customize template settings</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button size="sm" onClick={handleDownload} className="bg-resume-purple hover:bg-resume-dark-purple">
+                  <Download className="h-4 w-4 mr-2" />
+                  Download PDF
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Download your resume as high-quality PDF</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </div>
       
       <div className="flex-1 overflow-auto bg-gray-200 p-4">

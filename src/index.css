@@ -105,6 +105,20 @@
   h4 {
     @apply text-xl md:text-2xl;
   }
+  
+  /* Style placeholders nicely */
+  ::-webkit-input-placeholder {
+    @apply text-gray-400 opacity-70;
+  }
+  ::-moz-placeholder {
+    @apply text-gray-400 opacity-70;
+  }
+  :-ms-input-placeholder {
+    @apply text-gray-400 opacity-70;
+  }
+  :-moz-placeholder {
+    @apply text-gray-400 opacity-70;
+  }
 }
 
 @layer components {
@@ -121,7 +135,7 @@
   }
 
   .form-section {
-    @apply p-6 rounded-lg bg-white/80 shadow-sm border border-slate-200 animate-fade-in;
+    @apply p-6 rounded-lg bg-white/90 shadow-sm border border-slate-200 animate-fade-in;
   }
 
   .step-indicator {
@@ -134,5 +148,29 @@
 
   .step-indicator.completed {
     @apply bg-green-500 text-white;
+  }
+  
+  /* Enhanced input styles */
+  .input-enhanced {
+    @apply rounded-md border border-input px-4 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 placeholder:text-gray-400 w-full transition-colors;
+  }
+  
+  /* Special gradients */
+  .blue-gradient {
+    @apply bg-gradient-to-r from-blue-500 to-blue-400; 
+  }
+  
+  .purple-gradient {
+    @apply bg-gradient-to-r from-resume-purple to-blue-500;
+  }
+  
+  /* Animations */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
