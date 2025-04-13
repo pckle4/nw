@@ -89,10 +89,10 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl animate-fade-in">
-      <div className="mb-6">
+    <div className="container mx-auto px-4 py-6 max-w-4xl animate-fade-in">
+      <div className="mb-5">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-xl font-bold text-gray-800">
             {steps[currentStep-1].label} Information
           </h2>
           <Tooltip>
@@ -102,29 +102,30 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
               </Button>
             </TooltipTrigger>
             <TooltipContent className="max-w-xs">
-              <p>{steps[currentStep-1].description}</p>
+              <p className="text-sm">{steps[currentStep-1].description}</p>
               <p className="text-xs text-muted-foreground mt-1">
                 Step {currentStep} of {steps.length}
               </p>
             </TooltipContent>
           </Tooltip>
         </div>
-        <p className="text-gray-600 mt-1">
+        <p className="text-sm text-gray-600 mt-1">
           {steps[currentStep-1].description}
         </p>
       </div>
 
       <StepIndicator currentStep={currentStep} steps={steps} />
       
-      <Card className="form-section mt-6">
+      <Card className="form-section mt-5 bg-white shadow-sm">
         {renderStepContent()}
       </Card>
       
-      <div className="flex justify-between mt-8">
+      <div className="flex justify-between mt-6">
         <Button 
           variant="outline" 
           onClick={handlePrevStep}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 text-sm"
+          size="sm"
         >
           <ArrowLeft className="h-4 w-4" />
           {currentStep === 1 ? 'Back to Templates' : 'Previous'}
@@ -132,7 +133,8 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         
         <Button 
           onClick={handleNextStep}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 text-sm"
+          size="sm"
         >
           {currentStep === steps.length ? 'Complete' : 'Next'}
           {currentStep !== steps.length && <ArrowRight className="h-4 w-4" />}
