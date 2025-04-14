@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,6 +18,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'typewriter': ['Courier Prime', 'monospace'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -125,6 +127,32 @@ export default {
 					'50%': {
 						opacity: 0.8
 					}
+				},
+				'rotating-border': {
+					'0%': {
+						'background-position': '0% 50%'
+					},
+					'50%': {
+						'background-position': '100% 50%'
+					},
+					'100%': {
+						'background-position': '0% 50%'
+					}
+				},
+				'scale-up': {
+					'0%': {
+						transform: 'scale(1)'
+					},
+					'100%': {
+						transform: 'scale(1.03)'
+					}
+				},
+				'typewriter': {
+					'0%': { width: '0' },
+					'100%': { width: '100%' }
+				},
+				'caret': {
+					'50%': { borderColor: 'transparent' }
 				}
 			},
 			animation: {
@@ -132,7 +160,11 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.5s ease-out',
 				'slide-in': 'slide-in 0.5s ease-out',
-				'pulse-gentle': 'pulse-gentle 3s infinite'
+				'pulse-gentle': 'pulse-gentle 3s infinite',
+				'rotating-border': 'rotating-border 3s ease-in-out infinite',
+				'scale-up': 'scale-up 0.3s ease-out forwards',
+				'typewriter': 'typewriter 2s steps(40) 1s forwards',
+				'caret': 'caret 0.5s step-end infinite'
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
