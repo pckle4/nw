@@ -143,9 +143,21 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
                       <h4 className="font-bold text-xs">{categoryName}</h4>
                       <div className="flex flex-wrap gap-1">
                         {categorySkills.map((skill) => (
-                          <span key={skill.id} className="inline-block px-1.5 py-0.5 text-[10px] bg-resume-light-purple/40 rounded">
-                            {skill.name}
-                          </span>
+                          <div key={skill.id} className="inline-flex flex-col items-center px-2 py-1 bg-resume-light-purple/40 rounded text-center">
+                            <span className="text-[10px] font-medium">{skill.name}</span>
+                            {skill.level && (
+                              <div className="flex mt-0.5">
+                                {Array.from({ length: 5 }).map((_, index) => (
+                                  <span 
+                                    key={index}
+                                    className={`inline-block h-1 w-1 rounded-full mx-px ${
+                                      index < skill.level ? 'bg-resume-purple' : 'bg-gray-200'
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                            )}
+                          </div>
                         ))}
                       </div>
                     </div>

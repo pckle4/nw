@@ -96,14 +96,21 @@ const MinimalTemplate: React.FC<MinimalTemplateProps> = ({ data }) => {
               return categorySkills.length > 0 ? (
                 <div key={category}>
                   <h3 className="font-semibold text-xs mb-0.5">{categoryName}</h3>
-                  <p className="text-xs">
+                  <div className="flex flex-wrap gap-1">
                     {categorySkills.map((skill, index) => (
-                      <span key={skill.id}>
-                        {skill.name}
-                        {index < categorySkills.length - 1 ? ', ' : ''}
+                      <span key={skill.id} className="inline-flex items-center">
+                        <span className="text-xs">
+                          {skill.name}
+                          {skill.level && (
+                            <span className="ml-1 text-gray-400">
+                              {Array.from({ length: skill.level }).map((_, i) => "●").join("")}
+                            </span>
+                          )}
+                        </span>
+                        {index < categorySkills.length - 1 ? <span className="mx-1 text-gray-400">|</span> : null}
                       </span>
                     ))}
-                  </p>
+                  </div>
                 </div>
               ) : null;
             })}

@@ -35,6 +35,7 @@ export interface SkillItem {
   id: string;
   name: string;
   category: string;
+  level?: number; // 1-5 skill proficiency level
 }
 
 export interface SkillCategory {

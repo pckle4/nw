@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import StepIndicator from './StepIndicator';
+import FormProgressBar from './FormProgressBar';
 import PersonalInfoForm from './forms/PersonalInfoForm';
 import ExperienceForm from './forms/ExperienceForm';
 import EducationForm from './forms/EducationForm';
@@ -10,7 +11,7 @@ import SkillsForm from './forms/SkillsForm';
 import ProjectsForm from './forms/ProjectsForm';
 import { useToast } from '@/components/ui/use-toast';
 import { ResumeData } from '@/types/resume';
-import { Info, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Info, ArrowLeft, ArrowRight, AlertCircle } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -25,11 +26,11 @@ interface ResumeFormProps {
 }
 
 const steps = [
-  { id: 1, label: 'Personal', description: 'Enter your personal and contact information' },
-  { id: 2, label: 'Experience', description: 'Add your work experience details' },
-  { id: 3, label: 'Education', description: 'Include your educational background' },
-  { id: 4, label: 'Skills', description: 'List your professional skills and competencies' },
-  { id: 5, label: 'Projects', description: 'Showcase your notable projects and achievements' },
+  { id: 1, label: 'Personal', description: 'Enter your personal and contact information', requiredFields: ['fullName', 'email'] },
+  { id: 2, label: 'Experience', description: 'Add your work experience details', requiredFields: [] },
+  { id: 3, label: 'Education', description: 'Include your educational background', requiredFields: [] },
+  { id: 4, label: 'Skills', description: 'List your professional skills and competencies', requiredFields: [] },
+  { id: 5, label: 'Projects', description: 'Showcase your notable projects and achievements', requiredFields: [] },
 ];
 
 const ResumeForm: React.FC<ResumeFormProps> = ({ 
@@ -40,12 +41,58 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<ResumeData>(initialData);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const { toast } = useToast();
 
+  // Animation properties
+  const [animateOut, setAnimateOut] = useState(false);
+  const [animateIn, setAnimateIn] = useState(true);
+
+  // Check if the current step can proceed
+  const validateCurrentStep = () => {
+    const currentStepData = steps[currentStep - 1];
+    const errors: string[] = [];
+    
+    // Check for required fields based on current step
+    if (currentStep === 1) {
+      if (!formData.personalInfo.fullName.trim()) {
+        errors.push('Full Name is required');
+      }
+      if (!formData.personalInfo.email.trim()) {
+        errors.push('Email is required');
+      } else if (!/^\S+@\S+\.\S+$/.test(formData.personalInfo.email)) {
+        errors.push('Email format is invalid');
+      }
+    }
+    
+    if (currentStep === 4 && formData.skills.length === 0) {
+      errors.push('Add at least one skill');
+    }
+    
+    setValidationErrors(errors);
+    return errors.length === 0;
+  };
+
   const handleNextStep = () => {
+    if (!validateCurrentStep()) {
+      toast({
+        title: "Missing required information",
+        description: "Please fill in all required fields to continue.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     if (currentStep < steps.length) {
-      setCurrentStep(currentStep + 1);
-      window.scrollTo(0, 0);
+      // Trigger out animation
+      setAnimateOut(true);
+      
+      setTimeout(() => {
+        setCurrentStep(currentStep + 1);
+        setAnimateOut(false);
+        setAnimateIn(true);
+        window.scrollTo(0, 0);
+      }, 300);
     } else {
       onUpdateData(formData);
       onComplete();
@@ -58,8 +105,15 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
 
   const handlePrevStep = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-      window.scrollTo(0, 0);
+      // Trigger out animation
+      setAnimateOut(true);
+      
+      setTimeout(() => {
+        setCurrentStep(currentStep - 1);
+        setAnimateOut(false);
+        setAnimateIn(true);
+        window.scrollTo(0, 0);
+      }, 300);
     } else {
       onBack();
     }
@@ -69,7 +123,20 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     const newData = { ...formData, ...sectionData };
     setFormData(newData);
     onUpdateData(newData);
+    
+    // Clear validation errors when data changes
+    setValidationErrors([]);
   };
+
+  // Reset animation class after it plays
+  useEffect(() => {
+    if (animateIn) {
+      const timer = setTimeout(() => {
+        setAnimateIn(false);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [animateIn]);
 
   const renderStepContent = () => {
     switch (currentStep) {
@@ -89,7 +156,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   };
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-4xl animate-fade-in">
+    <div className="container mx-auto px-4 py-6 max-w-4xl">
       <div className="mb-5">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold text-gray-800">
@@ -114,9 +181,32 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         </p>
       </div>
 
-      <StepIndicator currentStep={currentStep} steps={steps} />
+      <FormProgressBar 
+        currentStep={currentStep} 
+        totalSteps={steps.length} 
+        stepLabels={steps.map(step => step.label)}
+      />
       
-      <Card className="form-section mt-5 bg-white shadow-sm">
+      {validationErrors.length > 0 && (
+        <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg animate-fade-in">
+          <div className="flex gap-2 items-start">
+            <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+            <div>
+              <h4 className="font-medium text-red-800 text-sm">Please fix the following issues:</h4>
+              <ul className="mt-1 list-disc list-inside text-xs text-red-700">
+                {validationErrors.map((error, index) => (
+                  <li key={index}>{error}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      <Card className={`form-section mt-5 bg-white shadow-sm overflow-hidden transition-all duration-300 ${
+        animateOut ? 'opacity-0 transform translate-y-10' : 
+        animateIn ? 'animate-fade-in' : ''
+      }`}>
         {renderStepContent()}
       </Card>
       
@@ -124,7 +214,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         <Button 
           variant="outline" 
           onClick={handlePrevStep}
-          className="flex items-center gap-2 text-sm"
+          className="flex items-center gap-2 text-sm hover:border-resume-purple hover:text-resume-purple"
           size="sm"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -133,7 +223,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         
         <Button 
           onClick={handleNextStep}
-          className="flex items-center gap-2 text-sm"
+          className="flex items-center gap-2 text-sm bg-resume-purple hover:bg-resume-dark-purple"
           size="sm"
         >
           {currentStep === steps.length ? 'Complete' : 'Next'}

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -108,16 +109,30 @@
   
   /* Style placeholders nicely */
   ::-webkit-input-placeholder {
-    @apply text-gray-400 opacity-70 text-sm;
+    @apply text-gray-400 opacity-70 text-sm transition-colors;
   }
   ::-moz-placeholder {
-    @apply text-gray-400 opacity-70 text-sm;
+    @apply text-gray-400 opacity-70 text-sm transition-colors;
   }
   :-ms-input-placeholder {
-    @apply text-gray-400 opacity-70 text-sm;
+    @apply text-gray-400 opacity-70 text-sm transition-colors;
   }
   :-moz-placeholder {
-    @apply text-gray-400 opacity-70 text-sm;
+    @apply text-gray-400 opacity-70 text-sm transition-colors;
+  }
+
+  /* Focus state for placeholders */
+  input:focus::-webkit-input-placeholder {
+    @apply text-resume-purple opacity-60;
+  }
+  input:focus::-moz-placeholder {
+    @apply text-resume-purple opacity-60;
+  }
+  input:focus:-ms-input-placeholder {
+    @apply text-resume-purple opacity-60;
+  }
+  input:focus:-moz-placeholder {
+    @apply text-resume-purple opacity-60;
   }
 
   /* Smooth scrolling */
@@ -245,6 +260,35 @@
     }
   }
   
+  /* Colorful placeholders */
+  .placeholder-gradient input::placeholder,
+  .placeholder-gradient textarea::placeholder {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-resume-purple/70 to-blue-400/70;
+  }
+  
+  /* Required field indicator */
+  .required-field label::after {
+    content: "*";
+    @apply text-red-500 ml-1;
+  }
+  
+  /* Skill level indicators */
+  .skill-level {
+    @apply flex gap-0.5;
+  }
+  
+  .skill-level .level-dot {
+    @apply h-1.5 w-1.5 rounded-full;
+  }
+  
+  .skill-level .level-dot.filled {
+    @apply bg-resume-purple;
+  }
+  
+  .skill-level .level-dot.empty {
+    @apply bg-gray-200;
+  }
+  
   /* Animations */
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;
@@ -260,6 +304,14 @@
   
   .animate-bounce-soft {
     animation: bounceSoft 2s infinite;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+  
+  .animate-progress {
+    animation: progressFill 1s ease-in-out;
   }
   
   @keyframes fadeIn {
@@ -280,6 +332,16 @@
   @keyframes bounceSoft {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  @keyframes progressFill {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
   }
   
   /* Responsive utilities */
