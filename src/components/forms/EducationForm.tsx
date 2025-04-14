@@ -3,8 +3,12 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Plus, School, Trash2 } from 'lucide-react';
+import { Plus, School, Trash2, CalendarIcon } from 'lucide-react';
 import { ResumeData, EducationItem } from '@/types/resume';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 interface EducationFormProps {
   data: ResumeData;
@@ -47,6 +51,18 @@ const EducationForm: React.FC<EducationFormProps> = ({ data, updateData }) => {
     });
   };
 
+  const handleStartDateSelect = (id: string, date: Date | undefined) => {
+    if (date) {
+      handleEducationChange(id, 'startDate', format(date, 'MMM yyyy'));
+    }
+  };
+
+  const handleEndDateSelect = (id: string, date: Date | undefined) => {
+    if (date) {
+      handleEducationChange(id, 'endDate', format(date, 'MMM yyyy'));
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -84,63 +100,103 @@ const EducationForm: React.FC<EducationFormProps> = ({ data, updateData }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor={`institution-${education.id}`}>Institution</Label>
+              <Label htmlFor={`institution-${education.id}`}>Institution <span className="text-red-500">*</span></Label>
               <Input
                 id={`institution-${education.id}`}
                 value={education.institution}
                 onChange={(e) => handleEducationChange(education.id, 'institution', e.target.value)}
                 placeholder="e.g., Stanford University"
+                className="placeholder:text-blue-300 border-gray-300 focus:border-resume-purple"
+                required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor={`location-${education.id}`}>Location</Label>
+              <Label htmlFor={`location-${education.id}`}>Location <span className="text-red-500">*</span></Label>
               <Input
                 id={`location-${education.id}`}
                 value={education.location}
                 onChange={(e) => handleEducationChange(education.id, 'location', e.target.value)}
                 placeholder="e.g., Stanford, CA"
+                className="placeholder:text-green-300 border-gray-300 focus:border-resume-purple"
+                required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor={`degree-${education.id}`}>Degree</Label>
+              <Label htmlFor={`degree-${education.id}`}>Degree <span className="text-red-500">*</span></Label>
               <Input
                 id={`degree-${education.id}`}
                 value={education.degree}
                 onChange={(e) => handleEducationChange(education.id, 'degree', e.target.value)}
                 placeholder="e.g., Bachelor of Science"
+                className="placeholder:text-purple-300 border-gray-300 focus:border-resume-purple"
+                required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor={`field-${education.id}`}>Field of Study</Label>
+              <Label htmlFor={`field-${education.id}`}>Field of Study <span className="text-red-500">*</span></Label>
               <Input
                 id={`field-${education.id}`}
                 value={education.field}
                 onChange={(e) => handleEducationChange(education.id, 'field', e.target.value)}
                 placeholder="e.g., Computer Science"
+                className="placeholder:text-yellow-300 border-gray-300 focus:border-resume-purple"
+                required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor={`startDate-${education.id}`}>Start Date</Label>
-              <Input
-                id={`startDate-${education.id}`}
-                value={education.startDate}
-                onChange={(e) => handleEducationChange(education.id, 'startDate', e.target.value)}
-                placeholder="e.g., Sep 2018"
-              />
+              <Label>Start Date <span className="text-red-500">*</span></Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal border-gray-300",
+                      !education.startDate && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {education.startDate ? education.startDate : "Select start date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    onSelect={(date) => handleStartDateSelect(education.id, date)}
+                    initialFocus
+                    className="pointer-events-auto"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor={`endDate-${education.id}`}>End Date</Label>
-              <Input
-                id={`endDate-${education.id}`}
-                value={education.endDate}
-                onChange={(e) => handleEducationChange(education.id, 'endDate', e.target.value)}
-                placeholder="e.g., Jun 2022"
-              />
+              <Label>End Date <span className="text-red-500">*</span></Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal border-gray-300",
+                      !education.endDate && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {education.endDate ? education.endDate : "Select end date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    onSelect={(date) => handleEndDateSelect(education.id, date)}
+                    initialFocus
+                    className="pointer-events-auto"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
 
             <div className="space-y-2">
@@ -150,6 +206,7 @@ const EducationForm: React.FC<EducationFormProps> = ({ data, updateData }) => {
                 value={education.gpa}
                 onChange={(e) => handleEducationChange(education.id, 'gpa', e.target.value)}
                 placeholder="e.g., 3.8/4.0"
+                className="placeholder:text-pink-300 border-gray-300 focus:border-resume-purple"
               />
             </div>
           </div>

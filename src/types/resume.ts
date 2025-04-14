@@ -7,6 +7,10 @@ export interface PersonalInfo {
   location: string;
   linkedin: string;
   summary: string;
+  website?: string;
+  portfolio?: string;
+  github?: string;
+  twitter?: string;
 }
 
 export interface ExperienceItem {
@@ -18,6 +22,9 @@ export interface ExperienceItem {
   endDate: string;
   description: string;
   current: boolean;
+  highlights?: string[];
+  technologies?: string;
+  achievements?: string;
 }
 
 export interface EducationItem {
@@ -29,6 +36,9 @@ export interface EducationItem {
   startDate: string;
   endDate: string;
   gpa: string;
+  honors?: string;
+  courses?: string[];
+  activities?: string;
 }
 
 export interface SkillItem {
@@ -36,11 +46,14 @@ export interface SkillItem {
   name: string;
   category: string;
   level?: number; // 1-5 skill proficiency level
+  years?: number; // Years of experience with this skill
+  certification?: string; // Related certification
 }
 
 export interface SkillCategory {
   id: string;
   name: string;
+  description?: string;
 }
 
 export interface ProjectItem {
@@ -50,6 +63,10 @@ export interface ProjectItem {
   technologies: string;
   link: string;
   date: string;
+  teamSize?: number;
+  role?: string;
+  achievements?: string;
+  images?: string[];
 }
 
 export interface ResumeData {

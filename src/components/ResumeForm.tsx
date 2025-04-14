@@ -26,11 +26,36 @@ interface ResumeFormProps {
 }
 
 const steps = [
-  { id: 1, label: 'Personal', description: 'Enter your personal and contact information', requiredFields: ['fullName', 'email'] },
-  { id: 2, label: 'Experience', description: 'Add your work experience details', requiredFields: [] },
-  { id: 3, label: 'Education', description: 'Include your educational background', requiredFields: [] },
-  { id: 4, label: 'Skills', description: 'List your professional skills and competencies', requiredFields: [] },
-  { id: 5, label: 'Projects', description: 'Showcase your notable projects and achievements', requiredFields: [] },
+  { 
+    id: 1, 
+    label: 'Personal', 
+    description: 'Enter your personal and contact information', 
+    requiredFields: ['fullName', 'email', 'jobTitle', 'phone', 'location', 'summary'] 
+  },
+  { 
+    id: 2, 
+    label: 'Experience', 
+    description: 'Add your work experience details', 
+    requiredFields: ['experience'] 
+  },
+  { 
+    id: 3, 
+    label: 'Education', 
+    description: 'Include your educational background', 
+    requiredFields: ['education'] 
+  },
+  { 
+    id: 4, 
+    label: 'Skills', 
+    description: 'List your professional skills and competencies', 
+    requiredFields: ['skills'] 
+  },
+  { 
+    id: 5, 
+    label: 'Projects', 
+    description: 'Showcase your notable projects and achievements', 
+    requiredFields: ['projects'] 
+  },
 ];
 
 const ResumeForm: React.FC<ResumeFormProps> = ({ 
@@ -63,10 +88,34 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       } else if (!/^\S+@\S+\.\S+$/.test(formData.personalInfo.email)) {
         errors.push('Email format is invalid');
       }
+      if (!formData.personalInfo.jobTitle.trim()) {
+        errors.push('Professional Title is required');
+      }
+      if (!formData.personalInfo.phone.trim()) {
+        errors.push('Phone Number is required');
+      }
+      if (!formData.personalInfo.location.trim()) {
+        errors.push('Location is required');
+      }
+      if (!formData.personalInfo.summary.trim()) {
+        errors.push('Professional Summary is required');
+      }
+    }
+    
+    if (currentStep === 2 && formData.experience.length === 0) {
+      errors.push('Add at least one work experience');
+    }
+    
+    if (currentStep === 3 && formData.education.length === 0) {
+      errors.push('Add at least one education entry');
     }
     
     if (currentStep === 4 && formData.skills.length === 0) {
       errors.push('Add at least one skill');
+    }
+    
+    if (currentStep === 5 && formData.projects.length === 0) {
+      errors.push('Add at least one project');
     }
     
     setValidationErrors(errors);
