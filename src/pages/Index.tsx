@@ -8,6 +8,7 @@ import ResumePreview from '@/components/ResumePreview';
 import AboutSection from '@/components/AboutSection';
 import FaqSection from '@/components/FaqSection';
 import PreloadingScreen from '@/components/PreloadingScreen';
+import AiTips from '@/components/AiTips';
 import { initialResumeData } from '@/data/initialData';
 import { ResumeData } from '@/types/resume';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -116,6 +117,8 @@ const Index = () => {
               </div>
               
               <div className="max-w-4xl mx-auto">
+                <AiTips data={resumeData} templateId={selectedTemplate} />
+                
                 <ResumePreview 
                   data={resumeData} 
                   templateId={selectedTemplate} 

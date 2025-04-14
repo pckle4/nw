@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { FileText, Download, Sparkles, Home, Info, Settings, User, Menu, X, HelpCircle } from 'lucide-react';
+import { FileText, Download, Sparkles, Home, Info, Settings, Menu, X, HelpCircle, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -36,13 +37,15 @@ const Header = () => {
     <header className={`w-full sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm' : 'bg-background/80 backdrop-blur-sm'} border-b border-slate-200`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <div className="relative">
-            <FileText className="h-6 w-6 text-resume-purple" />
-            <Sparkles className="h-3 w-3 text-yellow-400 absolute -top-1 -right-1" />
-          </div>
-          <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-resume-purple to-blue-500">
-            Nowhile
-          </span>
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="relative">
+              <FileText className="h-6 w-6 text-resume-purple" />
+              <Sparkles className="h-3 w-3 text-yellow-400 absolute -top-1 -right-1" />
+            </div>
+            <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-resume-purple to-blue-500">
+              Nowhile
+            </span>
+          </Link>
         </div>
         
         {isMobile ? (
@@ -59,14 +62,18 @@ const Header = () => {
             {mobileMenuOpen && (
               <div className="absolute top-16 left-0 right-0 bg-background shadow-lg border-b border-slate-200 p-4 animate-fade-in md:hidden">
                 <div className="flex flex-col space-y-3">
-                  <a href="/" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
+                  <Link to="/" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
                     <Home className="h-4 w-4" />
                     <span>Home</span>
-                  </a>
-                  <a href="#templates" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
-                    <FileText className="h-4 w-4" />
-                    <span>Templates</span>
-                  </a>
+                  </Link>
+                  <Link to="/guide" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
+                    <HelpCircle className="h-4 w-4" />
+                    <span>Guide Me</span>
+                  </Link>
+                  <Link to="/contact" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
+                    <Mail className="h-4 w-4" />
+                    <span>Contact</span>
+                  </Link>
                   <a href="#about" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
                     <Info className="h-4 w-4" />
                     <span>About</span>
@@ -83,10 +90,10 @@ const Header = () => {
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuLink href="/" className={navigationMenuTriggerStyle()}>
+                <Link to="/" className={navigationMenuTriggerStyle()}>
                   <Home className="h-4 w-4 mr-2" />
                   Home
-                </NavigationMenuLink>
+                </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
@@ -121,16 +128,22 @@ const Header = () => {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#about" className={navigationMenuTriggerStyle()}>
-                  <Info className="h-4 w-4 mr-2" />
-                  About
-                </NavigationMenuLink>
+                <Link to="/guide" className={navigationMenuTriggerStyle()}>
+                  <HelpCircle className="h-4 w-4 mr-2" />
+                  Guide Me
+                </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#faq" className={navigationMenuTriggerStyle()}>
-                  <HelpCircle className="h-4 w-4 mr-2" />
-                  FAQ
-                </NavigationMenuLink>
+                <Link to="/contact" className={navigationMenuTriggerStyle()}>
+                  <Mail className="h-4 w-4 mr-2" />
+                  Contact
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <a href="#about" className={navigationMenuTriggerStyle()}>
+                  <Info className="h-4 w-4 mr-2" />
+                  About
+                </a>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
