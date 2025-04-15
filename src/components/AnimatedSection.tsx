@@ -60,10 +60,10 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
           isHovered ? 'opacity-100' : 'opacity-60'
         )}
         style={{
-          background: 'linear-gradient(90deg, #9b87f5, #6E59A5, #D6BCFA, #9b87f5)',
+          background: isHovered ? 'linear-gradient(90deg, #000000, #222222, #333333, #000000)' : 'linear-gradient(90deg, #9b87f5, #6E59A5, #D6BCFA, #9b87f5)',
           backgroundSize: '300% 300%',
           zIndex: -1,
-          padding: '2px',
+          padding: isHovered ? '3px' : '2px',
           borderRadius: '1rem',
           maskImage: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
           maskComposite: 'exclude',

@@ -68,7 +68,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm flex flex-col sm:flex-row justify-between items-center">
           <div className="font-typewriter">&copy; {new Date().getFullYear()} Nowhile. All rights reserved.</div>
           <div className="mt-2 sm:mt-0 flex items-center font-typewriter">
-            Made with <Heart className="h-4 w-4 mx-1 text-red-500 animate-pulse" fill="currentColor" /> by <span className="relative ml-1 overflow-hidden whitespace-nowrap border-r-2 border-resume-purple pr-1 animate-typewriter after:animate-caret">Ansh</span> | <a href="https://nowhile.com" className="hover:text-white ml-1">Nowhile.com</a>
+            Made with <Heart className="h-4 w-4 mx-1 text-red-500 animate-pulse" fill="currentColor" /> by <span className="ml-1">Ansh</span> | <a href="https://nowhile.com" className="hover:text-white ml-1">Nowhile.com</a>
           </div>
         </div>
       </div>
