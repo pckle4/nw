@@ -1,7 +1,6 @@
 
-import React, { useState } from 'react';
-import { File, FileImage, FileText, Image } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import React from 'react';
+import { File, FileImage, FileText, Image, Loader2 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,36 +39,57 @@ const DownloadOptions: React.FC<DownloadOptionsProps> = ({
             <DropdownMenuTrigger asChild>
               <Button 
                 size="sm" 
-                className="bg-resume-purple hover:bg-resume-dark-purple"
+                className="bg-resume-purple hover:bg-resume-dark-purple transition-all"
                 disabled={isDownloading}
                 data-preview-download
               >
-                <Download className="h-4 w-4 mr-2" />
-                {isDownloading ? "Processing..." : "Download"}
+                {isDownloading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <Download className="h-4 w-4 mr-2" />
+                    Download
+                  </>
+                )}
               </Button>
             </DropdownMenuTrigger>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Download your resume</p>
+            <p>Download your professional resume</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuItem onClick={onDownloadPDF} className="cursor-pointer flex items-center">
+        <DropdownMenuItem onClick={onDownloadPDF} className="cursor-pointer flex items-center" disabled={isDownloading}>
           <File className="mr-2 h-4 w-4" />
-          <span>PDF Document (.pdf)</span>
+          <div>
+            <span>PDF Document (.pdf)</span>
+            <p className="text-xs text-gray-500">Best for job applications</p>
+          </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={onDownloadPNG} className="cursor-pointer flex items-center">
+        <DropdownMenuItem onClick={onDownloadPNG} className="cursor-pointer flex items-center" disabled={isDownloading}>
           <Image className="mr-2 h-4 w-4" />
-          <span>PNG Image (.png)</span>
+          <div>
+            <span>PNG Image (.png)</span>
+            <p className="text-xs text-gray-500">High-quality transparent image</p>
+          </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={onDownloadJPG} className="cursor-pointer flex items-center">
+        <DropdownMenuItem onClick={onDownloadJPG} className="cursor-pointer flex items-center" disabled={isDownloading}>
           <FileImage className="mr-2 h-4 w-4" />
-          <span>JPG Image (.jpg)</span>
+          <div>
+            <span>JPG Image (.jpg)</span>
+            <p className="text-xs text-gray-500">Smaller file size</p>
+          </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={onDownloadDOCX} className="cursor-pointer flex items-center">
+        <DropdownMenuItem onClick={onDownloadDOCX} className="cursor-pointer flex items-center" disabled={isDownloading}>
           <FileText className="mr-2 h-4 w-4" />
-          <span>Word Document (.docx)</span>
+          <div>
+            <span>Word Document (.docx)</span>
+            <p className="text-xs text-gray-500">Coming soon</p>
+          </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
