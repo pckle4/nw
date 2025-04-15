@@ -1,8 +1,30 @@
 
-import React from 'react';
-import { FileText, Github, Twitter, Linkedin, Mail, Heart } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { FileText, Github, Twitter, Linkedin, Mail, Heart, Clock, Calendar, Copyright } from 'lucide-react';
 
 const Footer = () => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  
+  useEffect(() => {
+    // Update time every minute
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+    
+    return () => clearInterval(timer);
+  }, []);
+  
+  // Format the current time
+  const formatTime = (date) => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+  
+  // Format the current date
+  const formatDate = (date) => {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  };
+
   return (
     <footer className="bg-gray-900 text-white py-10">
       <div className="container mx-auto px-4">
@@ -53,9 +75,24 @@ const Footer = () => {
             </div>
           </div>
         </div>
+
+        {/* Date and time display */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 pt-4 border-t border-gray-800 text-gray-400 text-sm">
+          <div className="flex items-center">
+            <Clock className="h-4 w-4 mr-2" />
+            <span>Current Time: {formatTime(currentTime)}</span>
+          </div>
+          <div className="flex items-center">
+            <Calendar className="h-4 w-4 mr-2" />
+            <span>{formatDate(currentTime)}</span>
+          </div>
+        </div>
         
-        <div className="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm flex flex-col sm:flex-row justify-between items-center">
-          <div>&copy; {new Date().getFullYear()} Nowhile. All rights reserved.</div>
+        <div className="border-t border-gray-800 mt-4 pt-6 text-center text-gray-500 text-sm flex flex-col sm:flex-row justify-between items-center">
+          <div className="flex items-center">
+            <Copyright className="h-4 w-4 mr-1" />
+            <span>{new Date().getFullYear()} Nowhile. All rights reserved. Not for commercial use.</span>
+          </div>
           <div className="mt-2 sm:mt-0 flex items-center">
             Made with <Heart className="h-4 w-4 mx-1 text-red-500 animate-pulse" fill="currentColor" /> by Ansh | <a href="https://nowhile.com" className="hover:text-white ml-1">Nowhile.com</a>
           </div>

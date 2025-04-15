@@ -1,773 +1,494 @@
 
-import React, { useState } from 'react';
+import React from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Timeline, TimelineItem, TimelineConnector, TimelineHeader, TimelineIcon, TimelineTitle, TimelineBody } from '@/components/ui/timeline';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { ChevronDown, FileText, CheckCircle2, AlertCircle, Lightbulb, PieChart, Target, Search } from 'lucide-react';
-import { 
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger 
-} from '@/components/ui/accordion';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { FileText, Clock, Check, ArrowRight, Lightbulb, Palette, PenSquare, Award, Sparkle, Info, AlertCircle, FileDown, Shuffle, Edit, Mail, Phone, Briefcase, GraduationCap, CheckSquare, MessageSquare } from 'lucide-react';
 
 const Guide = () => {
-  const [activeTab, setActiveTab] = useState<string>("getting-started");
-  
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-slate-100">
+    <div className="flex flex-col min-h-screen">
       <Header />
-      
-      <main className="container mx-auto px-4 py-12 flex-grow">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">Resume Guide</h1>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Everything you need to know about creating a professional resume that gets you noticed by recruiters and passes ATS systems.
-            </p>
-          </div>
+      <main className="flex-1 container mx-auto px-4 py-10 max-w-4xl">
+        <div className="mb-10 text-center">
+          <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-resume-purple to-blue-500">
+            Resume Creation Guide
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Follow our step-by-step process to create a professional resume that stands out to employers.
+            Our expert tips and guidance will help you build an impressive resume in minutes.
+          </p>
+        </div>
+
+        <Alert className="mb-8 border-resume-purple">
+          <Info className="h-4 w-4 text-resume-purple" />
+          <AlertTitle>Resume Building Made Simple</AlertTitle>
+          <AlertDescription>
+            This guide will walk you through creating a professional resume from start to finish. Each step includes helpful tips and examples to showcase your skills effectively.
+          </AlertDescription>
+        </Alert>
+
+        <Tabs defaultValue="process" className="mb-12">
+          <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsTrigger value="process" className="text-sm">The Process</TabsTrigger>
+            <TabsTrigger value="tips" className="text-sm">Expert Tips</TabsTrigger>
+            <TabsTrigger value="mistakes" className="text-sm">Common Mistakes</TabsTrigger>
+          </TabsList>
           
-          <div className="flex flex-wrap gap-4 justify-center mb-12">
-            <Button 
-              variant={activeTab === "getting-started" ? "default" : "outline"} 
-              onClick={() => setActiveTab("getting-started")}
-              className="rounded-full"
-            >
-              Getting Started
-            </Button>
-            <Button 
-              variant={activeTab === "sections" ? "default" : "outline"} 
-              onClick={() => setActiveTab("sections")}
-              className="rounded-full"
-            >
-              Resume Sections
-            </Button>
-            <Button 
-              variant={activeTab === "templates" ? "default" : "outline"} 
-              onClick={() => setActiveTab("templates")}
-              className="rounded-full"
-            >
-              Template Guide
-            </Button>
-            <Button 
-              variant={activeTab === "ats" ? "default" : "outline"} 
-              onClick={() => setActiveTab("ats")}
-              className="rounded-full"
-            >
-              ATS Optimization
-            </Button>
-          </div>
-          
-          {activeTab === "getting-started" && (
-            <div className="space-y-8 animate-fade-in">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Resume Basics</CardTitle>
-                  <CardDescription>The essential elements of an effective resume</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p>
-                    A resume is a document that summarizes your work experience, education, skills, and achievements. 
-                    It's your personal marketing tool that showcases your qualifications for a specific job or career.
+          <TabsContent value="process" className="mt-6">
+            <Timeline>
+              <TimelineItem>
+                <TimelineHeader>
+                  <TimelineIcon>
+                    <div className="bg-blue-100 p-1 rounded-full">
+                      <FileText size={16} className="text-blue-600" />
+                    </div>
+                  </TimelineIcon>
+                  <TimelineTitle>Choose a Template</TimelineTitle>
+                </TimelineHeader>
+                <TimelineConnector />
+                <TimelineBody className="mb-6">
+                  <p className="text-gray-600 mb-4">
+                    Browse our collection of professionally designed templates. Choose one that best matches your style and industry. Each template has been designed to be ATS-friendly while still maintaining a visually appealing layout.
                   </p>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <div className="grid grid-cols-3 gap-4 mt-4">
+                    <div className="border rounded-md p-2 hover:border-resume-purple transition-colors cursor-pointer">
+                      <div className="aspect-[8.5/11] bg-gray-100 rounded flex items-center justify-center mb-2">
+                        <span className="text-xs text-gray-500">Modern</span>
+                      </div>
+                      <p className="text-xs text-center text-gray-600">Clean & Professional</p>
+                    </div>
+                    <div className="border rounded-md p-2 hover:border-resume-purple transition-colors cursor-pointer">
+                      <div className="aspect-[8.5/11] bg-gray-100 rounded flex items-center justify-center mb-2">
+                        <span className="text-xs text-gray-500">Minimal</span>
+                      </div>
+                      <p className="text-xs text-center text-gray-600">Simple & Elegant</p>
+                    </div>
+                    <div className="border rounded-md p-2 hover:border-resume-purple transition-colors cursor-pointer">
+                      <div className="aspect-[8.5/11] bg-gray-100 rounded flex items-center justify-center mb-2">
+                        <span className="text-xs text-gray-500">Colorful</span>
+                      </div>
+                      <p className="text-xs text-center text-gray-600">Bold & Creative</p>
+                    </div>
+                  </div>
+                </TimelineBody>
+              </TimelineItem>
+
+              <TimelineItem>
+                <TimelineHeader>
+                  <TimelineIcon>
+                    <div className="bg-green-100 p-1 rounded-full">
+                      <PenSquare size={16} className="text-green-600" />
+                    </div>
+                  </TimelineIcon>
+                  <TimelineTitle>Enter Your Personal Information</TimelineTitle>
+                </TimelineHeader>
+                <TimelineConnector />
+                <TimelineBody className="mb-6">
+                  <p className="text-gray-600 mb-4">
+                    Start with your contact details and personal information. Make sure to include your name, professional email, phone number, and optionally a LinkedIn profile or personal website.
+                  </p>
+                  <Card className="border-dashed border-gray-300 bg-gray-50">
+                    <CardContent className="p-4">
+                      <div className="space-y-3">
+                        <div className="flex flex-col space-y-1">
+                          <label className="text-xs text-gray-600">Full Name</label>
+                          <div className="h-8 bg-white border rounded px-3 flex items-center text-gray-400 text-sm">
+                            John Doe
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="flex flex-col space-y-1">
+                            <label className="text-xs text-gray-600">Email</label>
+                            <div className="h-8 bg-white border rounded px-3 flex items-center text-gray-400 text-sm">
+                              <Mail size={14} className="mr-2 text-resume-purple" />
+                              john.doe@example.com
+                            </div>
+                          </div>
+                          <div className="flex flex-col space-y-1">
+                            <label className="text-xs text-gray-600">Phone</label>
+                            <div className="h-8 bg-white border rounded px-3 flex items-center text-gray-400 text-sm">
+                              <Phone size={14} className="mr-2 text-resume-purple" />
+                              (123) 456-7890
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TimelineBody>
+              </TimelineItem>
+
+              <TimelineItem>
+                <TimelineHeader>
+                  <TimelineIcon>
+                    <div className="bg-purple-100 p-1 rounded-full">
+                      <Briefcase size={16} className="text-purple-600" />
+                    </div>
+                  </TimelineIcon>
+                  <TimelineTitle>Add Work Experience</TimelineTitle>
+                </TimelineHeader>
+                <TimelineConnector />
+                <TimelineBody className="mb-6">
+                  <p className="text-gray-600 mb-4">
+                    List your relevant work experience in reverse chronological order (most recent first). Focus on achievements rather than just duties. Use strong action verbs and quantify results where possible.
+                  </p>
+                  <div className="bg-white border rounded-md p-4 shadow-sm mb-3">
+                    <div className="flex justify-between items-start mb-1">
                       <div>
-                        <h4 className="font-semibold mb-1">Keep it concise</h4>
-                        <p className="text-sm text-gray-600">
-                          Most resumes should be one page, especially for early to mid-career professionals.
-                        </p>
+                        <h3 className="font-semibold text-gray-800">Senior Web Developer</h3>
+                        <p className="text-resume-purple text-sm">TechCorp Inc.</p>
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        <Clock size={14} className="inline mr-1" />
+                        2020 - Present
                       </div>
                     </div>
-                    
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <ul className="mt-2 space-y-1 text-sm text-gray-600 pl-5 list-disc">
+                      <li>Increased website performance by 40% through code optimization</li>
+                      <li>Led a team of 5 developers to rebuild the company's main web application</li>
+                      <li>Implemented automated testing, reducing bugs by 35%</li>
+                    </ul>
+                  </div>
+                  <div className="flex justify-center mt-2">
+                    <Button variant="outline" size="sm" className="text-xs">
+                      <Edit className="h-3 w-3 mr-1" />
+                      Add Another Position
+                    </Button>
+                  </div>
+                </TimelineBody>
+              </TimelineItem>
+
+              <TimelineItem>
+                <TimelineHeader>
+                  <TimelineIcon>
+                    <div className="bg-amber-100 p-1 rounded-full">
+                      <GraduationCap size={16} className="text-amber-600" />
+                    </div>
+                  </TimelineIcon>
+                  <TimelineTitle>Include Education</TimelineTitle>
+                </TimelineHeader>
+                <TimelineConnector />
+                <TimelineBody className="mb-6">
+                  <p className="text-gray-600 mb-4">
+                    Add your educational background, including degrees, certifications, and relevant coursework. For recent graduates, this section may come before work experience.
+                  </p>
+                  <div className="bg-white border rounded-md p-4 shadow-sm">
+                    <div className="flex justify-between items-start">
                       <div>
-                        <h4 className="font-semibold mb-1">Use professional formatting</h4>
-                        <p className="text-sm text-gray-600">
-                          Clean, consistent formatting with clear section headings improves readability.
-                        </p>
+                        <h3 className="font-semibold text-gray-800">Bachelor of Science in Computer Science</h3>
+                        <p className="text-resume-purple text-sm">University of Technology</p>
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        <Clock size={14} className="inline mr-1" />
+                        2014 - 2018
                       </div>
                     </div>
-                    
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold mb-1">Tailor to the job</h4>
-                        <p className="text-sm text-gray-600">
-                          Customize your resume for each position by matching keywords from the job posting.
-                        </p>
+                    <p className="mt-2 text-sm text-gray-600">
+                      Graduated with honors. Specialized in Software Engineering.
+                    </p>
+                  </div>
+                </TimelineBody>
+              </TimelineItem>
+
+              <TimelineItem>
+                <TimelineHeader>
+                  <TimelineIcon>
+                    <div className="bg-blue-100 p-1 rounded-full">
+                      <CheckSquare size={16} className="text-blue-600" />
+                    </div>
+                  </TimelineIcon>
+                  <TimelineTitle>List Skills & Proficiencies</TimelineTitle>
+                </TimelineHeader>
+                <TimelineConnector />
+                <TimelineBody className="mb-6">
+                  <p className="text-gray-600 mb-4">
+                    Highlight relevant skills for the job you're targeting. Include both technical and soft skills that demonstrate your qualifications. Consider organizing them into categories for clarity.
+                  </p>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <h4 className="text-sm font-medium text-gray-700 mb-2">Technical Skills</h4>
+                      <div className="flex flex-wrap gap-2">
+                        <div className="bg-gray-100 px-3 py-1 rounded-full text-xs text-gray-800">JavaScript</div>
+                        <div className="bg-gray-100 px-3 py-1 rounded-full text-xs text-gray-800">React.js</div>
+                        <div className="bg-gray-100 px-3 py-1 rounded-full text-xs text-gray-800">Node.js</div>
+                        <div className="bg-gray-100 px-3 py-1 rounded-full text-xs text-gray-800">TypeScript</div>
+                        <div className="bg-gray-100 px-3 py-1 rounded-full text-xs text-gray-800">RESTful APIs</div>
                       </div>
                     </div>
-                    
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold mb-1">Highlight achievements</h4>
-                        <p className="text-sm text-gray-600">
-                          Focus on quantifiable results and accomplishments rather than just listing duties.
-                        </p>
+                    <div>
+                      <h4 className="text-sm font-medium text-gray-700 mb-2">Soft Skills</h4>
+                      <div className="flex flex-wrap gap-2">
+                        <div className="bg-gray-100 px-3 py-1 rounded-full text-xs text-gray-800">Team Leadership</div>
+                        <div className="bg-gray-100 px-3 py-1 rounded-full text-xs text-gray-800">Problem Solving</div>
+                        <div className="bg-gray-100 px-3 py-1 rounded-full text-xs text-gray-800">Communication</div>
+                        <div className="bg-gray-100 px-3 py-1 rounded-full text-xs text-gray-800">Project Management</div>
                       </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>Resume Formats</CardTitle>
-                  <CardDescription>Different structure options based on your experience</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="format-1">
-                      <AccordionTrigger>
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-5 w-5 text-resume-purple" />
-                          <span>Chronological Resume</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-7 space-y-2">
-                          <p className="text-sm text-gray-600">
-                            Lists your work experience in reverse chronological order (most recent first).
-                          </p>
-                          <p className="text-sm text-gray-600 mt-2">
-                            <span className="font-semibold">Best for:</span> Candidates with steady work history and clear career progression.
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            <span className="font-semibold">Advantages:</span> Highlights career growth and is the most familiar format to recruiters.
-                          </p>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    
-                    <AccordionItem value="format-2">
-                      <AccordionTrigger>
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-5 w-5 text-resume-purple" />
-                          <span>Functional Resume</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-7 space-y-2">
-                          <p className="text-sm text-gray-600">
-                            Emphasizes your skills and abilities rather than work history.
-                          </p>
-                          <p className="text-sm text-gray-600 mt-2">
-                            <span className="font-semibold">Best for:</span> Career changers, those with employment gaps, or professionals returning to the workforce.
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            <span className="font-semibold">Advantages:</span> Focuses on transferable skills rather than job titles.
-                          </p>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    
-                    <AccordionItem value="format-3">
-                      <AccordionTrigger>
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-5 w-5 text-resume-purple" />
-                          <span>Combination Resume</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-7 space-y-2">
-                          <p className="text-sm text-gray-600">
-                            Blends elements of chronological and functional resumes.
-                          </p>
-                          <p className="text-sm text-gray-600 mt-2">
-                            <span className="font-semibold">Best for:</span> Experienced professionals with diverse skills or those making a slight career pivot.
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            <span className="font-semibold">Advantages:</span> Showcases both relevant skills and work history.
-                          </p>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-          
-          {activeTab === "sections" && (
-            <div className="space-y-8 animate-fade-in">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Essential Resume Sections</CardTitle>
-                  <CardDescription>What to include in your resume</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="section-1">
-                      <AccordionTrigger>
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-5 w-5 text-resume-purple" />
-                          <span>Contact Information</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-7 space-y-2">
-                          <p className="text-sm text-gray-600">
-                            Include your full name, phone number, professional email, LinkedIn profile, and location (city, state).
-                          </p>
-                          <p className="text-sm text-gray-600 mt-2">
-                            <span className="font-semibold">Pro Tip:</span> Use a professional email address based on your name, not nicknames.
-                          </p>
-                          <div className="mt-3 border-l-4 border-resume-purple pl-4 py-2">
-                            <p className="text-sm italic text-gray-600">
-                              "Make your name the largest element on your resume to create a personal brand."
-                            </p>
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    
-                    <AccordionItem value="section-2">
-                      <AccordionTrigger>
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-5 w-5 text-resume-purple" />
-                          <span>Professional Summary</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-7 space-y-2">
-                          <p className="text-sm text-gray-600">
-                            A brief 2-3 sentence overview of your qualifications, expertise, and career highlights.
-                          </p>
-                          <p className="text-sm text-gray-600 mt-2">
-                            <span className="font-semibold">Pro Tip:</span> Customize your summary for each job application to highlight relevant experience.
-                          </p>
-                          <div className="mt-3 border-l-4 border-resume-purple pl-4 py-2">
-                            <p className="text-sm italic text-gray-600">
-                              "Your summary is the resume's headline—it should capture attention and make recruiters want to read more."
-                            </p>
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    
-                    <AccordionItem value="section-3">
-                      <AccordionTrigger>
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-5 w-5 text-resume-purple" />
-                          <span>Work Experience</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-7 space-y-2">
-                          <p className="text-sm text-gray-600">
-                            List your work experience in reverse chronological order, including job title, company name, dates of employment, and 3-5 bullet points of accomplishments.
-                          </p>
-                          <p className="text-sm text-gray-600 mt-2">
-                            <span className="font-semibold">Pro Tip:</span> Use action verbs and quantify achievements (numbers, percentages, dollar amounts) whenever possible.
-                          </p>
-                          <div className="mt-3 border-l-4 border-resume-purple pl-4 py-2">
-                            <p className="text-sm italic text-gray-600">
-                              "Show results, not responsibilities. Instead of 'Responsible for social media,' write 'Increased Twitter engagement by 45% in 6 months.'"
-                            </p>
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    
-                    <AccordionItem value="section-4">
-                      <AccordionTrigger>
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-5 w-5 text-resume-purple" />
-                          <span>Education</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-7 space-y-2">
-                          <p className="text-sm text-gray-600">
-                            Include degrees, certificates, institutions, graduation dates, and relevant coursework or academic achievements.
-                          </p>
-                          <p className="text-sm text-gray-600 mt-2">
-                            <span className="font-semibold">Pro Tip:</span> For recent graduates, education may come before work experience. For experienced professionals, keep education brief.
-                          </p>
-                          <div className="mt-3 border-l-4 border-resume-purple pl-4 py-2">
-                            <p className="text-sm italic text-gray-600">
-                              "Only include GPA if it's impressive (3.5+) and you're a recent graduate."
-                            </p>
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    
-                    <AccordionItem value="section-5">
-                      <AccordionTrigger>
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-5 w-5 text-resume-purple" />
-                          <span>Skills</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-7 space-y-2">
-                          <p className="text-sm text-gray-600">
-                            List relevant technical, professional, and soft skills. Consider categorizing them if you have many.
-                          </p>
-                          <p className="text-sm text-gray-600 mt-2">
-                            <span className="font-semibold">Pro Tip:</span> Match your skills section with keywords from the job description to pass ATS filters.
-                          </p>
-                          <div className="mt-3 border-l-4 border-resume-purple pl-4 py-2">
-                            <p className="text-sm italic text-gray-600">
-                              "Be specific with technical skills. Instead of 'Programming,' list specific languages: 'Python, JavaScript, SQL.'"
-                            </p>
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    
-                    <AccordionItem value="section-6">
-                      <AccordionTrigger>
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-5 w-5 text-resume-purple" />
-                          <span>Projects (Optional)</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-7 space-y-2">
-                          <p className="text-sm text-gray-600">
-                            Include relevant professional, academic, or personal projects that demonstrate your skills and accomplishments.
-                          </p>
-                          <p className="text-sm text-gray-600 mt-2">
-                            <span className="font-semibold">Pro Tip:</span> For each project, include the title, your role, technologies used, and outcomes achieved.
-                          </p>
-                          <div className="mt-3 border-l-4 border-resume-purple pl-4 py-2">
-                            <p className="text-sm italic text-gray-600">
-                              "Projects are especially valuable for recent graduates or career changers to show skills when work experience is limited."
-                            </p>
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>What to Avoid</CardTitle>
-                  <CardDescription>Common resume mistakes to watch out for</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="flex items-start gap-3">
-                      <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold mb-1">Generic Statements</h4>
-                        <p className="text-sm text-gray-600">
-                          Avoid vague claims like "hard worker" or "team player" without evidence.
-                        </p>
-                      </div>
+                </TimelineBody>
+              </TimelineItem>
+
+              <TimelineItem>
+                <TimelineHeader>
+                  <TimelineIcon>
+                    <div className="bg-green-100 p-1 rounded-full">
+                      <FileDown size={16} className="text-green-600" />
                     </div>
-                    
-                    <div className="flex items-start gap-3">
-                      <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold mb-1">Spelling/Grammar Errors</h4>
-                        <p className="text-sm text-gray-600">
-                          Proofread carefully. Typos suggest carelessness and lack of attention to detail.
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3">
-                      <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold mb-1">Outdated Information</h4>
-                        <p className="text-sm text-gray-600">
-                          Remove very old or irrelevant experience that doesn't add value.
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-3">
-                      <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="font-semibold mb-1">Unprofessional Email</h4>
-                        <p className="text-sm text-gray-600">
-                          Avoid emails like "partyguy@email.com" or nicknames. Use your name instead.
-                        </p>
-                      </div>
-                    </div>
+                  </TimelineIcon>
+                  <TimelineTitle>Download & Share</TimelineTitle>
+                </TimelineHeader>
+                <TimelineBody>
+                  <p className="text-gray-600 mb-4">
+                    Review your resume, make any final adjustments, and download it in your preferred format (PDF recommended). You can also easily share it directly via email or generate a link for online access.
+                  </p>
+                  <div className="flex justify-center space-x-3">
+                    <Button size="sm" className="bg-resume-purple hover:bg-resume-dark-purple">
+                      <FileDown className="h-4 w-4 mr-2" />
+                      Download PDF
+                    </Button>
+                    <Button variant="outline" size="sm">
+                      <MessageSquare className="h-4 w-4 mr-2" />
+                      Share Resume
+                    </Button>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
+                </TimelineBody>
+              </TimelineItem>
+            </Timeline>
+          </TabsContent>
           
-          {activeTab === "templates" && (
-            <div className="space-y-8 animate-fade-in">
+          <TabsContent value="tips">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
-                <CardHeader>
-                  <CardTitle>Resume Template Guide</CardTitle>
-                  <CardDescription>Choosing the right template for your career</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-8">
-                    <div className="border rounded-lg overflow-hidden">
-                      <div className="bg-resume-purple text-white p-4">
-                        <h3 className="text-xl font-bold">Modern Template</h3>
-                      </div>
-                      <div className="p-6">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          <div className="col-span-1">
-                            <img 
-                              src="/svg/modern-template.svg" 
-                              alt="Modern Template" 
-                              className="w-full h-auto border rounded-md"
-                            />
-                          </div>
-                          <div className="col-span-2 space-y-4">
-                            <div>
-                              <h4 className="font-semibold text-resume-purple">Best For</h4>
-                              <p className="text-sm text-gray-600">
-                                Tech, startups, creative industries, marketing, digital roles
-                              </p>
-                            </div>
-                            
-                            <div>
-                              <h4 className="font-semibold text-resume-purple">Key Features</h4>
-                              <ul className="text-sm text-gray-600 list-disc list-inside space-y-1 mt-1">
-                                <li>Clean, contemporary design</li>
-                                <li>Balanced white space</li>
-                                <li>Modern typography</li>
-                                <li>Strategic use of color</li>
-                              </ul>
-                            </div>
-                            
-                            <div>
-                              <h4 className="font-semibold text-resume-purple">ATS Score</h4>
-                              <div className="flex items-center mt-1">
-                                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                  <div className="bg-green-500 h-2.5 rounded-full" style={{ width: '92%' }}></div>
-                                </div>
-                                <span className="ml-2 text-sm font-medium">92%</span>
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <h4 className="font-semibold text-resume-purple">Pro Tips</h4>
-                              <p className="text-sm text-gray-600">
-                                The clean layout makes this template versatile for many industries while still feeling fresh and current. 
-                                Keep descriptions concise to maintain the clean aesthetic.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="border rounded-lg overflow-hidden">
-                      <div className="bg-blue-500 text-white p-4">
-                        <h3 className="text-xl font-bold">Minimal Template</h3>
-                      </div>
-                      <div className="p-6">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          <div className="col-span-1">
-                            <img 
-                              src="/svg/minimal-template.svg" 
-                              alt="Minimal Template" 
-                              className="w-full h-auto border rounded-md"
-                            />
-                          </div>
-                          <div className="col-span-2 space-y-4">
-                            <div>
-                              <h4 className="font-semibold text-blue-500">Best For</h4>
-                              <p className="text-sm text-gray-600">
-                                Traditional industries, finance, legal, healthcare, academia, executive positions
-                              </p>
-                            </div>
-                            
-                            <div>
-                              <h4 className="font-semibold text-blue-500">Key Features</h4>
-                              <ul className="text-sm text-gray-600 list-disc list-inside space-y-1 mt-1">
-                                <li>Classic, timeless layout</li>
-                                <li>Traditional serif fonts</li>
-                                <li>Conservative spacing</li>
-                                <li>Subtle formatting</li>
-                              </ul>
-                            </div>
-                            
-                            <div>
-                              <h4 className="font-semibold text-blue-500">ATS Score</h4>
-                              <div className="flex items-center mt-1">
-                                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                  <div className="bg-green-500 h-2.5 rounded-full" style={{ width: '98%' }}></div>
-                                </div>
-                                <span className="ml-2 text-sm font-medium">98%</span>
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <h4 className="font-semibold text-blue-500">Pro Tips</h4>
-                              <p className="text-sm text-gray-600">
-                                This template is excellent for industries where tradition and formality are valued. 
-                                It performs exceptionally well with ATS systems due to its clean, straightforward formatting.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="border rounded-lg overflow-hidden">
-                      <div className="bg-orange-500 text-white p-4">
-                        <h3 className="text-xl font-bold">Colorful Template</h3>
-                      </div>
-                      <div className="p-6">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          <div className="col-span-1">
-                            <img 
-                              src="/svg/colorful-template.svg" 
-                              alt="Colorful Template" 
-                              className="w-full h-auto border rounded-md"
-                            />
-                          </div>
-                          <div className="col-span-2 space-y-4">
-                            <div>
-                              <h4 className="font-semibold text-orange-500">Best For</h4>
-                              <p className="text-sm text-gray-600">
-                                Creative fields, design, advertising, media, entertainment, marketing
-                              </p>
-                            </div>
-                            
-                            <div>
-                              <h4 className="font-semibold text-orange-500">Key Features</h4>
-                              <ul className="text-sm text-gray-600 list-disc list-inside space-y-1 mt-1">
-                                <li>Strategic color accents</li>
-                                <li>Creative layout</li>
-                                <li>Modern typography</li>
-                                <li>Visual hierarchy</li>
-                              </ul>
-                            </div>
-                            
-                            <div>
-                              <h4 className="font-semibold text-orange-500">ATS Score</h4>
-                              <div className="flex items-center mt-1">
-                                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                  <div className="bg-green-500 h-2.5 rounded-full" style={{ width: '89%' }}></div>
-                                </div>
-                                <span className="ml-2 text-sm font-medium">89%</span>
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <h4 className="font-semibold text-orange-500">Pro Tips</h4>
-                              <p className="text-sm text-gray-600">
-                                This template helps you stand out in creative industries while maintaining professionalism.
-                                The strategic use of color draws attention to key sections without overwhelming the content.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-          
-          {activeTab === "ats" && (
-            <div className="space-y-8 animate-fade-in">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Search className="h-5 w-5 text-resume-purple" />
-                    ATS Optimization Guide
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <Lightbulb className="h-5 w-5 mr-2 text-yellow-500" />
+                    Tailor to the Job
                   </CardTitle>
-                  <CardDescription>Making your resume ATS-friendly</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">What is ATS?</h3>
-                    <p className="text-gray-600">
-                      Applicant Tracking Systems (ATS) are software used by employers to scan, filter, and rank resumes 
-                      before they reach human reviewers. Up to 75% of resumes are rejected by ATS before a human ever sees them.
-                    </p>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card className="border-resume-purple/20">
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-base flex items-center gap-2">
-                          <CheckCircle2 className="h-5 w-5 text-green-500" />
-                          ATS Do's
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2 text-sm">
-                          <li className="flex items-start gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            <span>Use standard section headings (Experience, Education, Skills)</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            <span>Include keywords from the job description</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            <span>Use a clean, simple layout with standard fonts</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            <span>Save your resume as a .docx or .pdf file</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            <span>Spell out acronyms at least once</span>
-                          </li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card className="border-red-300/20">
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-base flex items-center gap-2">
-                          <AlertCircle className="h-5 w-5 text-red-500" />
-                          ATS Don'ts
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2 text-sm">
-                          <li className="flex items-start gap-2">
-                            <AlertCircle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
-                            <span>Use tables, text boxes, or complex formatting</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <AlertCircle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
-                            <span>Include headers/footers (ATS may not read them)</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <AlertCircle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
-                            <span>Use graphics, logos, or images</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <AlertCircle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
-                            <span>Submit files in non-standard formats (.jpg, .png)</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <AlertCircle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
-                            <span>Use creative section headings that ATS won't recognize</span>
-                          </li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </div>
-                  
-                  <div className="bg-resume-light-purple/30 p-6 rounded-xl">
-                    <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                      <Lightbulb className="h-5 w-5 text-yellow-500" />
-                      Keyword Optimization
-                    </h3>
-                    <p className="text-sm text-gray-700 mb-4">
-                      ATS systems scan for keywords that match the job description. Here's how to optimize your resume:
-                    </p>
-                    <div className="space-y-3">
-                      <div className="flex items-start gap-3">
-                        <Target className="h-5 w-5 text-resume-purple flex-shrink-0 mt-0.5" />
-                        <div>
-                          <h4 className="font-semibold">Identify key skills</h4>
-                          <p className="text-sm text-gray-600">
-                            Highlight important skills, qualifications, and technologies mentioned in the job posting.
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start gap-3">
-                        <Target className="h-5 w-5 text-resume-purple flex-shrink-0 mt-0.5" />
-                        <div>
-                          <h4 className="font-semibold">Use exact matches</h4>
-                          <p className="text-sm text-gray-600">
-                            Use the exact phrases from the job description, including both the spelled-out terms and acronyms.
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start gap-3">
-                        <Target className="h-5 w-5 text-resume-purple flex-shrink-0 mt-0.5" />
-                        <div>
-                          <h4 className="font-semibold">Incorporate naturally</h4>
-                          <p className="text-sm text-gray-600">
-                            Weave keywords into your experience descriptions naturally, don't just list them.
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start gap-3">
-                        <Target className="h-5 w-5 text-resume-purple flex-shrink-0 mt-0.5" />
-                        <div>
-                          <h4 className="font-semibold">Include a skills section</h4>
-                          <p className="text-sm text-gray-600">
-                            Create a dedicated skills section that includes technical skills, software proficiencies, and certifications.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-white p-6 rounded-xl border border-gray-200">
-                    <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                      <PieChart className="h-5 w-5 text-resume-purple" />
-                      ATS Score by Template
-                    </h3>
-                    <div className="space-y-4 mt-4">
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium">Minimal Template</span>
-                          <span className="text-sm font-medium">98%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5">
-                          <div className="bg-green-500 h-2.5 rounded-full" style={{ width: '98%' }}></div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium">Modern Template</span>
-                          <span className="text-sm font-medium">92%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5">
-                          <div className="bg-green-500 h-2.5 rounded-full" style={{ width: '92%' }}></div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium">Colorful Template</span>
-                          <span className="text-sm font-medium">89%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5">
-                          <div className="bg-green-500 h-2.5 rounded-full" style={{ width: '89%' }}></div>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="text-xs text-gray-500 mt-4">
-                      Note: All our templates are ATS-friendly and score well above industry average.
-                      While minimal templates typically score highest, the differences are minor and any of our templates will perform well.
-                    </p>
-                  </div>
+                <CardContent>
+                  <CardDescription>
+                    Customize your resume for each position by matching keywords from the job description. This helps you pass through Applicant Tracking Systems (ATS) and shows employers you're a perfect fit.
+                  </CardDescription>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <Palette className="h-5 w-5 mr-2 text-purple-500" />
+                    Keep Design Clean
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>
+                    Use a clean, professional design with consistent formatting. Avoid cluttered layouts, excessive colors, or decorative fonts that can distract from your content.
+                  </CardDescription>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <Check className="h-5 w-5 mr-2 text-green-500" />
+                    Quantify Achievements
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>
+                    Add numbers and percentages to demonstrate your impact. Instead of "Improved sales," say "Increased sales by 27% in 6 months" to make your accomplishments more concrete.
+                  </CardDescription>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <ArrowRight className="h-5 w-5 mr-2 text-blue-500" />
+                    Use Action Verbs
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>
+                    Start bullet points with strong action verbs like "Developed," "Implemented," or "Led" to convey confidence and highlight your direct contributions.
+                  </CardDescription>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <Award className="h-5 w-5 mr-2 text-amber-500" />
+                    Highlight Relevant Skills
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>
+                    Focus on skills that directly relate to the job you're applying for. Research the industry and position to identify the most valuable skills to showcase.
+                  </CardDescription>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <Sparkle className="h-5 w-5 mr-2 text-pink-500" />
+                    Keep It Concise
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>
+                    Aim for a one-page resume (two pages maximum for senior roles). Remove outdated experiences and focus on your most recent and relevant achievements.
+                  </CardDescription>
                 </CardContent>
               </Card>
             </div>
-          )}
+          </TabsContent>
           
-          <div className="mt-12 text-center">
-            <Button size="lg" onClick={() => window.location.href = "/"}>
-              <FileText className="h-5 w-5 mr-2" />
-              Start Building Your Resume
-            </Button>
+          <TabsContent value="mistakes">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="text-red-600 hover:text-red-700">
+                  <AlertCircle className="h-4 w-4 mr-2" />
+                  Including Generic Objectives
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Generic objective statements like "Seeking a challenging position" waste valuable space. Instead, use a professional summary that highlights your experience and value proposition tailored to the specific role.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-2">
+                <AccordionTrigger className="text-red-600 hover:text-red-700">
+                  <AlertCircle className="h-4 w-4 mr-2" />
+                  Focusing on Duties Instead of Achievements
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Listing job responsibilities without showing your impact doesn't differentiate you from other candidates. Focus on what you accomplished, not just what you were supposed to do. Use metrics when possible to quantify your success.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-3">
+                <AccordionTrigger className="text-red-600 hover:text-red-700">
+                  <AlertCircle className="h-4 w-4 mr-2" />
+                  Typos and Grammatical Errors
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Even a single typo can suggest carelessness to employers. Always proofread carefully and have someone else review your resume before submitting it. Our resume builder includes a spell-check feature to help you avoid these errors.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-4">
+                <AccordionTrigger className="text-red-600 hover:text-red-700">
+                  <AlertCircle className="h-4 w-4 mr-2" />
+                  Using an Inappropriate Email Address
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Email addresses like "partylover@email.com" appear unprofessional. Create a simple email address using your name for job applications. This small detail can significantly impact how recruiters perceive your professionalism.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-5">
+                <AccordionTrigger className="text-red-600 hover:text-red-700">
+                  <AlertCircle className="h-4 w-4 mr-2" />
+                  Including Irrelevant Information
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Including hobbies, interests, or experiences that don't relate to the job can distract from your qualifications. Every item on your resume should serve to showcase why you're the right candidate for the specific position.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-6">
+                <AccordionTrigger className="text-red-600 hover:text-red-700">
+                  <AlertCircle className="h-4 w-4 mr-2" />
+                  Using a One-Size-Fits-All Approach
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Sending the same resume to every job posting significantly reduces your chances of getting interviews. Customize your resume for each application to emphasize the skills and experiences most relevant to that specific role.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </TabsContent>
+        </Tabs>
+
+        <div className="bg-gradient-to-r from-gray-50 to-slate-100 rounded-xl p-8 shadow-sm border border-gray-200 mb-8">
+          <h2 className="text-2xl font-bold mb-6 text-resume-purple">AI-Powered Resume Tips</h2>
+          <p className="text-gray-600 mb-6">
+            Our AI analyzes your resume content and provides personalized suggestions to enhance your resume quality. Here are some examples of how our AI assistant can help:
+          </p>
+          
+          <div className="space-y-4">
+            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+              <div className="flex items-start gap-3">
+                <div className="bg-blue-100 p-2 rounded-full">
+                  <Shuffle className="h-5 w-5 text-blue-500" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-800 mb-1">Word Choice Enhancement</h3>
+                  <div className="text-sm text-gray-500">
+                    <p className="line-through mb-1">
+                      "Responsible for managing a team of developers"
+                    </p>
+                    <p className="text-resume-purple font-medium">
+                      "Led and mentored a team of 8 developers, increasing productivity by 22%"
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+              <div className="flex items-start gap-3">
+                <div className="bg-green-100 p-2 rounded-full">
+                  <Check className="h-5 w-5 text-green-500" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-800 mb-1">Skills Gap Analysis</h3>
+                  <p className="text-sm text-gray-600 mb-2">
+                    Our AI identifies important skills mentioned in job descriptions that are missing from your resume.
+                  </p>
+                  <div className="bg-green-50 p-2 rounded text-sm text-green-700 border border-green-200">
+                    <strong>Suggestion:</strong> Based on your target role as Frontend Developer, consider adding experience with "React Testing Library" and "Performance Optimization" to your skills section.
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+              <div className="flex items-start gap-3">
+                <div className="bg-amber-100 p-2 rounded-full">
+                  <Lightbulb className="h-5 w-5 text-amber-500" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-800 mb-1">ATS Optimization Tips</h3>
+                  <p className="text-sm text-gray-600 mb-2">
+                    Our AI checks your resume against ATS algorithms to ensure it gets past automated screening.
+                  </p>
+                  <div className="bg-amber-50 p-2 rounded text-sm text-amber-700 border border-amber-200">
+                    <strong>Tip:</strong> Your resume uses complex formatting that may confuse ATS systems. Consider simplifying tables and using standard section headings like "Experience" and "Education."
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <div className="text-center">
+          <h3 className="text-xl font-bold mb-3 text-gray-800">Ready to Build Your Resume?</h3>
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            Follow our step-by-step guide and create a professional, eye-catching resume that will help you land your dream job.
+          </p>
+          <Button className="bg-resume-purple hover:bg-resume-dark-purple">
+            <ArrowRight className="h-4 w-4 mr-2" />
+            Get Started Now
+          </Button>
+        </div>
       </main>
-      
       <Footer />
     </div>
   );
