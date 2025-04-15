@@ -11,6 +11,7 @@ import AiTips from '@/components/AiTips';
 import AnimatedSection from '@/components/AnimatedSection';
 import { initialResumeData } from '@/data/initialData';
 import { ResumeData } from '@/types/resume';
+import ResumeProgress from '@/components/ResumeProgress';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { useToast } from '@/components/ui/use-toast';
 import { Download, Edit, Check, ArrowLeft } from 'lucide-react';
@@ -80,6 +81,21 @@ const Index = () => {
     setResumeData(data);
   };
 
+  const ensureResumeHasData = (data: ResumeData) => {
+    if (data.skills.length > 0 || data.experience.length > 0) {
+      return data;
+    }
+    
+    return {
+      ...data,
+      skills: data.skills.length > 0 ? data.skills : [
+        { id: "default1", name: "React", category: "technical", level: 4 },
+        { id: "default2", name: "JavaScript", category: "technical", level: 4 },
+        { id: "default3", name: "Teamwork", category: "soft", level: 5 },
+      ],
+    };
+  };
+
   return (
     <TooltipProvider>
       {isLoading && <PreloadingScreen />}
@@ -119,10 +135,12 @@ const Index = () => {
               </AnimatedSection>
               
               <div className="hidden lg:block sticky top-24 h-[calc(100vh-6rem)]">
-                <ResumePreview 
-                  data={resumeData} 
-                  templateId={selectedTemplate} 
-                />
+                <AnimatedSection className="h-full">
+                  <ResumePreview 
+                    data={ensureResumeHasData(resumeData)} 
+                    templateId={selectedTemplate} 
+                  />
+                </AnimatedSection>
               </div>
             </div>
           )}

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { X, Star, Plus, Trash2, Info } from 'lucide-react';
+import { X, Star, Plus, Trash2, Info, ListPlus } from 'lucide-react';
 import { ResumeData } from '@/types/resume';
 import { 
   Tooltip,
@@ -11,17 +11,73 @@ import {
   TooltipTrigger
 } from "@/components/ui/tooltip";
 import { useToast } from '@/components/ui/use-toast';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface SkillsFormProps {
   data: ResumeData;
   updateData: (data: Partial<ResumeData>) => void;
 }
 
+// Predefined skills by category
+const PREDEFINED_SKILLS = {
+  technical: [
+    { name: "JavaScript", level: 4 },
+    { name: "TypeScript", level: 3 },
+    { name: "React", level: 4 },
+    { name: "HTML/CSS", level: 5 },
+    { name: "Node.js", level: 3 },
+    { name: "Python", level: 3 },
+    { name: "SQL", level: 3 },
+    { name: "Git", level: 4 },
+    { name: "RESTful APIs", level: 4 },
+    { name: "Docker", level: 2 }
+  ],
+  soft: [
+    { name: "Communication", level: 4 },
+    { name: "Teamwork", level: 5 },
+    { name: "Problem Solving", level: 4 },
+    { name: "Time Management", level: 3 },
+    { name: "Leadership", level: 3 },
+    { name: "Adaptability", level: 4 },
+    { name: "Critical Thinking", level: 4 },
+    { name: "Creativity", level: 3 },
+    { name: "Attention to Detail", level: 4 },
+    { name: "Conflict Resolution", level: 3 }
+  ],
+  languages: [
+    { name: "English", level: 5 },
+    { name: "Spanish", level: 3 },
+    { name: "French", level: 2 },
+    { name: "German", level: 2 },
+    { name: "Mandarin", level: 1 },
+    { name: "Hindi", level: 4 },
+    { name: "Japanese", level: 1 },
+    { name: "Portuguese", level: 2 },
+    { name: "Russian", level: 1 },
+    { name: "Arabic", level: 1 }
+  ]
+};
+
 const SkillsForm: React.FC<SkillsFormProps> = ({ data, updateData }) => {
   const [newSkill, setNewSkill] = useState('');
   const [newCategory, setNewCategory] = useState('');
   const [currentCategory, setCurrentCategory] = useState('technical');
   const [skillLevel, setSkillLevel] = useState<number>(3);
+  const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
   const { toast } = useToast();
 
   const categories = [
@@ -65,6 +121,37 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ data, updateData }) => {
     });
     
     setNewSkill('');
+  };
+
+  const handleAddPredefinedSkill = (skillName: string, level: number) => {
+    const skillExists = data.skills.some(
+      s => s.name.toLowerCase() === skillName.toLowerCase() && s.category === currentCategory
+    );
+    
+    if (skillExists) {
+      toast({
+        title: "Skill already exists",
+        description: `${skillName} is already in your skills list.`,
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    const skill = {
+      id: Date.now().toString(),
+      name: skillName,
+      category: currentCategory,
+      level: level
+    };
+    
+    updateData({
+      skills: [...data.skills, skill]
+    });
+    
+    toast({
+      title: "Predefined skill added",
+      description: `${skillName} has been added to your skills.`,
+    });
   };
 
   const handleRemoveSkill = (id: string) => {
@@ -142,6 +229,13 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ data, updateData }) => {
     });
   };
 
+  const getPredefinedSkillsForCurrentCategory = () => {
+    if (currentCategory === 'technical' || currentCategory === 'soft' || currentCategory === 'languages') {
+      return PREDEFINED_SKILLS[currentCategory as keyof typeof PREDEFINED_SKILLS] || [];
+    }
+    return [];
+  };
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -207,16 +301,65 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ data, updateData }) => {
             <h3 className="font-medium">
               {categories.find(cat => cat.id === currentCategory)?.label || 'Skills'}
             </h3>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                  <Info className="h-4 w-4 text-gray-400" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p className="text-xs max-w-xs">Rate your proficiency from 1-5. This helps employers understand your expertise level.</p>
-              </TooltipContent>
-            </Tooltip>
+            <div className="flex items-center gap-2">
+              {(currentCategory === 'technical' || currentCategory === 'soft' || currentCategory === 'languages') && (
+                <Dialog open={isSkillDialogOpen} onOpenChange={setIsSkillDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" size="sm" className="flex items-center gap-1.5">
+                      <ListPlus className="h-4 w-4" />
+                      <span>Add Predefined</span>
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md max-h-[80vh] overflow-auto">
+                    <DialogHeader>
+                      <DialogTitle>Add Predefined Skills</DialogTitle>
+                      <DialogDescription>
+                        Select from common {categories.find(c => c.id === currentCategory)?.label?.toLowerCase()} to add to your resume.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 py-4">
+                      {getPredefinedSkillsForCurrentCategory().map((skill, index) => (
+                        <div key={index} className="flex items-center justify-between p-2 border rounded-md hover:bg-gray-50">
+                          <div className="flex flex-col">
+                            <span className="font-medium">{skill.name}</span>
+                            <div className="flex mt-1">
+                              {Array.from({ length: 5 }).map((_, idx) => (
+                                <span 
+                                  key={idx}
+                                  className={`inline-block h-1.5 w-1.5 rounded-full mx-0.5 ${
+                                    idx < skill.level ? 'bg-resume-purple' : 'bg-gray-200'
+                                  }`} 
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <Button 
+                            size="sm" 
+                            variant="ghost"
+                            onClick={() => {
+                              handleAddPredefinedSkill(skill.name, skill.level);
+                            }}
+                          >
+                            <Plus className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              )}
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                    <Info className="h-4 w-4 text-gray-400" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs max-w-xs">Rate your proficiency from 1-5. This helps employers understand your expertise level.</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-2 min-h-16">

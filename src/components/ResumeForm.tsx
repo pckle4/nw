@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -9,6 +8,7 @@ import ExperienceForm from './forms/ExperienceForm';
 import EducationForm from './forms/EducationForm';
 import SkillsForm from './forms/SkillsForm';
 import ProjectsForm from './forms/ProjectsForm';
+import ResumeProgress from './ResumeProgress';
 import { useToast } from '@/components/ui/use-toast';
 import { ResumeData } from '@/types/resume';
 import { Info, ArrowLeft, ArrowRight, AlertCircle } from 'lucide-react';
@@ -69,16 +69,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const { toast } = useToast();
 
-  // Animation properties
   const [animateOut, setAnimateOut] = useState(false);
   const [animateIn, setAnimateIn] = useState(true);
 
-  // Check if the current step can proceed
   const validateCurrentStep = () => {
     const currentStepData = steps[currentStep - 1];
     const errors: string[] = [];
     
-    // Check for required fields based on current step
     if (currentStep === 1) {
       if (!formData.personalInfo.fullName.trim()) {
         errors.push('Full Name is required');
@@ -133,7 +130,6 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     }
     
     if (currentStep < steps.length) {
-      // Trigger out animation
       setAnimateOut(true);
       
       setTimeout(() => {
@@ -154,7 +150,6 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
 
   const handlePrevStep = () => {
     if (currentStep > 1) {
-      // Trigger out animation
       setAnimateOut(true);
       
       setTimeout(() => {
@@ -173,11 +168,9 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     setFormData(newData);
     onUpdateData(newData);
     
-    // Clear validation errors when data changes
     setValidationErrors([]);
   };
 
-  // Reset animation class after it plays
   useEffect(() => {
     if (animateIn) {
       const timer = setTimeout(() => {
@@ -230,11 +223,18 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         </p>
       </div>
 
-      <FormProgressBar 
-        currentStep={currentStep} 
-        totalSteps={steps.length} 
-        stepLabels={steps.map(step => step.label)}
-      />
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
+        <div className="col-span-3">
+          <FormProgressBar 
+            currentStep={currentStep} 
+            totalSteps={steps.length} 
+            stepLabels={steps.map(step => step.label)}
+          />
+        </div>
+        <div className="col-span-1">
+          <ResumeProgress data={formData} />
+        </div>
+      </div>
       
       {validationErrors.length > 0 && (
         <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg animate-fade-in">
