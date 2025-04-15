@@ -4,13 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Briefcase, Plus, Trash2, CalendarIcon } from 'lucide-react';
+import { Briefcase, Plus, Trash2 } from 'lucide-react';
 import { ResumeData, ExperienceItem } from '@/types/resume';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
-import { Checkbox } from '@/components/ui/checkbox';
 
 interface ExperienceFormProps {
   data: ResumeData;
@@ -53,30 +48,6 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({ data, updateData }) => 
     });
   };
 
-  const handleStartDateSelect = (id: string, date: Date | undefined) => {
-    if (date) {
-      handleExperienceChange(id, 'startDate', format(date, 'MMM yyyy'));
-    }
-  };
-
-  const handleEndDateSelect = (id: string, date: Date | undefined) => {
-    if (date) {
-      handleExperienceChange(id, 'endDate', format(date, 'MMM yyyy'));
-    }
-  };
-
-  const toggleCurrentJob = (id: string, checked: boolean) => {
-    const exp = data.experience.find(e => e.id === id);
-    if (exp) {
-      handleExperienceChange(id, 'current', checked);
-      if (checked) {
-        handleExperienceChange(id, 'endDate', 'Present');
-      } else if (exp.endDate === 'Present') {
-        handleExperienceChange(id, 'endDate', '');
-      }
-    }
-  };
-
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -114,120 +85,67 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({ data, updateData }) => 
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor={`company-${experience.id}`}>Company <span className="text-red-500">*</span></Label>
+              <Label htmlFor={`company-${experience.id}`}>Company</Label>
               <Input
                 id={`company-${experience.id}`}
                 value={experience.company}
                 onChange={(e) => handleExperienceChange(experience.id, 'company', e.target.value)}
                 placeholder="e.g., Acme Corporation"
-                className="placeholder:text-blue-300 border-gray-300 focus:border-resume-purple"
-                required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor={`position-${experience.id}`}>Position <span className="text-red-500">*</span></Label>
+              <Label htmlFor={`position-${experience.id}`}>Position</Label>
               <Input
                 id={`position-${experience.id}`}
                 value={experience.position}
                 onChange={(e) => handleExperienceChange(experience.id, 'position', e.target.value)}
                 placeholder="e.g., Senior Developer"
-                className="placeholder:text-green-300 border-gray-300 focus:border-resume-purple"
-                required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor={`location-${experience.id}`}>Location <span className="text-red-500">*</span></Label>
+              <Label htmlFor={`location-${experience.id}`}>Location</Label>
               <Input
                 id={`location-${experience.id}`}
                 value={experience.location}
                 onChange={(e) => handleExperienceChange(experience.id, 'location', e.target.value)}
                 placeholder="e.g., San Francisco, CA"
-                className="placeholder:text-purple-300 border-gray-300 focus:border-resume-purple"
-                required
               />
             </div>
 
-            <div className="space-y-2">
-              <Label>Start Date <span className="text-red-500">*</span></Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className={cn(
-                      "w-full justify-start text-left font-normal border-gray-300",
-                      !experience.startDate && "text-muted-foreground"
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {experience.startDate ? experience.startDate : "Select start date"}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    onSelect={(date) => handleStartDateSelect(experience.id, date)}
-                    initialFocus
-                    className="pointer-events-auto"
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
-
-            <div className="space-y-2 flex flex-col">
-              <Label>End Date</Label>
-              <div className="flex items-center space-x-2 mb-2">
-                <Checkbox 
-                  id={`current-${experience.id}`} 
-                  checked={experience.current}
-                  onCheckedChange={(checked) => toggleCurrentJob(experience.id, checked === true)}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor={`startDate-${experience.id}`}>Start Date</Label>
+                <Input
+                  id={`startDate-${experience.id}`}
+                  value={experience.startDate}
+                  onChange={(e) => handleExperienceChange(experience.id, 'startDate', e.target.value)}
+                  placeholder="e.g., Jun 2020"
                 />
-                <label
-                  htmlFor={`current-${experience.id}`}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  I currently work here
-                </label>
               </div>
-              {!experience.current && (
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        "w-full justify-start text-left font-normal border-gray-300",
-                        !experience.endDate && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {experience.endDate ? experience.endDate : "Select end date"}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      onSelect={(date) => handleEndDateSelect(experience.id, date)}
-                      disabled={experience.current}
-                      initialFocus
-                      className="pointer-events-auto"
-                    />
-                  </PopoverContent>
-                </Popover>
-              )}
+
+              <div className="space-y-2">
+                <Label htmlFor={`endDate-${experience.id}`}>End Date</Label>
+                <Input
+                  id={`endDate-${experience.id}`}
+                  value={experience.endDate}
+                  onChange={(e) => handleExperienceChange(experience.id, 'endDate', e.target.value)}
+                  placeholder="e.g., Present"
+                  disabled={experience.current}
+                />
+              </div>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor={`description-${experience.id}`}>Description <span className="text-red-500">*</span></Label>
+            <Label htmlFor={`description-${experience.id}`}>Description</Label>
             <Textarea
               id={`description-${experience.id}`}
               value={experience.description}
               onChange={(e) => handleExperienceChange(experience.id, 'description', e.target.value)}
               placeholder="Describe your responsibilities, achievements, and the skills you used or developed."
               rows={4}
-              className="placeholder:text-yellow-300 border-gray-300 focus:border-resume-purple"
-              required
             />
           </div>
         </div>

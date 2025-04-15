@@ -43,12 +43,11 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ data, templateId }) => {
         >
           <div 
             ref={resumeRef}
-            className="w-full bg-white shadow-lg mx-auto print:shadow-none"
+            className="w-full bg-white shadow-lg mx-auto"
             style={{ 
               maxWidth: '800px',
               aspectRatio: '210/297', // A4 aspect ratio
-              transformOrigin: 'top center',
-              fontFamily: "'Courier Prime', monospace",
+              transformOrigin: 'top center'
             }}
           >
             <ResumeTemplateRenderer data={data} templateId={templateId} />

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { FileText, Download, Sparkles, Home, Info, Settings, Menu, X, HelpCircle, Mail, Code } from 'lucide-react';
+import { FileText, Download, Sparkles, Home, Info, Settings, Menu, X, HelpCircle, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import {
@@ -74,10 +74,6 @@ const Header = () => {
                     <Mail className="h-4 w-4" />
                     <span>Contact</span>
                   </Link>
-                  <Link to="/tech" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
-                    <Code className="h-4 w-4" />
-                    <span>Tech Stack</span>
-                  </Link>
                   <a href="#about" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
                     <Info className="h-4 w-4" />
                     <span>About</span>
@@ -141,12 +137,6 @@ const Header = () => {
                 <Link to="/contact" className={navigationMenuTriggerStyle()}>
                   <Mail className="h-4 w-4 mr-2" />
                   Contact
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link to="/tech" className={navigationMenuTriggerStyle()}>
-                  <Code className="h-4 w-4 mr-2" />
-                  Tech Stack
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>

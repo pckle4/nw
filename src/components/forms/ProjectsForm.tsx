@@ -4,12 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Plus, FolderGit2, Trash2, CalendarIcon } from 'lucide-react';
+import { Plus, FolderGit2, Trash2 } from 'lucide-react';
 import { ResumeData, ProjectItem } from '@/types/resume';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
 
 interface ProjectsFormProps {
   data: ResumeData;
@@ -50,12 +46,6 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ data, updateData }) => {
     });
   };
 
-  const handleDateSelect = (id: string, date: Date | undefined) => {
-    if (date) {
-      handleProjectChange(id, 'date', format(date, 'MMM yyyy'));
-    }
-  };
-
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -93,52 +83,32 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ data, updateData }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor={`name-${project.id}`}>Project Name <span className="text-red-500">*</span></Label>
+              <Label htmlFor={`name-${project.id}`}>Project Name</Label>
               <Input
                 id={`name-${project.id}`}
                 value={project.name}
                 onChange={(e) => handleProjectChange(project.id, 'name', e.target.value)}
                 placeholder="e.g., E-commerce Website"
-                className="placeholder:text-blue-300 border-gray-300 focus:border-resume-purple"
-                required
               />
             </div>
 
             <div className="space-y-2">
-              <Label>Completion Date <span className="text-red-500">*</span></Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className={cn(
-                      "w-full justify-start text-left font-normal border-gray-300",
-                      !project.date && "text-muted-foreground"
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {project.date ? project.date : "Select date"}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    onSelect={(date) => handleDateSelect(project.id, date)}
-                    initialFocus
-                    className="pointer-events-auto"
-                  />
-                </PopoverContent>
-              </Popover>
+              <Label htmlFor={`date-${project.id}`}>Date</Label>
+              <Input
+                id={`date-${project.id}`}
+                value={project.date}
+                onChange={(e) => handleProjectChange(project.id, 'date', e.target.value)}
+                placeholder="e.g., Jun 2022 - Aug 2022"
+              />
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor={`technologies-${project.id}`}>Technologies Used <span className="text-red-500">*</span></Label>
+              <Label htmlFor={`technologies-${project.id}`}>Technologies Used</Label>
               <Input
                 id={`technologies-${project.id}`}
                 value={project.technologies}
                 onChange={(e) => handleProjectChange(project.id, 'technologies', e.target.value)}
                 placeholder="e.g., React, Node.js, MongoDB"
-                className="placeholder:text-green-300 border-gray-300 focus:border-resume-purple"
-                required
               />
             </div>
 
@@ -149,21 +119,18 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ data, updateData }) => {
                 value={project.link}
                 onChange={(e) => handleProjectChange(project.id, 'link', e.target.value)}
                 placeholder="e.g., https://github.com/yourname/project"
-                className="placeholder:text-purple-300 border-gray-300 focus:border-resume-purple"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor={`description-${project.id}`}>Description <span className="text-red-500">*</span></Label>
+            <Label htmlFor={`description-${project.id}`}>Description</Label>
             <Textarea
               id={`description-${project.id}`}
               value={project.description}
               onChange={(e) => handleProjectChange(project.id, 'description', e.target.value)}
               placeholder="Describe the project, your role, and the impact it had."
               rows={3}
-              className="placeholder:text-yellow-300 border-gray-300 focus:border-resume-purple"
-              required
             />
           </div>
         </div>
