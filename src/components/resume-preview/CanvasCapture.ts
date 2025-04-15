@@ -13,6 +13,32 @@ export const captureCanvas = async (resumeRef: React.RefObject<HTMLDivElement>) 
       allowTaint: true,
       backgroundColor: null,
       imageTimeout: 0,
+      
+      // Remove the problematic fontDisplay property
+      // Use onclone to handle font styling correctly
+      onclone: (document, element) => {
+        // Apply font smoothing to the cloned element
+        const styleElement = document.createElement('style');
+        styleElement.innerHTML = `
+          * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-smooth: always;
+          }
+        `;
+        document.head.appendChild(styleElement);
+        
+        // Process all elements to ensure proper font rendering
+        const allElements = element.querySelectorAll('*');
+        allElements.forEach(el => {
+          if (el instanceof HTMLElement) {
+            // Force text rendering to be crisp
+            el.style.textRendering = 'optimizeLegibility';
+          }
+        });
+        
+        return element;
+      }
     });
     
     return canvas;
