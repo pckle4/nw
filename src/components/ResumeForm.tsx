@@ -55,16 +55,24 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       // Show encouraging toast when moving between steps
       toast({
         title: `Great progress!`,
-        description: `Step ${currentStep} completed. ${steps.length - currentStep} steps remaining.`,
-        icon: <Check className="h-4 w-4 text-green-500" />
+        description: (
+          <div className="flex items-center gap-2">
+            <Check className="h-4 w-4 text-green-500" />
+            <span>Step {currentStep} completed. {steps.length - currentStep} steps remaining.</span>
+          </div>
+        ),
       });
     } else {
       onUpdateData(formData);
       onComplete();
       toast({
         title: "Resume created!",
-        description: "Your professional resume has been successfully generated.",
-        icon: <Sparkles className="h-4 w-4 text-yellow-500" />
+        description: (
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-yellow-500" />
+            <span>Your professional resume has been successfully generated.</span>
+          </div>
+        ),
       });
     }
   };
