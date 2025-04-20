@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
-import { FileText, Sparkles, Home, Info, Menu, X, HelpCircle, Mail, Cpu } from 'lucide-react';
+import { FileText, Sparkles, Home, Info, Menu, X, HelpCircle, Mail, Cpu, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -27,16 +27,36 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const { toast } = useToast();
+  const sampleResumeData = {
+    personalInfo: {
+      fullName: "John Smith",
+      jobTitle: "Senior Software Engineer",
+      email: "john.smith@example.com",
+      phone: "+1 (555) 123-4567",
+      location: "San Francisco, CA",
+      linkedin: "linkedin.com/in/johnsmith",
+      summary: "Experienced software engineer with 8+ years of expertise in full-stack development, cloud architecture, and team leadership."
+    }
+  };
+
+  const handleDownloadSampleResume = () => {
+    toast({
+      title: "Sample Resume Downloaded!",
+      description: "Check out this perfectly filled resume example.",
+    });
+  };
+
   return (
     <header className={`w-full sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm' : 'bg-background/80 backdrop-blur-sm'} border-b border-slate-200`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="relative">
-              <FileText className="h-6 w-6 text-resume-purple" />
-              <Sparkles className="h-3 w-3 text-yellow-400 absolute -top-1 -right-1" />
+          <Link to="/" className="flex items-center space-x-2 group">
+            <div className="relative transition-transform duration-300 group-hover:scale-110">
+              <FileText className="h-6 w-6 text-resume-purple transition-colors group-hover:text-resume-dark-purple" />
+              <Sparkles className="h-3 w-3 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
             </div>
-            <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-resume-purple to-blue-500">
+            <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-resume-purple to-blue-500 group-hover:from-resume-dark-purple group-hover:to-blue-600">
               Nowhile
             </span>
           </Link>
@@ -44,17 +64,29 @@ const Header = () => {
         
         {isMobile ? (
           <>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden"
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={handleDownloadSampleResume}
+                className="animate-fade-in hidden sm:flex items-center gap-2"
+              >
+                <Download className="h-4 w-4" />
+                Sample Resume
+              </Button>
+              
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden"
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
             
             {mobileMenuOpen && (
-              <div className="absolute top-16 left-0 right-0 bg-background shadow-lg border-b border-slate-200 p-4 animate-fade-in md:hidden">
+              <div className="absolute top-16 left-0 right-0 bg-background shadow-lg border-b border-slate-200 p-4 animate-slide-in-right md:hidden">
                 <div className="flex flex-col space-y-3">
                   <Link to="/" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
                     <Home className="h-4 w-4" />
@@ -86,7 +118,17 @@ const Header = () => {
           </>
         ) : (
           <NavigationMenu className="hidden md:flex">
-            <NavigationMenuList>
+            <NavigationMenuList className="flex items-center gap-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={handleDownloadSampleResume}
+                className="animate-fade-in flex items-center gap-2 hover:scale-105 transition-transform"
+              >
+                <Download className="h-4 w-4" />
+                Sample Resume
+              </Button>
+              
               <NavigationMenuItem>
                 <Link to="/" className={navigationMenuTriggerStyle()}>
                   <Home className="h-4 w-4 mr-2" />
