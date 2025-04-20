@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { FileText, Github, Twitter, Linkedin, Mail, Heart, Clock, Calendar, Copyright } from 'lucide-react';
 
@@ -6,17 +5,17 @@ const Footer = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   
   useEffect(() => {
-    // Update time every minute
+    // Update time every second
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 60000);
+    }, 1000);
     
     return () => clearInterval(timer);
   }, []);
   
-  // Format the current time
+  // Format the current time with seconds
   const formatTime = (date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   };
   
   // Format the current date
@@ -26,8 +25,13 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 text-white py-10">
-      <div className="container mx-auto px-4">
+    <footer className="bg-gray-900 text-white py-10 relative overflow-hidden">
+      {/* Add subtle animated background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,#ffffff_1px,transparent_0)] bg-[size:24px_24px]"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
@@ -76,13 +80,13 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Date and time display */}
+        {/* Date and time display with updated styling */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 pt-4 border-t border-gray-800 text-gray-400 text-sm">
-          <div className="flex items-center">
+          <div className="flex items-center px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
             <Clock className="h-4 w-4 mr-2" />
-            <span>Current Time: {formatTime(currentTime)}</span>
+            <span className="font-mono">{formatTime(currentTime)}</span>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
             <Calendar className="h-4 w-4 mr-2" />
             <span>{formatDate(currentTime)}</span>
           </div>
