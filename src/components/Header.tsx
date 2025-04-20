@@ -1,7 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { FileText, Download, Sparkles, Home, Info, Settings, Menu, X, HelpCircle, Mail, Cpu } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { FileText, Sparkles, Home, Info, Menu, X, HelpCircle, Mail, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
@@ -12,12 +10,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const Header = () => {
@@ -158,35 +150,6 @@ const Header = () => {
             </NavigationMenuList>
           </NavigationMenu>
         )}
-        
-        <div className="flex items-center space-x-3">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" className="hidden sm:flex">
-                  <Settings className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Settings</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="outline" size="sm" className="hidden sm:flex">
-                  <Download className="h-4 w-4 mr-2" />
-                  Save
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Save your resume as PDF</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
       </div>
     </header>
   );
