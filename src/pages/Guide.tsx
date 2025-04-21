@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { BookOpen, Star, Users, TrendingUp, Sparkles, CheckCircle2, Pencil, Heart, Globe, Shield, Lightbulb, Activity } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const sections = [
   {
