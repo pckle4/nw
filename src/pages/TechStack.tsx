@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  BookOpen, Code2, Paintbrush, Star, Sparkles, Users, TrendingUp, Download, Shield, Globe, Heart, Cpu, Pen, Lightbulb, Form, ListCheck, SquareDashed, Move, WandSparkles, MousePointer, ListTodo, Wand, PenLine, Brain, Drop
+  BookOpen, Code2, Paintbrush, Star, Sparkles, Users, TrendingUp, Download, Shield, Globe, Heart, Cpu, Pen, Lightbulb, 
+  ListCheck, SquareDashed, Move, WandSparkles, MousePointer, ListTodo, Wand, PenLine, Brain, Droplets
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -89,7 +90,7 @@ const stackSections = [
 const highlights = [
   {
     icon: <Cpu className="h-8 w-8 text-vivid-purple animate-pulse" />,
-    txt: "Lightning-fast instant preview as you build. Every form change reflects instantly, thanks to intelligent React rendering and optimized state diffing."
+    txt: "Lightning-fast instant preview as you build. Every form change triggers React’s virtual DOM to update the preview, showing your changes exactly as a hiring manager would."
   },
   {
     icon: <Globe className="h-8 w-8 text-blue-400 animate-bounce" />,
@@ -123,7 +124,7 @@ const reasons = [
   { icon: <Lightbulb className="h-8 w-8 text-yellow-400 animate-bounce" />, txt: "Smart, context-aware resume builder. Every section is driven by best-practice logic." },
   { icon: <TrendingUp className="h-8 w-8 text-blue-400 animate-fade-in" />, txt: "Job-matching and career insights integrated. Get hiring-market data and tips right in the builder." },
   { icon: <Brain className="h-8 w-8 text-purple-400 animate-pulse" />, txt: "Modular code means Nowhile's UI, AI, and exports upgrade in days—not months." },
-  { icon: <Drop className="h-8 w-8 text-blue-200 animate-pulse" />, txt: "Beautiful gradients, crisp icons, and custom shadows give Nowhile its signature look and feel." }
+  { icon: <Droplets className="h-8 w-8 text-blue-200 animate-pulse" />, txt: "Beautiful gradients, crisp icons, and custom shadows give Nowhile its signature look and feel." }
 ];
 
 const backgrounds = (
