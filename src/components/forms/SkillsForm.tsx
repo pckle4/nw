@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,11 +5,31 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { X, Star, Plus } from 'lucide-react';
 import { ResumeData } from '@/types/resume';
+import FieldAiTip from "./FieldAiTip";
+import { MoveRight } from "lucide-react";
 
 interface SkillsFormProps {
   data: ResumeData;
   updateData: (data: Partial<ResumeData>) => void;
 }
+
+const aiTips = {
+  skillInput: "Type a skill and press Add, or quickly drag from the predefined list below. Focus on job-relevant strengths.",
+  categoryInput: "Create new categories to better organize your skillset, e.g. add 'DevOps'.",
+};
+
+const predefinedSkillCategories = [
+  { id: "technical", label: "Technical Skills", skills: [
+    "React", "TypeScript", "JavaScript", "HTML5", "CSS3", "Node.js",
+    "TailwindCSS", "Git", "REST API", "GraphQL", "Docker", "CI/CD"
+  ]},
+  { id: "soft", label: "Soft Skills", skills: [
+    "Collaboration", "Leadership", "Communication", "Problem Solving", "Time Management", "Critical Thinking"
+  ]},
+  { id: "languages", label: "Languages", skills: [
+    "English", "Spanish", "French", "Mandarin", "Hindi", "German"
+  ]},
+];
 
 const SkillsForm: React.FC<SkillsFormProps> = ({ data, updateData }) => {
   const [newSkill, setNewSkill] = useState('');
@@ -80,6 +99,35 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ data, updateData }) => {
     setNewCategory('');
   };
 
+  const handleDragStart = (e: React.DragEvent, skill: string, category: string) => {
+    e.dataTransfer.setData("text/plain", JSON.stringify({ skill, category }));
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    const item = e.dataTransfer.getData("text/plain");
+    if (!item) return;
+    try {
+      const { skill, category } = JSON.parse(item);
+      if (
+        !data.skills.some(
+          (s) => s.name.toLowerCase() === skill.toLowerCase() && s.category === category
+        )
+      ) {
+        updateData({
+          skills: [
+            ...data.skills,
+            {
+              id: Date.now().toString(),
+              name: skill,
+              category,
+            },
+          ],
+        });
+      }
+    } catch (e) {}
+  };
+
   const getSkillsByCategory = (categoryId: string) => {
     return data.skills.filter(skill => skill.category === categoryId);
   };
@@ -88,12 +136,35 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ data, updateData }) => {
     <div className="space-y-6">
       <div className="space-y-2">
         <h2 className="text-2xl font-semibold">Skills</h2>
-        <p className="text-gray-600">Add skills that showcase your strengths and abilities.</p>
+        <p className="text-gray-600 flex items-center">
+          Add skills that showcase your strengths and abilities.
+          <FieldAiTip tip="Include both technical and soft skills relevant to your target job. Drag skills from the suggestions below for easy entry!" />
+        </p>
       </div>
-
+      <div className="mb-4">
+        <div className="pb-1 font-semibold text-gray-700 flex items-center">
+          Suggested Skills
+          <MoveRight className="inline-block ml-2 h-4 w-4 text-green-500 animate-bounce" />
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {predefinedSkillCategories.map((cat) =>
+            cat.skills.map((skill) => (
+              <span
+                key={cat.id + skill}
+                className="bg-gradient-to-r from-blue-100 to-purple-100 text-gray-700 px-3 py-1 rounded-xl text-xs mb-1 border border-gray-200 shadow cursor-grab hover:bg-blue-200 transition"
+                draggable
+                onDragStart={(e) => handleDragStart(e, skill, cat.id)}
+                title={`Drag to add "${skill}" to your ${cat.label}`}
+              >
+                {skill}
+              </span>
+            ))
+          )}
+        </div>
+      </div>
       <div className="space-y-4">
         <div className="flex space-x-2 overflow-x-auto pb-2">
-          {categories.map(category => (
+          {categories.map((category) => (
             <Button
               key={category.id}
               variant={currentCategory === category.id ? "default" : "outline"}
@@ -114,8 +185,6 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ data, updateData }) => {
             Add Category
           </Button>
         </div>
-
-        {/* Add new category */}
         <div className="flex gap-2">
           <div className="flex-1">
             <Input
@@ -129,21 +198,23 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ data, updateData }) => {
           <Button onClick={handleAddCategory} disabled={!newCategory.trim()}>
             Add
           </Button>
+          <FieldAiTip tip={aiTips.categoryInput} />
         </div>
-
-        {/* Current category skills */}
-        <div className="p-4 border rounded-lg bg-gray-50 space-y-4">
+        <div
+          className="p-4 border rounded-lg bg-gray-50 space-y-4"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={handleDrop}
+        >
           <h3 className="font-medium">
-            {categories.find(cat => cat.id === currentCategory)?.label || 'Skills'}
+            {categories.find((cat) => cat.id === currentCategory)?.label || "Skills"}
           </h3>
-
           <div className="flex flex-wrap gap-2 min-h-16">
             {getSkillsByCategory(currentCategory).length === 0 ? (
               <p className="text-gray-500 italic">No skills added yet</p>
             ) : (
-              getSkillsByCategory(currentCategory).map(skill => (
-                <Badge 
-                  key={skill.id} 
+              getSkillsByCategory(currentCategory).map((skill) => (
+                <Badge
+                  key={skill.id}
                   variant="secondary"
                   className="px-3 py-1 text-sm flex items-center gap-1"
                 >
@@ -159,23 +230,22 @@ const SkillsForm: React.FC<SkillsFormProps> = ({ data, updateData }) => {
               ))
             )}
           </div>
-
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <div className="flex-1">
               <Input
                 value={newSkill}
                 onChange={(e) => setNewSkill(e.target.value)}
-                placeholder={`Enter a ${categories.find(cat => cat.id === currentCategory)?.label?.toLowerCase() || 'skill'}...`}
-                onKeyDown={(e) => e.key === 'Enter' && handleAddSkill()}
+                placeholder={`Enter a ${categories.find((cat) => cat.id === currentCategory)?.label?.toLowerCase() || "skill"}...`}
+                onKeyDown={(e) => e.key === "Enter" && handleAddSkill()}
               />
             </div>
             <Button onClick={handleAddSkill} disabled={!newSkill.trim()}>
               Add
             </Button>
+            <FieldAiTip tip={aiTips.skillInput} />
           </div>
         </div>
       </div>
-
       {data.skills.length === 0 && (
         <div className="text-center py-8 border-2 border-dashed rounded-lg mt-4">
           <Star className="mx-auto h-12 w-12 text-gray-400" />
