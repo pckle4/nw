@@ -13,27 +13,32 @@ import {
   navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu";
 import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const mobileNavLinks = [
-  { to: '/', label: 'Home', icon: <Home className="h-4 w-4" /> },
-  { to: '/guide', label: 'Guide Me', icon: <HelpCircle className="h-4 w-4" /> },
-  { to: '/contact', label: 'Contact', icon: <Mail className="h-4 w-4" /> },
-  { to: '/tech-stack', label: 'Tech Stack', icon: <Cpu className="h-4 w-4" /> },
-  { href: '#about', label: 'About', icon: <Info className="h-4 w-4" /> },
+  { to: '/', label: 'Home', icon: <Home className="h-5 w-5" /> },
+  { to: '/guide', label: 'Guide Me', icon: <HelpCircle className="h-5 w-5" /> },
+  { to: '/contact', label: 'Contact', icon: <Mail className="h-5 w-5" /> },
+  { to: '/tech-stack', label: 'Tech Stack', icon: <Cpu className="h-5 w-5" /> },
+  { href: '#about', label: 'About', icon: <Info className="h-5 w-5" /> },
 ];
 
 const Header = () => {
   const isMobile = useIsMobile();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Remove sample resume logic
 
   return (
     <header className={`w-full sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm' : 'bg-background/80 backdrop-blur-sm'} border-b border-slate-200`}>
@@ -48,55 +53,55 @@ const Header = () => {
           </span>
         </Link>
         {isMobile ? (
-          <>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              className="md:hidden"
-            >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
-            {/* Mobile drawer menu */}
-            <div
-              className={`fixed top-0 left-0 w-full h-full bg-black/50 z-40 transition-opacity ${mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 pointer-events-none invisible'} md:hidden`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <nav
-                className={`fixed left-0 top-0 h-full bg-white shadow-xl w-[85vw] max-w-xs p-6 animate-slide-in-right transition-transform
-                  ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
-                onClick={e => e.stopPropagation()}
-                role="menu"
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Open menu"
+                className="md:hidden"
               >
-                <div className="flex items-center justify-between mb-6">
-                  <span className="font-bold text-lg text-resume-purple tracking-wide flex items-center">
-                    <FileText className="h-5 w-5 mr-1 text-resume-purple" /> Nowhile
-                  </span>
-                  <button onClick={() => setMobileMenuOpen(false)}>
-                    <X className="h-6 w-6" />
-                  </button>
-                </div>
-                <ul className="flex flex-col space-y-4">
-                  {mobileNavLinks.map((item, i) =>
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[280px] bg-white p-0 border-r shadow-lg">
+              <SheetHeader className="p-5 border-b space-y-0">
+                <SheetTitle className="font-bold flex items-center gap-2 text-resume-purple">
+                  <FileText className="h-5 w-5" />
+                  <span>Nowhile</span>
+                </SheetTitle>
+              </SheetHeader>
+              <nav className="py-4">
+                <ul className="space-y-1 px-2">
+                  {mobileNavLinks.map((item, i) => 
                     item.to ? (
                       <li key={i}>
-                        <Link to={item.to} className="flex items-center gap-3 hover:scale-105 transition-transform font-medium text-gray-900" onClick={() => setMobileMenuOpen(false)}>
-                          {item.icon} {item.label}
+                        <Link 
+                          to={item.to} 
+                          className="flex items-center gap-3 py-3 px-4 rounded-md hover:bg-slate-100 font-medium text-gray-800 transition-colors"
+                          onClick={() => setOpen(false)}
+                        >
+                          {item.icon}
+                          <span>{item.label}</span>
                         </Link>
                       </li>
                     ) : (
                       <li key={i}>
-                        <a href={item.href} className="flex items-center gap-3 hover:scale-105 transition-transform font-medium text-gray-900" onClick={() => setMobileMenuOpen(false)}>
-                          {item.icon} {item.label}
+                        <a 
+                          href={item.href} 
+                          className="flex items-center gap-3 py-3 px-4 rounded-md hover:bg-slate-100 font-medium text-gray-800 transition-colors"
+                          onClick={() => setOpen(false)}
+                        >
+                          {item.icon}
+                          <span>{item.label}</span>
                         </a>
                       </li>
                     )
                   )}
                 </ul>
               </nav>
-            </div>
-          </>
+            </SheetContent>
+          </Sheet>
         ) : (
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList className="flex items-center gap-2">
