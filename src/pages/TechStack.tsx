@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   BookOpen, Code2, Paintbrush, Star, Sparkles, Users, TrendingUp, Download, Shield, Globe, Heart, Cpu, Pen, Lightbulb, 
-  ListCheck, SquareDashed, Move, WandSparkles, MousePointer, ListTodo, Wand, PenLine, Brain, Droplets
+  ListCheck, SquareDashed, Move, WandSparkles, MousePointer, ListTodo, Wand, PenLine, Brain, Droplets, ClipboardList
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -46,7 +46,7 @@ const stackSections = [
   {
     name: "React Hook Form",
     color: "from-pink-100 via-yellow-100 to-green-200",
-    icon: <Form className="h-10 w-10 text-pink-400 animate-bounce" />,
+    icon: <ClipboardList className="h-10 w-10 text-pink-400 animate-bounce" />,
     desc: "Lightning-fast, flexible form management powers our live, validated AI-driven resume fields. React Hook Form enables both UX delight and stress-free integration with third-party validators and UI controls."
   },
   {
