@@ -1,8 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
-import { FileText, Sparkles, Home, Info, Menu, X, HelpCircle, Mail, Cpu, Download } from 'lucide-react';
+import { FileText, Sparkles, Home, Info, Menu, X, HelpCircle, Mail, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,121 +14,92 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useIsMobile } from '@/hooks/use-mobile';
 
+const mobileNavLinks = [
+  { to: '/', label: 'Home', icon: <Home className="h-4 w-4" /> },
+  { to: '/guide', label: 'Guide Me', icon: <HelpCircle className="h-4 w-4" /> },
+  { to: '/contact', label: 'Contact', icon: <Mail className="h-4 w-4" /> },
+  { to: '/tech-stack', label: 'Tech Stack', icon: <Cpu className="h-4 w-4" /> },
+  { href: '#about', label: 'About', icon: <Info className="h-4 w-4" /> },
+];
+
 const Header = () => {
   const isMobile = useIsMobile();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const { toast } = useToast();
-  const sampleResumeData = {
-    personalInfo: {
-      fullName: "John Smith",
-      jobTitle: "Senior Software Engineer",
-      email: "john.smith@example.com",
-      phone: "+1 (555) 123-4567",
-      location: "San Francisco, CA",
-      linkedin: "linkedin.com/in/johnsmith",
-      summary: "Experienced software engineer with 8+ years of expertise in full-stack development, cloud architecture, and team leadership."
-    }
-  };
-
-  const handleDownloadSampleResume = () => {
-    toast({
-      title: "Sample Resume Downloaded!",
-      description: "Check out this perfectly filled resume example.",
-    });
-  };
+  // Remove sample resume logic
 
   return (
     <header className={`w-full sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-md shadow-sm' : 'bg-background/80 backdrop-blur-sm'} border-b border-slate-200`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="relative transition-transform duration-300 group-hover:scale-110">
-              <FileText className="h-6 w-6 text-resume-purple transition-colors group-hover:text-resume-dark-purple" />
-              <Sparkles className="h-3 w-3 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
-            </div>
-            <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-resume-purple to-blue-500 group-hover:from-resume-dark-purple group-hover:to-blue-600">
-              Nowhile
-            </span>
-          </Link>
-        </div>
-        
+        <Link to="/" className="flex items-center space-x-2 group">
+          <div className="relative transition-transform duration-300 group-hover:scale-110">
+            <FileText className="h-6 w-6 text-resume-purple transition-colors group-hover:text-resume-dark-purple" />
+            <Sparkles className="h-3 w-3 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
+          </div>
+          <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-resume-purple to-blue-500 group-hover:from-resume-dark-purple group-hover:to-blue-600">
+            Nowhile
+          </span>
+        </Link>
         {isMobile ? (
           <>
-            <div className="flex items-center gap-2">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={handleDownloadSampleResume}
-                className="animate-fade-in hidden sm:flex items-center gap-2"
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              className="md:hidden"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+            {/* Mobile drawer menu */}
+            <div
+              className={`fixed top-0 left-0 w-full h-full bg-black/50 z-40 transition-opacity ${mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 pointer-events-none invisible'} md:hidden`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <nav
+                className={`fixed left-0 top-0 h-full bg-white shadow-xl w-[85vw] max-w-xs p-6 animate-slide-in-right transition-transform
+                  ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                onClick={e => e.stopPropagation()}
+                role="menu"
               >
-                <Download className="h-4 w-4" />
-                Sample Resume
-              </Button>
-              
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden"
-              >
-                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </Button>
-            </div>
-            
-            {mobileMenuOpen && (
-              <div className="absolute top-16 left-0 right-0 bg-background shadow-lg border-b border-slate-200 p-4 animate-slide-in-right md:hidden">
-                <div className="flex flex-col space-y-3">
-                  <Link to="/" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
-                    <Home className="h-4 w-4" />
-                    <span>Home</span>
-                  </Link>
-                  <Link to="/guide" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
-                    <HelpCircle className="h-4 w-4" />
-                    <span>Guide Me</span>
-                  </Link>
-                  <Link to="/contact" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
-                    <Mail className="h-4 w-4" />
-                    <span>Contact</span>
-                  </Link>
-                  <Link to="/tech-stack" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
-                    <Cpu className="h-4 w-4" />
-                    <span>Tech Stack</span>
-                  </Link>
-                  <a href="#about" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
-                    <Info className="h-4 w-4" />
-                    <span>About</span>
-                  </a>
-                  <a href="#faq" className="flex items-center space-x-2 p-2 hover:bg-slate-100 rounded-md">
-                    <HelpCircle className="h-4 w-4" />
-                    <span>FAQs</span>
-                  </a>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-bold text-lg text-resume-purple tracking-wide flex items-center">
+                    <FileText className="h-5 w-5 mr-1 text-resume-purple" /> Nowhile
+                  </span>
+                  <button onClick={() => setMobileMenuOpen(false)}>
+                    <X className="h-6 w-6" />
+                  </button>
                 </div>
-              </div>
-            )}
+                <ul className="flex flex-col space-y-4">
+                  {mobileNavLinks.map((item, i) =>
+                    item.to ? (
+                      <li key={i}>
+                        <Link to={item.to} className="flex items-center gap-3 hover:scale-105 transition-transform font-medium text-gray-900" onClick={() => setMobileMenuOpen(false)}>
+                          {item.icon} {item.label}
+                        </Link>
+                      </li>
+                    ) : (
+                      <li key={i}>
+                        <a href={item.href} className="flex items-center gap-3 hover:scale-105 transition-transform font-medium text-gray-900" onClick={() => setMobileMenuOpen(false)}>
+                          {item.icon} {item.label}
+                        </a>
+                      </li>
+                    )
+                  )}
+                </ul>
+              </nav>
+            </div>
           </>
         ) : (
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList className="flex items-center gap-2">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={handleDownloadSampleResume}
-                className="animate-fade-in flex items-center gap-2 hover:scale-105 transition-transform"
-              >
-                <Download className="h-4 w-4" />
-                Sample Resume
-              </Button>
-              
               <NavigationMenuItem>
                 <Link to="/" className={navigationMenuTriggerStyle()}>
                   <Home className="h-4 w-4 mr-2" />
