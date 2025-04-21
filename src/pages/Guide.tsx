@@ -1,149 +1,75 @@
 
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
-import { FileText, ArrowRight, Check, ChevronRight, HelpCircle, BookOpen, CheckCircle } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { BookOpen, Star, Users, TrendingUp, Sparkles, CheckCircle2 } from 'lucide-react';
 
-const Guide = () => {
-  const { toast } = useToast();
+const resumeSections = [
+  { title: "Contact Information", description: "Name, phone, email, location, and online profiles", icon: <Users className="h-7 w-7 text-resume-purple" /> },
+  { title: "Professional Summary", description: "2-3 sentence overview highlighting your strengths", icon: <Star className="h-7 w-7 text-yellow-400" /> },
+  { title: "Work Experience", description: "Relevant jobs with quantifiable achievements", icon: <TrendingUp className="h-7 w-7 text-blue-400" /> },
+  { title: "Education", description: "Degrees, certifications, relevant coursework", icon: <CheckCircle2 className="h-7 w-7 text-green-400" /> },
+  { title: "Skills", description: "Technical, soft, and domain-specific abilities", icon: <Sparkles className="h-7 w-7 text-pink-400" /> }
+];
 
-  const resumeSections = [
-    { title: "Contact Information", description: "Name, phone, email, location, and online profiles" },
-    { title: "Professional Summary", description: "2-3 sentence overview of your background and strengths" },
-    { title: "Work Experience", description: "Relevant jobs with measurable achievements" },
-    { title: "Education", description: "Degrees, certifications, and relevant coursework" },
-    { title: "Skills", description: "Technical, soft, and industry-specific abilities" },
-    { title: "Projects", description: "Noteworthy accomplishments that showcase your abilities" }
-  ];
+const resumeTips = [
+  "Use action verbs to start bullet points (e.g., Led, Developed, Managed)",
+  "Quantify achievements when possible (e.g., Increased sales by 25%)",
+  "Tailor your resume for each job application to match keywords",
+  "Keep formatting consistent throughout the document",
+  "Limit your resume to 1-2 pages for most industries",
+  "Have someone else proofread for typos and clarity"
+];
 
-  const resumeTips = [
-    "Use action verbs to start bullet points (e.g., Led, Developed, Managed)",
-    "Quantify achievements when possible (e.g., Increased sales by 25%)",
-    "Tailor your resume for each job application to match keywords",
-    "Keep formatting consistent throughout the document",
-    "Limit your resume to 1-2 pages for most industries",
-    "Have someone else proofread for typos and clarity"
-  ];
-
-  const showTip = (index: number) => {
-    toast({
-      title: "Resume Tip",
-      description: resumeTips[index],
-    });
-  };
-
-  return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center animate-fade-in">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-resume-purple to-blue-500">
-            Resume Guide
-          </span>
-        </h1>
-        
-        <div className="relative mb-12 p-1">
-          <div className="absolute inset-0 bg-gradient-to-r from-resume-soft-green to-resume-soft-blue rounded-xl blur-md opacity-70"></div>
-          <div className="relative bg-white p-6 md:p-8 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4 text-resume-purple flex items-center gap-2">
-              <BookOpen className="h-5 w-5" />
-              Getting Started
-            </h2>
-            <p className="text-gray-600 leading-relaxed mb-6">
-              Follow our step-by-step guide to create a professional resume that stands out from the competition and increases your chances of landing interviews.
-            </p>
-            
-            <div className="space-y-4">
-              {resumeSections.map((section, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-start p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100"
-                >
-                  <div className="bg-resume-light-purple/30 h-8 w-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                    <span className="text-resume-purple font-medium">{index + 1}</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800">{section.title}</h3>
-                    <p className="text-gray-600 text-sm">{section.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-12 bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-          <h2 className="text-2xl font-bold mb-6 text-resume-purple flex items-center gap-2">
-            <CheckCircle className="h-5 w-5" />
-            Best Practices
-          </h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-            {resumeTips.map((tip, index) => (
-              <div 
-                key={index} 
-                className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer group"
-                onClick={() => showTip(index)}
-              >
-                <Check className="h-5 w-5 text-green-500 flex-shrink-0" />
-                <span className="text-gray-700 group-hover:text-gray-900 transition-colors text-sm">{tip}</span>
+const Guide = () => (
+  <div className="container mx-auto px-4 py-12 relative overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
+      <svg width="100%" height="100%">
+        <defs>
+          <radialGradient id="g1" cx="75%" cy="25%" r="80%">
+            <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.11" />
+            <stop offset="100%" stopColor="transparent" stopOpacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#g1)"/>
+      </svg>
+    </div>
+    <div className="max-w-3xl mx-auto animate-fade-in">
+      <h1 className="text-5xl md:text-6xl font-extrabold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-resume-purple via-yellow-400 to-blue-400">Resume Guide</h1>
+      <div className="mb-14 bg-white shadow-lg rounded-3xl p-8 animate-fade-in">
+        <h2 className="text-2xl font-bold mb-8 text-resume-purple flex items-center gap-2">
+          <BookOpen className="h-5 w-5" />
+          Step-by-step Overview
+        </h2>
+        <div className="space-y-5 divide-y">
+          {resumeSections.map((section, i) => (
+            <div key={i} className="flex items-center gap-5 py-5 animate-fade-in">
+              <div className="bg-gradient-to-br from-blue-100 to-yellow-100 rounded-full w-14 h-14 flex items-center justify-center shadow-inner">{section.icon}</div>
+              <div>
+                <h3 className="font-semibold text-lg text-gray-800 mb-1">{section.title}</h3>
+                <p className="text-gray-600">{section.description}</p>
               </div>
-            ))}
-          </div>
-          
-          <div className="mt-8">
-            <h3 className="font-semibold mb-4 text-gray-800">Resume Effectiveness Rating</h3>
-            <p className="text-sm text-gray-600 mb-4">Drag the slider to see how different elements affect your resume's success:</p>
-            <Slider
-              defaultValue={[70]}
-              max={100}
-              step={1}
-              className="py-6"
-            />
-            <div className="flex justify-between text-xs text-gray-500">
-              <span>Basic</span>
-              <span>Standard</span>
-              <span>Professional</span>
-              <span>Expert</span>
             </div>
-            <p className="mt-6 text-sm bg-resume-light-purple/20 p-4 rounded-lg text-gray-700">
-              <strong>Tip:</strong> A professionally designed resume with quantifiable achievements and tailored content can increase your interview chances by up to 65%.
-            </p>
-          </div>
-        </div>
-        
-        <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-resume-soft-yellow transform rotate-45 translate-x-8 -translate-y-8 opacity-50"></div>
-          
-          <h2 className="text-2xl font-bold mb-4 text-resume-purple flex items-center gap-2">
-            <HelpCircle className="h-5 w-5" />
-            Need More Help?
-          </h2>
-          
-          <p className="text-gray-600 leading-relaxed mb-6 relative z-10">
-            Our experts can provide personalized feedback on your resume. Schedule a 15-minute consultation with our career advisors.
-          </p>
-          
-          <div className="flex flex-wrap gap-4">
-            <Button 
-              className="flex items-center gap-2 group"
-              variant="outline"
-            >
-              View Sample Resumes
-              <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            
-            <Button 
-              className="flex items-center gap-2 bg-resume-purple hover:bg-resume-dark-purple group"
-            >
-              Get Expert Feedback
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
+          ))}
         </div>
       </div>
+      <div className="mb-14 bg-white shadow-lg rounded-3xl p-8 animate-fade-in">
+        <h2 className="text-2xl font-bold mb-6 text-resume-purple flex items-center gap-2">
+          <Star className="h-5 w-5" />
+          Best Practices
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {resumeTips.map((tip, i) => (
+            <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-yellow-50 transition transform hover:scale-105 animate-fade-in">
+              <span className="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-tr from-purple-100 to-yellow-100 font-bold text-resume-purple">{i + 1}</span>
+              <span className="text-gray-700">{tip}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="text-center pb-10">
+        <div className="inline-block px-7 py-5 bg-gradient-to-r from-resume-purple to-blue-400 rounded-full shadow-lg animate-bounce text-white font-semibold text-lg cursor-pointer hover:scale-105 transition-all">Try Resume Builder &rarr;</div>
+      </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default Guide;

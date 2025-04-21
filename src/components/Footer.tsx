@@ -1,37 +1,31 @@
+
 import React, { useState, useEffect } from 'react';
 import { FileText, Github, Twitter, Linkedin, Mail, Heart, Clock, Calendar, Copyright } from 'lucide-react';
 
 const Footer = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  
   useEffect(() => {
-    // Update time every second
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
-  
-  // Format the current time with seconds
-  const formatTime = (date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  };
-  
-  // Format the current date
-  const formatDate = (date) => {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString(undefined, options);
-  };
+  const formatTime = (date) => date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const formatDate = (date) => date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
   return (
-    <footer className="bg-gray-900 text-white py-10 relative overflow-hidden">
-      {/* Add subtle animated background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,#ffffff_1px,transparent_0)] bg-[size:24px_24px]"></div>
+    <footer className="bg-black text-white py-10 relative overflow-hidden border-t-4 border-resume-purple">
+      {/* Animated SVG Pattern Background */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <svg width="100%" height="100%">
+          <defs>
+            <pattern id="footerPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+              <circle cx="20" cy="20" r="16" fill="#22223B" />
+              <rect x="0" y="0" width="40" height="40" fill="none" stroke="#9b87f5" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#footerPattern)" />
+        </svg>
       </div>
-      
-      <div className="container mx-auto px-4 relative">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
@@ -39,25 +33,15 @@ const Footer = () => {
               <span className="text-xl font-bold">Nowhile</span>
             </div>
             <p className="text-gray-400 max-w-md">
-              Create professional, eye-catching resumes in minutes with our easy-to-use resume builder.
-              Choose from multiple templates and customize to your needs.
+              Create professional, modern resumes with our one-click builder and vibrant templates.
             </p>
             <div className="flex space-x-4 pt-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Github size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Linkedin size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Mail size={20} />
-              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors"><Github size={20} /></a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors"><Twitter size={20} /></a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors"><Linkedin size={20} /></a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors"><Mail size={20} /></a>
             </div>
           </div>
-          
           <div className="grid grid-cols-2 gap-8">
             <div>
               <h3 className="font-bold text-lg mb-3 text-resume-purple">Resources</h3>
@@ -79,19 +63,16 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
-        {/* Date and time display with updated styling */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 pt-4 border-t border-gray-800 text-gray-400 text-sm">
-          <div className="flex items-center px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
+          <div className="flex items-center px-4 py-2 rounded-lg bg-black/30 backdrop-blur-sm">
             <Clock className="h-4 w-4 mr-2" />
             <span className="font-mono">{formatTime(currentTime)}</span>
           </div>
-          <div className="flex items-center px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
+          <div className="flex items-center px-4 py-2 rounded-lg bg-black/30 backdrop-blur-sm">
             <Calendar className="h-4 w-4 mr-2" />
             <span>{formatDate(currentTime)}</span>
           </div>
         </div>
-        
         <div className="border-t border-gray-800 mt-4 pt-6 text-center text-gray-500 text-sm flex flex-col sm:flex-row justify-between items-center">
           <div className="flex items-center">
             <Copyright className="h-4 w-4 mr-1" />

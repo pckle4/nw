@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -11,8 +12,7 @@ import AiTips from '@/components/AiTips';
 import { initialResumeData } from '@/data/initialData';
 import { ResumeData } from '@/types/resume';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { Slider } from '@/components/ui/slider';
-import { FileText, Sparkles, CheckCircle2, ArrowRight, Cpu, Download, Home, Info } from 'lucide-react';
+import { FileText, Sparkles, CheckCircle2, Cpu, Download, Home, Info, Star, TrendingUp, Users } from 'lucide-react';
 
 const Index = () => {
   const [step, setStep] = useState<'templates' | 'form' | 'preview'>('templates');
@@ -30,138 +30,128 @@ const Index = () => {
   const handleSelectTemplate = (templateId: string) => {
     setSelectedTemplate(templateId);
   };
-
   const handleStartForm = () => {
     setStep('form');
     window.scrollTo(0, 0);
   };
-
   const handleBackToTemplates = () => {
     setStep('templates');
     window.scrollTo(0, 0);
   };
-
   const handleFormComplete = () => {
     setStep('preview');
     window.scrollTo(0, 0);
   };
-
   const updateResumeData = (data: ResumeData) => {
     setResumeData(data);
   };
 
+  // Modern colorful & animated features, with fun icons and SVG background effects!
   const features = [
-    { 
-      title: "Professional Templates", 
-      description: "Choose from beautifully designed resume templates that stand out",
-      icon: <FileText className="h-6 w-6 text-resume-purple" />
+    {
+      title: "Pro Templates",
+      description: "Choose professionally designed, modern templates for instant impact.",
+      icon: <Star className="h-7 w-7 text-yellow-400 group-hover:animate-bounce transition-transform" />,
     },
-    { 
-      title: "Smart AI Tips", 
-      description: "Get intelligent suggestions to improve your resume content",
-      icon: <Sparkles className="h-6 w-6 text-resume-purple" />
+    {
+      title: "Smart AI Help",
+      description: "Get real-time AI-powered tips to boost your resume content and design.",
+      icon: <Sparkles className="h-7 w-7 text-purple-400 group-hover:rotate-12 transition-transform" />,
     },
-    { 
-      title: "Easy to Customize", 
-      description: "Simple editing tools to make your resume perfect",
-      icon: <CheckCircle2 className="h-6 w-6 text-resume-purple" />
+    {
+      title: "1-Click Export",
+      description: "Download your resume in PDF with a single animated click.",
+      icon: <Download className="h-7 w-7 text-blue-400 group-hover:scale-125 transition-transform" />,
     },
-    { 
-      title: "ATS-Friendly", 
-      description: "Optimized for Applicant Tracking Systems",
-      icon: <Cpu className="h-6 w-6 text-resume-purple" />
+    {
+      title: "Career Tips",
+      description: "Built-in advice to tailor your CV for every opportunity.",
+      icon: <TrendingUp className="h-7 w-7 text-green-400 group-hover:animate-spin-slow transition-transform" />,
     },
-    { 
-      title: "Export Options", 
-      description: "Download in multiple formats including PDF",
-      icon: <Download className="h-6 w-6 text-resume-purple" />
+    {
+      title: "Collaboration",
+      description: "Share, get feedback, and collaborate on resumes instantly.",
+      icon: <Users className="h-7 w-7 text-fuchsia-400 group-hover:scale-110 transition-transform" />,
     },
-    { 
-      title: "Privacy Focused", 
-      description: "Your data stays secure and private",
-      icon: <Home className="h-6 w-6 text-resume-purple" />
+    {
+      title: "Total Privacy",
+      description: "Your resume. Your rules. Your data is encrypted and safe.",
+      icon: <Home className="h-7 w-7 text-gray-300 group-hover:animate-pulse transition-transform" />,
     }
   ];
 
   return (
     <TooltipProvider>
       {isLoading && <PreloadingScreen />}
-      <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-slate-100">
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-slate-100 relative">
+        {/* SVG Decorative Background */}
+        <div className="fixed inset-0 pointer-events-none -z-10">
+          <svg width="100vw" height="100vh" className="absolute top-0 left-0" style={{ width: '100vw', height: '100vh' }}>
+            <defs>
+              <radialGradient id="homebg1" cx="30%" cy="15%" r="80%">
+                <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.18" />
+                <stop offset="90%" stopColor="transparent" stopOpacity="0"/>
+              </radialGradient>
+              <radialGradient id="homebg2" cx="70%" cy="90%" r="80%">
+                <stop offset="0%" stopColor="#1EAEDB" stopOpacity="0.12" />
+                <stop offset="90%" stopColor="transparent" stopOpacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#homebg1)" />
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#homebg2)" />
+            <circle cx="90%" cy="12%" r="110" fill="#facc15" opacity="0.09" />
+            <circle cx="25%" cy="85%" r="70" fill="#f9fafb" opacity="0.09" />
+          </svg>
+        </div>
+
         <Header />
-        
         <main className="container mx-auto px-4 py-8 flex-grow">
           {step === 'templates' && (
             <>
-              <div className="py-12 md:py-20 px-4 max-w-6xl mx-auto relative">
-                <div className="absolute top-0 right-0 -z-10 opacity-20">
-                  <svg width="400" height="400" viewBox="0 0 100 100" className="animate-float">
-                    <circle cx="50" cy="50" r="40" fill="url(#grad1)" />
-                    <defs>
-                      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style={{ stopColor: '#9b87f5', stopOpacity: 1 }} />
-                        <stop offset="100%" style={{ stopColor: '#D6BCFA', stopOpacity: 1 }} />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-                <div className="absolute bottom-0 left-0 -z-10 opacity-20">
-                  <svg width="300" height="300" viewBox="0 0 100 100" className="animate-float">
-                    <polygon points="50,0 100,87 0,87" fill="url(#grad2)" />
-                    <defs>
-                      <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style={{ stopColor: '#D6BCFA', stopOpacity: 1 }} />
-                        <stop offset="100%" style={{ stopColor: '#9b87f5', stopOpacity: 1 }} />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-
-                <div className="text-center space-y-6 animate-fade-in relative">
-                  <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-resume-purple to-blue-500">
-                      Elevate Your Career with Professional Resumes
-                    </span>
+              <div className="py-14 md:py-24 px-4 max-w-6xl mx-auto relative animate-fade-in">
+                {/* Animated Gradient overlay */}
+                <div className="absolute left-1/2 top-0 -translate-x-1/2 w-3/4 h-48 blur-3xl opacity-50 pointer-events-none" style={{ background: 'linear-gradient(90deg,#8B5CF655,#1EAEDB33 80%)' }} />
+                <div className="text-center space-y-6 relative z-10">
+                  <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-resume-purple via-yellow-400 to-blue-400 animate-fade-in">
+                    Modern Resumes for Your Dream Job
                   </h1>
-                  <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Create stunning, ATS-friendly resumes in minutes with our intuitive builder. Stand out from the competition and land your dream job.
+                  <p className="text-2xl text-gray-700 max-w-2xl mx-auto animate-fade-in">
+                    Instantly create stunning, ATS-optimized resumes with AI-powered guidance, vibrant templates, and live preview.
                   </p>
-                  
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
-                    <button 
-                      onClick={() => window.scrollTo({top: document.getElementById('templates')?.offsetTop - 100, behavior: 'smooth'})}
-                      className="px-8 py-3 rounded-xl bg-resume-purple text-white font-medium flex items-center gap-2 transform hover:scale-105 transition-all hover:shadow-lg group relative overflow-hidden"
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+                    <button
+                      onClick={() => window.scrollTo({ top: document.getElementById('templates')?.offsetTop! - 80, behavior: 'smooth' })}
+                      className="px-10 py-4 rounded-full shadow-lg bg-gradient-to-r from-resume-purple to-blue-500 text-white text-lg font-semibold flex items-center gap-3 transform hover:scale-105 transition-all animate-bounce"
                     >
-                      <span className="relative z-10">Get Started</span>
-                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform relative z-10" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-resume-purple to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      Get Started
+                      <Info className="h-6 w-6" />
                     </button>
-                    
-                    <button 
-                      onClick={() => window.scrollTo({top: document.getElementById('about')?.offsetTop - 100, behavior: 'smooth'})}
-                      className="px-8 py-3 rounded-xl border border-gray-300 hover:bg-gray-50 font-medium transition-all group flex items-center gap-2"
+                    <button
+                      onClick={() => window.scrollTo({ top: document.getElementById('about')?.offsetTop! - 80, behavior: 'smooth' })}
+                      className="px-10 py-4 rounded-full border border-gray-300 hover:bg-gray-50 text-lg font-semibold transition-all flex items-center gap-3"
                     >
                       Learn More
-                      <Info className="h-4 w-4 group-hover:rotate-12 transition-transform" />
                     </button>
                   </div>
                 </div>
-                
-                <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Upgraded features section with animation */}
+                <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                   {features.map((feature, index) => (
-                    <div 
-                      key={index} 
-                      className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group"
+                    <div
+                      key={index}
+                      className="bg-white/80 p-8 rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group
+                          flex flex-col items-center text-center animate-fade-in"
                     >
-                      <div className="h-12 w-12 bg-resume-light-purple/30 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <div className="flex items-center justify-center mb-6 bg-gradient-to-tr from-blue-100 to-yellow-100 rounded-full w-16 h-16 shadow-inner group-hover:scale-110 transition-transform">
                         {feature.icon}
                       </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-resume-purple transition-colors">{feature.title}</h3>
+                      <h3 className="text-2xl font-extrabold mb-2 group-hover:text-resume-purple transition-colors">{feature.title}</h3>
                       <p className="text-gray-600">{feature.description}</p>
                     </div>
                   ))}
                 </div>
               </div>
-
+              {/* Templates Section */}
               <div id="templates" className="pt-10">
                 <TemplateSelector
                   selectedTemplate={selectedTemplate}
@@ -169,30 +159,28 @@ const Index = () => {
                   onNext={handleStartForm}
                 />
               </div>
-              
               <AboutSection />
               <FaqSection />
             </>
           )}
-          
+
           {step === 'form' && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <ResumeForm 
+              <ResumeForm
                 initialData={resumeData}
                 onUpdateData={updateResumeData}
                 onComplete={handleFormComplete}
                 onBack={handleBackToTemplates}
               />
-              
               <div className="hidden lg:block sticky top-24 h-[calc(100vh-6rem)]">
-                <ResumePreview 
-                  data={resumeData} 
-                  templateId={selectedTemplate} 
+                <ResumePreview
+                  data={resumeData}
+                  templateId={selectedTemplate}
                 />
               </div>
             </div>
           )}
-          
+
           {step === 'preview' && (
             <div className="animate-fade-in">
               <div className="max-w-4xl mx-auto mb-8 text-center space-y-4">
@@ -201,7 +189,7 @@ const Index = () => {
                   Your professional resume has been created. Download it now or go back to make changes.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <button 
+                  <button
                     onClick={() => setStep('form')}
                     className="px-6 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
                   >
@@ -220,19 +208,16 @@ const Index = () => {
                   </button>
                 </div>
               </div>
-              
               <div className="max-w-4xl mx-auto">
                 <AiTips data={resumeData} templateId={selectedTemplate} />
-                
-                <ResumePreview 
-                  data={resumeData} 
-                  templateId={selectedTemplate} 
+                <ResumePreview
+                  data={resumeData}
+                  templateId={selectedTemplate}
                 />
               </div>
             </div>
           )}
         </main>
-        
         <Footer />
       </div>
     </TooltipProvider>
