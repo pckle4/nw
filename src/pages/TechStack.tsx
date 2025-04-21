@@ -193,11 +193,45 @@ const TechStack = () => (
             <div key={i}
               className={`rounded-3xl shadow-lg p-8 text-center w-full h-full bg-gradient-to-br ${tech.color} hover:scale-105 transition-transform animate-scale-in`}
             >
+              {/* Make text pop with improved contrast */}
               <div className="flex justify-center mb-3">{tech.icon}</div>
-              <h3 className="font-bold text-lg text-white drop-shadow mb-2">{tech.name}</h3>
-              <p className="text-gray-100 text-base font-semibold">{tech.desc}</p>
+              <h3 className="font-bold text-lg text-blue-900 drop-shadow mb-2">{tech.name}</h3>
+              <p className="text-gray-900 text-base font-semibold drop-shadow">{tech.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+      {/* NEW: Community Section */}
+      <section className="mb-12">
+        <div className="bg-gradient-to-r from-purple-100 to-white border-l-4 border-resume-purple rounded-2xl shadow-md p-8">
+          <h2 className="text-2xl font-extrabold text-resume-purple mb-3">Open Source & Community</h2>
+          <p className="text-gray-800 mb-2">
+            Nowhile is built in public: every template, feature, and update is shaped by developers and users together. Our Github is open for contributions.
+          </p>
+          <p className="text-gray-900">
+            <b>Join the community:</b> Request features, report bugs, or contribute code and designs—everyone’s input is valued.
+          </p>
+          <ul className="list-disc ml-8 mt-3 text-md text-blue-800">
+            <li>100% open-source codebase</li>
+            <li>Transparent roadmap & changelog</li>
+            <li>Welcoming code of conduct</li>
+            <li>Active Discord for support and networking</li>
+          </ul>
+        </div>
+      </section> 
+      {/* NEW: Performance and Security Section */}
+      <section className="mb-16">
+        <div className="bg-gradient-to-r from-yellow-100 via-resume-purple/20 to-blue-50 border-l-4 border-blue-400 rounded-2xl shadow-md p-8">
+          <h2 className="text-2xl font-extrabold text-blue-600 mb-3">Performance and Security</h2>
+          <p className="text-gray-800 mb-2">
+            Your data is processed instantly, with no loading delays and zero tracking. Security is built-in from the ground up: all personal data stays local by default.
+          </p>
+          <ul className="list-disc ml-8 mt-3 text-md text-purple-900">
+            <li>Client-side processing for ultimate privacy</li>
+            <li>No third-party analytics or ads</li>
+            <li>Exported files never touch a server</li>
+            <li>Constant performance upgrades so you never wait</li>
+          </ul>
         </div>
       </section>
       <section className="mb-16">
@@ -239,5 +273,4 @@ const TechStack = () => (
     <Footer />
   </div>
 );
-
 export default TechStack;

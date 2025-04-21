@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -46,7 +45,6 @@ const Index = () => {
     setResumeData(data);
   };
 
-  // Modern colorful & animated features, with fun icons and SVG background effects!
   const features = [
     {
       title: "Pro Templates",
@@ -84,7 +82,6 @@ const Index = () => {
     <TooltipProvider>
       {isLoading && <PreloadingScreen />}
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-slate-100 relative">
-        {/* SVG Decorative Background */}
         <div className="fixed inset-0 pointer-events-none -z-10">
           <svg width="100vw" height="100vh" className="absolute top-0 left-0" style={{ width: '100vw', height: '100vh' }}>
             <defs>
@@ -109,7 +106,6 @@ const Index = () => {
           {step === 'templates' && (
             <>
               <div className="py-14 md:py-24 px-4 max-w-6xl mx-auto relative animate-fade-in">
-                {/* Animated Gradient overlay */}
                 <div className="absolute left-1/2 top-0 -translate-x-1/2 w-3/4 h-48 blur-3xl opacity-50 pointer-events-none" style={{ background: 'linear-gradient(90deg,#8B5CF655,#1EAEDB33 80%)' }} />
                 <div className="text-center space-y-6 relative z-10">
                   <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-resume-purple via-yellow-400 to-blue-400 animate-fade-in">
@@ -134,7 +130,6 @@ const Index = () => {
                     </button>
                   </div>
                 </div>
-                {/* Upgraded features section with animation */}
                 <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                   {features.map((feature, index) => (
                     <div
@@ -151,7 +146,6 @@ const Index = () => {
                   ))}
                 </div>
               </div>
-              {/* Templates Section */}
               <div id="templates" className="pt-10">
                 <TemplateSelector
                   selectedTemplate={selectedTemplate}
@@ -161,6 +155,39 @@ const Index = () => {
               </div>
               <AboutSection />
               <FaqSection />
+              <section className="my-16">
+                <div className="bg-gradient-to-r from-white via-slate-100 to-purple-50 border border-slate-200 rounded-3xl shadow-lg p-10 md:p-14">
+                  <h2 className="text-3xl font-extrabold mb-6 text-resume-purple text-center">
+                    How Nowhile Works
+                  </h2>
+                  <div className="grid md:grid-cols-2 gap-10">
+                    <div>
+                      <h3 className="text-xl font-bold mb-2 text-blue-700">Pick a Template</h3>
+                      <p className="text-gray-800 leading-relaxed">
+                        Select from our range of modern, professional templates designed to impress. Every template is fully customizable and optimized for both print and screen.
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold mb-2 text-green-700">Build With Guidance</h3>
+                      <p className="text-gray-800 leading-relaxed">
+                        Our AI-powered system and inline tips help you craft outstanding content and avoid common mistakes. Live preview ensures you see every change instantly.
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold mb-2 text-purple-700">Collaborate & Get Feedback</h3>
+                      <p className="text-gray-800 leading-relaxed">
+                        Easily share your resume for reviewing and feedback—perfect for mentors, coaches, or peers. Built-in privacy means only those you invite can view and comment.
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold mb-2 text-yellow-700">1-Click Export</h3>
+                      <p className="text-gray-800 leading-relaxed">
+                        Download your resume in high-quality PDF format with a single click. Your data stays secure and private—always in your hands.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </>
           )}
 

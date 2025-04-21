@@ -1,6 +1,36 @@
 import React from 'react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { BookOpen, Star, Users, TrendingUp, Sparkles, CheckCircle2, Pencil, Heart, Globe, Shield, Lightbulb, Activity, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+const advancedSections = [
+  {
+    title: "Personal Website",
+    desc: "Showcase your own domain or personal project portfolio. Including a website shows tech-savvy, professionalism, and helps recruiters see your broader work.",
+    icon: <Globe className="h-8 w-8 text-blue-700 animate-pulse" />
+  },
+  {
+    title: "Hobbies & Interests",
+    desc: "Mention a few relevant interests (tech, volunteering, writing, etc). This helps recruiters see your personality and possible team fit.",
+    icon: <Heart className="h-8 w-8 text-pink-600 animate-pulse" />
+  },
+  {
+    title: "Tech Stack",
+    desc: "List your primary programming languages/tools. This can be a tag list or icon grid—tailor it to each job for best results.",
+    icon: <Sparkles className="h-8 w-8 text-resume-purple animate-spin" />
+  },
+  {
+    title: "Online Publications",
+    desc: "Got articles, blogs, or tutorials? Add links to relevant publications and explain your impact or audience.",
+    icon: <BookOpen className="h-8 w-8 text-blue-900 animate-pulse" />,
+  },
+  {
+    title: "Video Resume",
+    desc: "Include a QR code or URL linking to a short, professional video introduction. These are increasingly common for creative and tech roles.",
+    icon: <Sparkles className="h-8 w-8 text-yellow-400 animate-bounce" />,
+  },
+];
 
 const sections = [
   {
@@ -170,9 +200,10 @@ const extraContent = (
 );
 
 const Guide = () => (
-  <div className="relative bg-gradient-to-br from-slate-100 via-white to-blue-50 min-h-screen overflow-x-hidden">
+  <div className="relative bg-gradient-to-br from-slate-100 via-white to-blue-50 min-h-screen overflow-x-hidden flex flex-col">
     {backgrounds}
-    <div className="max-w-3xl mx-auto px-4 py-12 animate-fade-in">
+    <Header />
+    <div className="max-w-3xl mx-auto px-4 py-12 animate-fade-in flex-1">
       <h1 className="text-5xl md:text-6xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-resume-purple via-yellow-400 to-blue-400 drop-shadow-lg">
         The Ultimate Resume Guide
       </h1>
@@ -183,12 +214,12 @@ const Guide = () => (
               <BookOpen className="h-6 w-6" /> Section-by-Section Walkthrough
             </h2>
             <div className="grid grid-cols-1 gap-8">
-              {sections.map((section, i) => (
+              {sections.concat(advancedSections).map((section, i) => (
                 <div key={i} className="flex items-start gap-5 animate-fade-in">
                   <div className="shrink-0 rounded-full p-2 bg-gradient-to-br from-blue-100 to-yellow-100 shadow-inner">{section.icon}</div>
                   <div>
-                    <h3 className="font-semibold text-xl mb-1 text-resume-purple">{section.title}</h3>
-                    <p className="text-gray-700">{section.desc}</p>
+                    <h3 className="font-semibold text-xl mb-1 text-blue-900">{section.title}</h3>
+                    <p className="text-gray-900">{section.desc}</p>
                   </div>
                 </div>
               ))}
@@ -201,7 +232,7 @@ const Guide = () => (
             </h2>
             <ol className="space-y-4">
               {tips.map((tip, i) => (
-                <li key={i} className="flex items-center gap-4 text-gray-700 group hover:scale-105 transition-transform animate-fade-in">
+                <li key={i} className="flex items-center gap-4 text-gray-900 group hover:scale-105 transition-transform animate-fade-in">
                   <span className="rounded-full shadow-lg border-2 border-resume-purple bg-yellow-50 w-10 h-10 flex items-center justify-center">{tip.icon}</span>
                   <span className="font-semibold">{tip.text}</span>
                 </li>
@@ -214,7 +245,7 @@ const Guide = () => (
       <div className="mb-16 animate-fade-in">
         <div className="bg-gradient-to-r from-resume-purple/10 via-blue-100/30 to-violet-200/30 rounded-3xl p-8 shadow-md">
           <h2 className="text-3xl font-bold mb-4 text-center text-vivid-purple">Frequently Asked Questions</h2>
-          <ul className="space-y-5">
+          <ul className="space-y-5 text-gray-900">
             <li>
               <b>How long should my resume be?</b><br />
               For most candidates, 1 page is ideal. (2 pages maximum for experienced professionals)
@@ -247,6 +278,7 @@ const Guide = () => (
         </Link>
       </div>
     </div>
+    <Footer />
   </div>
 );
 
