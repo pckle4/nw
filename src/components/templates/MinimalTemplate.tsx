@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ResumeData } from '@/types/resume';
 
@@ -13,7 +14,6 @@ const MinimalTemplate: React.FC<MinimalTemplateProps> = ({ data }) => {
       {/* Header */}
       <header className="text-center mb-6">
         <h1 className="text-4xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
-        <p className="text-xl text-gray-600 mb-3">{personalInfo.jobTitle || "Professional Title"}</p>
         
         <div className="flex flex-wrap justify-center gap-3 text-sm text-gray-600">
           {personalInfo.phone && <span className="truncate">{personalInfo.phone}</span>}
@@ -23,14 +23,20 @@ const MinimalTemplate: React.FC<MinimalTemplateProps> = ({ data }) => {
           {personalInfo.location && <span className="truncate">{personalInfo.location}</span>}
           {personalInfo.location && personalInfo.linkedin && <span>•</span>}
           {personalInfo.linkedin && <span className="truncate">{personalInfo.linkedin}</span>}
+          {personalInfo.linkedin && personalInfo.personalWebsite && <span>•</span>}
+          {personalInfo.personalWebsite && <span className="truncate">{personalInfo.personalWebsite}</span>}
+          {personalInfo.personalWebsite && personalInfo.twitter && <span>•</span>}
+          {personalInfo.twitter && <span className="truncate">{personalInfo.twitter}</span>}
         </div>
       </header>
       
-      {/* Summary */}
-      {personalInfo.summary && (
+      {/* Objective/Summary */}
+      {(personalInfo.objective || personalInfo.summary) && (
         <section className="mb-6">
-          <h2 className="text-lg font-bold uppercase mb-2 border-b border-gray-200 pb-1">Summary</h2>
-          <p className="text-base leading-relaxed">{personalInfo.summary}</p>
+          <h2 className="text-lg font-bold uppercase mb-2 border-b border-gray-200 pb-1">
+            {personalInfo.objective ? 'Career Objective' : 'Summary'}
+          </h2>
+          <p className="text-base leading-relaxed">{personalInfo.objective || personalInfo.summary}</p>
         </section>
       )}
       
@@ -39,7 +45,7 @@ const MinimalTemplate: React.FC<MinimalTemplateProps> = ({ data }) => {
         {experience.length > 0 && (
           <section className="mb-6">
             <h2 className="text-sm font-bold uppercase mb-2 border-b border-gray-200 pb-1 sticky top-0 bg-white z-10">Experience</h2>
-            <div className="space-y-3 overflow-y-auto max-h-[30vh]">
+            <div className="space-y-3">
               {experience.map((job) => (
                 <div key={job.id}>
                   <div className="flex justify-between mb-0.5">
@@ -61,7 +67,7 @@ const MinimalTemplate: React.FC<MinimalTemplateProps> = ({ data }) => {
         {education.length > 0 && (
           <section className="mb-6">
             <h2 className="text-sm font-bold uppercase mb-2 border-b border-gray-200 pb-1 sticky top-0 bg-white z-10">Education</h2>
-            <div className="space-y-3 overflow-y-auto max-h-[20vh]">
+            <div className="space-y-3">
               {education.map((edu) => (
                 <div key={edu.id}>
                   <div className="flex justify-between mb-0.5">
@@ -85,7 +91,7 @@ const MinimalTemplate: React.FC<MinimalTemplateProps> = ({ data }) => {
         {skills.length > 0 && (
           <section className="mb-6">
             <h2 className="text-sm font-bold uppercase mb-2 border-b border-gray-200 pb-1 sticky top-0 bg-white z-10">Skills</h2>
-            <div className="space-y-2 overflow-y-auto max-h-[20vh]">
+            <div className="space-y-2">
               {[...new Set(skills.map(skill => skill.category))].map(category => {
                 const categorySkills = skills.filter(skill => skill.category === category);
                 const categoryName = data.skillCategories.find(cat => cat.id === category)?.name || 
@@ -115,7 +121,7 @@ const MinimalTemplate: React.FC<MinimalTemplateProps> = ({ data }) => {
         {projects.length > 0 && (
           <section>
             <h2 className="text-sm font-bold uppercase mb-2 border-b border-gray-200 pb-1 sticky top-0 bg-white z-10">Projects</h2>
-            <div className="space-y-3 overflow-y-auto max-h-[25vh]">
+            <div className="space-y-3">
               {projects.map((project) => (
                 <div key={project.id}>
                   <div className="flex justify-between mb-0.5">

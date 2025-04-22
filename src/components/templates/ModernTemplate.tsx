@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { ResumeData } from '@/types/resume';
-import { PhoneCall, Mail, MapPin, Linkedin } from 'lucide-react';
+import { PhoneCall, Mail, MapPin, Linkedin, FileText, Twitter, Link } from 'lucide-react';
 
 interface ModernTemplateProps {
   data: ResumeData;
@@ -12,11 +13,10 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
   return (
     <div className="w-full h-full flex flex-col text-slate-800 bg-white print:overflow-hidden">
       {/* Header */}
-      <div className="bg-resume-purple text-white p-8">
-        <h1 className="text-4xl font-bold tracking-tight">{personalInfo.fullName || "Your Name"}</h1>
-        <h2 className="text-xl mt-2 text-white/90">{personalInfo.jobTitle || "Professional Title"}</h2>
+      <div className="bg-resume-purple text-white p-6 pb-7">
+        <h1 className="text-3xl font-bold tracking-tight">{personalInfo.fullName || "Your Name"}</h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-white/90 text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3 text-white/90 text-sm">
           {personalInfo.phone && (
             <div className="flex items-center gap-2 truncate">
               <PhoneCall className="h-3.5 w-3.5 flex-shrink-0" />
@@ -44,35 +44,51 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
               <span className="truncate">{personalInfo.linkedin}</span>
             </div>
           )}
+          
+          {personalInfo.personalWebsite && (
+            <div className="flex items-center gap-2 truncate">
+              <Link className="h-3.5 w-3.5 flex-shrink-0" />
+              <span className="truncate">{personalInfo.personalWebsite}</span>
+            </div>
+          )}
+          
+          {personalInfo.twitter && (
+            <div className="flex items-center gap-2 truncate">
+              <Twitter className="h-3.5 w-3.5 flex-shrink-0" />
+              <span className="truncate">{personalInfo.twitter}</span>
+            </div>
+          )}
         </div>
       </div>
       
       {/* Main Content */}
-      <div className="flex flex-1 flex-col md:flex-row p-8 gap-8 print:gap-6">
+      <div className="flex flex-1 flex-col md:flex-row p-6 gap-6 print:gap-5">
         {/* Left Column */}
-        <div className="w-full md:w-2/3 space-y-6">
-          {personalInfo.summary && (
+        <div className="w-full md:w-2/3 space-y-5">
+          {(personalInfo.objective || personalInfo.summary) && (
             <section>
-              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-2 text-resume-purple uppercase mb-3">Summary</h3>
-              <p className="text-base leading-relaxed">{personalInfo.summary}</p>
+              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-1 text-resume-purple uppercase mb-2">
+                {personalInfo.objective ? 'Career Objective' : 'Summary'}
+              </h3>
+              <p className="text-sm leading-relaxed">{personalInfo.objective || personalInfo.summary}</p>
             </section>
           )}
           
           {experience.length > 0 && (
             <section>
-              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-2 text-resume-purple uppercase mb-3">Experience</h3>
-              <div className="space-y-4">
+              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-1 text-resume-purple uppercase mb-2">Experience</h3>
+              <div className="space-y-3">
                 {experience.map((job) => (
-                  <div key={job.id} className="space-y-2">
+                  <div key={job.id} className="space-y-1">
                     <div className="flex justify-between items-start">
                       <h4 className="text-base font-bold">{job.position}</h4>
-                      <span className="text-sm text-gray-600 whitespace-nowrap">{job.startDate} - {job.endDate}</span>
+                      <span className="text-xs text-gray-600 whitespace-nowrap">{job.startDate} - {job.endDate}</span>
                     </div>
                     <div className="flex justify-between">
-                      <h5 className="text-base text-gray-700">{job.company}</h5>
-                      <span className="text-sm text-gray-600">{job.location}</span>
+                      <h5 className="text-sm text-gray-700">{job.company}</h5>
+                      <span className="text-xs text-gray-600">{job.location}</span>
                     </div>
-                    <p className="text-sm leading-relaxed">{job.description}</p>
+                    <p className="text-xs leading-relaxed">{job.description}</p>
                   </div>
                 ))}
               </div>
@@ -81,18 +97,18 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
           
           {projects.length > 0 && (
             <section>
-              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-2 text-resume-purple uppercase mb-3">Projects</h3>
-              <div className="space-y-4">
+              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-1 text-resume-purple uppercase mb-2">Projects</h3>
+              <div className="space-y-3">
                 {projects.map((project) => (
-                  <div key={project.id} className="space-y-2">
+                  <div key={project.id} className="space-y-1">
                     <div className="flex justify-between">
                       <h4 className="text-base font-bold">{project.name}</h4>
-                      <span className="text-sm text-gray-600 whitespace-nowrap">{project.date}</span>
+                      <span className="text-xs text-gray-600 whitespace-nowrap">{project.date}</span>
                     </div>
-                    <h5 className="text-base text-gray-700">{project.technologies}</h5>
-                    <p className="text-sm leading-relaxed">{project.description}</p>
+                    <h5 className="text-sm text-gray-700">{project.technologies}</h5>
+                    <p className="text-xs leading-relaxed">{project.description}</p>
                     {project.link && (
-                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm text-resume-purple hover:underline truncate block">
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-xs text-resume-purple hover:underline truncate block">
                         {project.link}
                       </a>
                     )}
@@ -104,22 +120,20 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
         </div>
         
         {/* Right Column */}
-        <div className="w-full md:w-1/3 space-y-6">
+        <div className="w-full md:w-1/3 space-y-5">
           {education.length > 0 && (
             <section>
-              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-2 text-resume-purple uppercase mb-3">Education</h3>
-              <div className="space-y-4">
+              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-1 text-resume-purple uppercase mb-2">Education</h3>
+              <div className="space-y-3">
                 {education.map((edu) => (
-                  <div key={edu.id} className="space-y-2">
+                  <div key={edu.id} className="space-y-1">
+                    <h4 className="text-base font-bold truncate">{edu.institution}</h4>
+                    <p className="font-medium text-sm truncate">{edu.degree} in {edu.field}</p>
                     <div className="flex justify-between">
-                      <h4 className="text-base font-bold">{edu.institution}</h4>
-                      <span className="text-sm text-gray-600 whitespace-nowrap">{edu.startDate} - {edu.endDate}</span>
+                      <span className="text-xs text-gray-600">{edu.startDate} - {edu.endDate}</span>
+                      {edu.gpa && <span className="text-xs whitespace-nowrap">GPA: {edu.gpa}</span>}
                     </div>
-                    <p className="font-medium text-base truncate">{edu.degree} in {edu.field}</p>
-                    <div className="flex justify-between">
-                      <span className="text-sm text-gray-600 truncate">{edu.location}</span>
-                      {edu.gpa && <span className="text-sm whitespace-nowrap">GPA: {edu.gpa}</span>}
-                    </div>
+                    <p className="text-xs text-gray-600">{edu.location}</p>
                   </div>
                 ))}
               </div>
@@ -128,8 +142,8 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
           
           {skills.length > 0 && (
             <section>
-              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-2 text-resume-purple uppercase mb-3">Skills</h3>
-              <div className="space-y-4">
+              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-1 text-resume-purple uppercase mb-2">Skills</h3>
+              <div className="space-y-3">
                 {[...new Set(skills.map(skill => skill.category))].map(category => {
                   const categorySkills = skills.filter(skill => skill.category === category);
                   const categoryName = data.skillCategories.find(cat => cat.id === category)?.name || 
@@ -138,8 +152,8 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
                      category === 'languages' ? 'Languages' : category);
                   
                   return categorySkills.length > 0 ? (
-                    <div key={category} className="space-y-2">
-                      <h4 className="text-base font-bold">{categoryName}</h4>
+                    <div key={category} className="space-y-1">
+                      <h4 className="text-sm font-bold">{categoryName}</h4>
                       <div className="flex flex-wrap gap-1">
                         {categorySkills.map((skill) => (
                           <span key={skill.id} className="inline-block px-1.5 py-0.5 text-[10px] bg-resume-light-purple/40 rounded truncate">
