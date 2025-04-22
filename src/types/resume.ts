@@ -1,4 +1,3 @@
-
 export interface PersonalInfo {
   fullName: string;
   jobTitle: string;
@@ -6,7 +5,13 @@ export interface PersonalInfo {
   phone: string;
   location: string;
   linkedin: string;
+  portfolio?: string;
+  github?: string;
+  twitter?: string;
+  achievements?: string;
+  objective?: string;
   summary: string;
+  [key: string]: string | undefined;
 }
 
 export interface ExperienceItem {

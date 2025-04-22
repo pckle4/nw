@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import StepIndicator from './StepIndicator';
@@ -41,9 +40,23 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<ResumeData>(initialData);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [isStepValid, setIsStepValid] = useState(false);
   const { toast } = useToast();
 
+  const handleValidationComplete = (isValid: boolean) => {
+    setIsStepValid(isValid);
+  };
+
   const handleNextStep = () => {
+    if (!isStepValid) {
+      toast({
+        title: "Please complete required fields",
+        description: "Fill in all required fields before proceeding to the next step.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     if (!completedSteps.includes(currentStep)) {
       setCompletedSteps([...completedSteps, currentStep]);
     }
@@ -95,7 +108,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
-        return <PersonalInfoForm data={formData} updateData={updateFormData} />;
+        return (
+          <PersonalInfoForm 
+            data={formData} 
+            updateData={updateFormData} 
+            onValidationComplete={handleValidationComplete}
+          />
+        );
       case 2:
         return <ExperienceForm data={formData} updateData={updateFormData} />;
       case 3:
