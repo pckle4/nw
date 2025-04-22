@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ResumeData } from '@/types/resume';
 import { PhoneCall, Mail, MapPin, Linkedin } from 'lucide-react';
@@ -11,13 +10,13 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
   const { personalInfo, experience, education, skills, projects } = data;
 
   return (
-    <div className="w-full h-full flex flex-col text-slate-800 bg-white overflow-hidden">
+    <div className="w-full h-full flex flex-col text-slate-800 bg-white print:overflow-hidden">
       {/* Header */}
-      <div className="bg-resume-purple text-white p-6">
-        <h1 className="text-3xl font-bold truncate">{personalInfo.fullName || "Your Name"}</h1>
-        <h2 className="text-lg mt-1 text-white/90 truncate">{personalInfo.jobTitle || "Professional Title"}</h2>
+      <div className="bg-resume-purple text-white p-8">
+        <h1 className="text-4xl font-bold tracking-tight">{personalInfo.fullName || "Your Name"}</h1>
+        <h2 className="text-xl mt-2 text-white/90">{personalInfo.jobTitle || "Professional Title"}</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4 text-white/90 text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-white/90 text-sm">
           {personalInfo.phone && (
             <div className="flex items-center gap-2 truncate">
               <PhoneCall className="h-3.5 w-3.5 flex-shrink-0" />
@@ -49,31 +48,31 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
       </div>
       
       {/* Main Content */}
-      <div className="flex flex-1 flex-col md:flex-row p-6 gap-6 overflow-auto">
+      <div className="flex flex-1 flex-col md:flex-row p-8 gap-8 print:gap-6">
         {/* Left Column */}
-        <div className="w-full md:w-2/3 space-y-5 overflow-auto">
+        <div className="w-full md:w-2/3 space-y-6">
           {personalInfo.summary && (
             <section>
-              <h3 className="text-base font-bold border-b border-resume-purple pb-1 text-resume-purple uppercase">Summary</h3>
-              <p className="mt-2 text-sm leading-snug line-clamp-6">{personalInfo.summary}</p>
+              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-2 text-resume-purple uppercase mb-3">Summary</h3>
+              <p className="text-base leading-relaxed">{personalInfo.summary}</p>
             </section>
           )}
           
           {experience.length > 0 && (
             <section>
-              <h3 className="text-base font-bold border-b border-resume-purple pb-1 text-resume-purple uppercase">Work Experience</h3>
-              <div className="mt-2 space-y-3 max-h-[calc(100%-4rem)] overflow-y-auto">
+              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-2 text-resume-purple uppercase mb-3">Experience</h3>
+              <div className="space-y-4">
                 {experience.map((job) => (
-                  <div key={job.id} className="space-y-1">
-                    <div className="flex justify-between">
-                      <h4 className="font-bold text-sm truncate max-w-[60%]">{job.position}</h4>
-                      <span className="text-xs text-gray-600 whitespace-nowrap">{job.startDate} - {job.endDate}</span>
+                  <div key={job.id} className="space-y-2">
+                    <div className="flex justify-between items-start">
+                      <h4 className="text-base font-bold">{job.position}</h4>
+                      <span className="text-sm text-gray-600 whitespace-nowrap">{job.startDate} - {job.endDate}</span>
                     </div>
                     <div className="flex justify-between">
-                      <h5 className="font-medium text-xs text-gray-700 truncate max-w-[60%]">{job.company}</h5>
-                      <span className="text-xs text-gray-600 truncate">{job.location}</span>
+                      <h5 className="text-base text-gray-700">{job.company}</h5>
+                      <span className="text-sm text-gray-600">{job.location}</span>
                     </div>
-                    <p className="text-xs mt-1 leading-snug line-clamp-4">{job.description}</p>
+                    <p className="text-sm leading-relaxed">{job.description}</p>
                   </div>
                 ))}
               </div>
@@ -82,18 +81,18 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
           
           {projects.length > 0 && (
             <section>
-              <h3 className="text-base font-bold border-b border-resume-purple pb-1 text-resume-purple uppercase">Projects</h3>
-              <div className="mt-2 space-y-3 max-h-[calc(100%-4rem)] overflow-y-auto">
+              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-2 text-resume-purple uppercase mb-3">Projects</h3>
+              <div className="space-y-4">
                 {projects.map((project) => (
-                  <div key={project.id} className="space-y-1">
+                  <div key={project.id} className="space-y-2">
                     <div className="flex justify-between">
-                      <h4 className="font-bold text-sm truncate max-w-[60%]">{project.name}</h4>
-                      <span className="text-xs text-gray-600 truncate">{project.date}</span>
+                      <h4 className="text-base font-bold">{project.name}</h4>
+                      <span className="text-sm text-gray-600 whitespace-nowrap">{project.date}</span>
                     </div>
-                    <h5 className="font-medium text-xs text-gray-700 truncate">{project.technologies}</h5>
-                    <p className="text-xs mt-1 leading-snug line-clamp-3">{project.description}</p>
+                    <h5 className="text-base text-gray-700">{project.technologies}</h5>
+                    <p className="text-sm leading-relaxed">{project.description}</p>
                     {project.link && (
-                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-xs text-resume-purple hover:underline truncate block">
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm text-resume-purple hover:underline truncate block">
                         {project.link}
                       </a>
                     )}
@@ -105,21 +104,21 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
         </div>
         
         {/* Right Column */}
-        <div className="w-full md:w-1/3 space-y-5 overflow-auto">
+        <div className="w-full md:w-1/3 space-y-6">
           {education.length > 0 && (
             <section>
-              <h3 className="text-base font-bold border-b border-resume-purple pb-1 text-resume-purple uppercase">Education</h3>
-              <div className="mt-2 space-y-3 max-h-[calc(100%-4rem)] overflow-y-auto">
+              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-2 text-resume-purple uppercase mb-3">Education</h3>
+              <div className="space-y-4">
                 {education.map((edu) => (
-                  <div key={edu.id} className="space-y-1">
+                  <div key={edu.id} className="space-y-2">
                     <div className="flex justify-between">
-                      <h4 className="font-bold text-sm truncate max-w-[60%]">{edu.institution}</h4>
-                      <span className="text-xs text-gray-600 whitespace-nowrap">{edu.startDate} - {edu.endDate}</span>
+                      <h4 className="text-base font-bold">{edu.institution}</h4>
+                      <span className="text-sm text-gray-600 whitespace-nowrap">{edu.startDate} - {edu.endDate}</span>
                     </div>
-                    <p className="font-medium text-xs truncate">{edu.degree} in {edu.field}</p>
+                    <p className="font-medium text-base truncate">{edu.degree} in {edu.field}</p>
                     <div className="flex justify-between">
-                      <span className="text-xs text-gray-600 truncate">{edu.location}</span>
-                      {edu.gpa && <span className="text-xs whitespace-nowrap">GPA: {edu.gpa}</span>}
+                      <span className="text-sm text-gray-600 truncate">{edu.location}</span>
+                      {edu.gpa && <span className="text-sm whitespace-nowrap">GPA: {edu.gpa}</span>}
                     </div>
                   </div>
                 ))}
@@ -129,8 +128,8 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
           
           {skills.length > 0 && (
             <section>
-              <h3 className="text-base font-bold border-b border-resume-purple pb-1 text-resume-purple uppercase">Skills</h3>
-              <div className="mt-2 space-y-3 max-h-[calc(100%-4rem)] overflow-y-auto">
+              <h3 className="text-lg font-bold border-b-2 border-resume-purple pb-2 text-resume-purple uppercase mb-3">Skills</h3>
+              <div className="space-y-4">
                 {[...new Set(skills.map(skill => skill.category))].map(category => {
                   const categorySkills = skills.filter(skill => skill.category === category);
                   const categoryName = data.skillCategories.find(cat => cat.id === category)?.name || 
@@ -139,8 +138,8 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
                      category === 'languages' ? 'Languages' : category);
                   
                   return categorySkills.length > 0 ? (
-                    <div key={category} className="space-y-1">
-                      <h4 className="font-bold text-xs truncate">{categoryName}</h4>
+                    <div key={category} className="space-y-2">
+                      <h4 className="text-base font-bold">{categoryName}</h4>
                       <div className="flex flex-wrap gap-1">
                         {categorySkills.map((skill) => (
                           <span key={skill.id} className="inline-block px-1.5 py-0.5 text-[10px] bg-resume-light-purple/40 rounded truncate">
@@ -155,6 +154,27 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
             </section>
           )}
         </div>
+      </div>
+
+      {/* Nowhile Branding */}
+      <div className="print:fixed print:bottom-4 print:right-4 p-4 text-right text-gray-400 text-xs flex items-center justify-end gap-2">
+        <span>Made with</span>
+        <svg
+          className="h-4 w-4 inline-block"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+            fill="currentColor"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <span>by Nowhile</span>
       </div>
     </div>
   );

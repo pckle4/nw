@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ResumeData } from '@/types/resume';
 
@@ -10,11 +9,11 @@ const ColorfulTemplate: React.FC<ColorfulTemplateProps> = ({ data }) => {
   const { personalInfo, experience, education, skills, projects } = data;
 
   return (
-    <div className="w-full h-full flex flex-col text-gray-800 bg-white overflow-hidden">
+    <div className="w-full h-full flex flex-col text-gray-800 bg-white print:overflow-hidden">
       {/* Header with gradient background */}
-      <header className="bg-blue-gradient text-white p-5">
-        <h1 className="text-2xl font-bold truncate">{personalInfo.fullName || "Your Name"}</h1>
-        <p className="text-base mt-1 opacity-90 truncate">{personalInfo.jobTitle || "Professional Title"}</p>
+      <header className="bg-blue-gradient text-white p-8">
+        <h1 className="text-4xl font-bold tracking-tight">{personalInfo.fullName || "Your Name"}</h1>
+        <p className="text-xl mt-2 opacity-90">{personalInfo.jobTitle || "Professional Title"}</p>
         
         <div className="flex flex-wrap gap-3 mt-2 text-xs">
           {personalInfo.phone && <span className="truncate">{personalInfo.phone}</span>}
@@ -24,9 +23,9 @@ const ColorfulTemplate: React.FC<ColorfulTemplateProps> = ({ data }) => {
         </div>
       </header>
       
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-0 overflow-hidden flex-1">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-0 flex-1">
         {/* Sidebar */}
-        <div className="md:col-span-4 bg-resume-soft-blue p-5 space-y-4 overflow-y-auto">
+        <div className="md:col-span-4 bg-resume-soft-blue p-8 space-y-6">
           {/* Summary */}
           {personalInfo.summary && (
             <section>
@@ -87,7 +86,7 @@ const ColorfulTemplate: React.FC<ColorfulTemplateProps> = ({ data }) => {
         </div>
         
         {/* Main Content */}
-        <div className="md:col-span-8 p-5 space-y-4 overflow-y-auto">
+        <div className="md:col-span-8 p-8 space-y-6">
           {/* Experience */}
           {experience.length > 0 && (
             <section>
@@ -134,6 +133,27 @@ const ColorfulTemplate: React.FC<ColorfulTemplateProps> = ({ data }) => {
             </section>
           )}
         </div>
+      </div>
+
+      {/* Nowhile Branding */}
+      <div className="print:fixed print:bottom-4 print:right-4 p-4 text-right text-gray-400 text-xs flex items-center justify-end gap-2">
+        <span>Made with</span>
+        <svg
+          className="h-4 w-4 inline-block"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+            fill="currentColor"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <span>by Nowhile</span>
       </div>
     </div>
   );
