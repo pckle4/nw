@@ -1,3 +1,4 @@
+
 export interface PersonalInfo {
   fullName: string;
   jobTitle: string;
@@ -11,6 +12,15 @@ export interface PersonalInfo {
   achievements?: string;
   objective?: string;
   summary: string;
+  birthDate?: string;
+  nationality?: string;
+  languages?: string;
+  certifications?: string;
+  personalWebsite?: string;
+  headline?: string;
+  relocation?: string;
+  visaStatus?: string;
+  driverLicense?: string;
   [key: string]: string | undefined;
 }
 
@@ -23,6 +33,12 @@ export interface ExperienceItem {
   endDate: string;
   description: string;
   current: boolean;
+  achievements?: string;
+  technologies?: string;
+  companyWebsite?: string;
+  teamSize?: string;
+  remote?: boolean;
+  responsibilities?: string;
 }
 
 export interface EducationItem {
@@ -34,17 +50,27 @@ export interface EducationItem {
   startDate: string;
   endDate: string;
   gpa: string;
+  achievements?: string;
+  courses?: string;
+  thesis?: string;
+  activities?: string;
+  honors?: string;
 }
 
 export interface SkillItem {
   id: string;
   name: string;
   category: string;
+  level?: string;
+  yearsOfExperience?: string;
+  lastUsed?: string;
 }
 
 export interface SkillCategory {
   id: string;
   name: string;
+  description?: string;
+  priority?: number;
 }
 
 export interface ProjectItem {
@@ -54,6 +80,12 @@ export interface ProjectItem {
   technologies: string;
   link: string;
   date: string;
+  repository?: string;
+  role?: string;
+  teamSize?: string;
+  achievements?: string;
+  images?: string[];
+  status?: 'Completed' | 'In Progress' | 'Planned';
 }
 
 export interface ResumeData {
