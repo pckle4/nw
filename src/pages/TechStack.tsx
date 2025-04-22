@@ -1,8 +1,7 @@
 import React from 'react';
 import {
   BookOpen, Code2, Paintbrush, Star, Sparkles, Users, TrendingUp, Download, Shield, Globe, Heart, Cpu, Pen, Lightbulb, 
-  ListCheck, SquareDashed, Move, WandSparkles, MousePointer, ListTodo, Wand, PenLine, Brain, Droplets, ClipboardList,
-  FileText, FileCheck, Printer, Image, File, Camera, Lock
+  ListCheck, SquareDashed, Move, WandSparkles, MousePointer, ListTodo, Wand, PenLine, Brain, Droplets, ClipboardList
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -180,129 +179,6 @@ const tripleStackContent = (
   </div>
 );
 
-const resumeGenerationSection = (
-  <section className="mb-16" id="resume-generation">
-    <div className="bg-gradient-to-r from-resume-purple/10 via-blue-100/30 to-violet-200/30 p-8 rounded-3xl shadow-xl animate-fade-in">
-      <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">How Resumes Are Generated & Downloaded</h2>
-      
-      <div className="space-y-8">
-        <div className="bg-white/80 rounded-xl p-6 shadow-md">
-          <h3 className="text-xl font-semibold text-resume-purple mb-4 flex items-center gap-2">
-            <FileText className="h-6 w-6 text-resume-purple animate-pulse" />
-            Resume Generation Process
-          </h3>
-          
-          <div className="space-y-4">
-            <div className="border-l-4 border-blue-400 pl-4">
-              <h4 className="text-lg font-medium text-blue-700">1. Data Collection & Validation</h4>
-              <p className="text-gray-700 mt-1">
-                Your resume data is collected through our intuitive form interface with React Hook Form, which provides real-time validation and error checking. All field entries are stored in a structured TypeScript model that ensures data integrity and type safety.
-              </p>
-            </div>
-            
-            <div className="border-l-4 border-green-400 pl-4">
-              <h4 className="text-lg font-medium text-green-700">2. Template Rendering</h4>
-              <p className="text-gray-700 mt-1">
-                We use React's component architecture to transform your data into visually appealing resume templates. Each template is a React component that receives your resume data and renders it according to the specific design rules.
-              </p>
-              <p className="text-gray-700 mt-1">
-                The templates handle text overflow elegantly using CSS techniques like <code className="bg-gray-100 px-1 rounded">truncate</code>, <code className="bg-gray-100 px-1 rounded">line-clamp</code>, and scrollable containers to ensure all content fits properly within the A4 format.
-              </p>
-            </div>
-            
-            <div className="border-l-4 border-purple-400 pl-4">
-              <h4 className="text-lg font-medium text-purple-700">3. Real-time Preview</h4>
-              <p className="text-gray-700 mt-1">
-                As you type, React's state management and data flow update the preview in real-time. We use a virtualized A4 paper format with the correct aspect ratio (210:297) to give you an accurate representation of how your resume will look when printed or shared digitally.
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white/80 rounded-xl p-6 shadow-md">
-          <h3 className="text-xl font-semibold text-resume-purple mb-4 flex items-center gap-2">
-            <Download className="h-6 w-6 text-resume-purple animate-bounce" />
-            Download Technology
-          </h3>
-          
-          <div className="space-y-4">
-            <div className="border-l-4 border-yellow-400 pl-4">
-              <h4 className="text-lg font-medium text-yellow-700">1. HTML Canvas Capture</h4>
-              <p className="text-gray-700 mt-1">
-                When you download your resume, we use <code className="bg-gray-100 px-1 rounded">html2canvas</code> to capture the rendered DOM elements as a high-resolution image. This technology converts your resume into a pixel-perfect representation at 4x the display resolution for sharp output.
-              </p>
-            </div>
-            
-            <div className="border-l-4 border-red-400 pl-4">
-              <h4 className="text-lg font-medium text-red-700">2. Multi-format Conversion</h4>
-              <p className="text-gray-700 mt-1">
-                We offer multiple export formats to meet your needs:
-              </p>
-              <ul className="list-disc ml-6 mt-2 space-y-2 text-gray-700">
-                <li className="flex items-start gap-2">
-                  <FileText className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                  <span><strong>PDF:</strong> Using jsPDF, we convert the canvas image to a professional PDF document that maintains the A4 proportions and high resolution. This is ideal for job applications and formal submissions.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Image className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <span><strong>PNG:</strong> For high-quality images with transparency support, ideal for portfolio sites or thumbnails.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Camera className="h-5 w-5 text-purple-600 mt-0.5 flex-shrink-0" />
-                  <span><strong>JPG:</strong> Optimized for smaller file sizes while maintaining quality, perfect for email attachments.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <File className="h-5 w-5 text-orange-600 mt-0.5 flex-shrink-0" />
-                  <span><strong>DOCX:</strong> Coming soon - for editable documents that hiring managers can annotate.</span>
-                </li>
-              </ul>
-            </div>
-            
-            <div className="border-l-4 border-blue-400 pl-4">
-              <h4 className="text-lg font-medium text-blue-700">3. Client-side Processing</h4>
-              <p className="text-gray-700 mt-1">
-                All processing happens directly in your browser for maximum privacy. Your resume data never leaves your device during the generation and download process. This ensures complete confidentiality of your personal information.
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white/80 rounded-xl p-6 shadow-md">
-          <h3 className="text-xl font-semibold text-resume-purple mb-4 flex items-center gap-2">
-            <Shield className="h-6 w-6 text-resume-purple animate-pulse" />
-            Privacy & Security
-          </h3>
-          
-          <p className="text-gray-700">
-            Your privacy is our priority. Nowhile's resume builder is designed with privacy-first principles:
-          </p>
-          
-          <ul className="list-disc ml-6 mt-4 space-y-2 text-gray-700">
-            <li className="flex items-start gap-2">
-              <Lock className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-              <span><strong>Local Processing:</strong> All data processing happens locally in your browser - we never send your resume data to our servers.</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <FileCheck className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-              <span><strong>No Data Storage:</strong> Your resume data is stored only in your browser's local storage. We don't save copies on our servers.</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Printer className="h-5 w-5 text-purple-600 mt-0.5 flex-shrink-0" />
-              <span><strong>Direct Downloads:</strong> Files are generated and downloaded directly to your device without intermediary storage.</span>
-            </li>
-          </ul>
-          
-          <div className="mt-4 bg-blue-50 p-4 rounded-lg border border-blue-200">
-            <p className="text-blue-700 font-medium">
-              We provide export functionality without compromising your data security or privacy. Review our Privacy Policy for more details on how Nowhile protects your information.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
 const TechStack = () => (
   <div className="flex flex-col min-h-screen bg-gradient-to-tr from-slate-100 via-[#e5e9f6] to-[#fcfbfa] relative">
     {backgrounds}
@@ -317,6 +193,7 @@ const TechStack = () => (
             <div key={i}
               className={`rounded-3xl shadow-lg p-8 text-center w-full h-full bg-gradient-to-br ${tech.color} hover:scale-105 transition-transform animate-scale-in`}
             >
+              {/* Make text pop with improved contrast */}
               <div className="flex justify-center mb-3">{tech.icon}</div>
               <h3 className="font-bold text-lg text-blue-900 drop-shadow mb-2">{tech.name}</h3>
               <p className="text-gray-900 text-base font-semibold drop-shadow">{tech.desc}</p>
@@ -324,9 +201,7 @@ const TechStack = () => (
           ))}
         </div>
       </section>
-      
-      {resumeGenerationSection}
-      
+      {/* NEW: Community Section */}
       <section className="mb-12">
         <div className="bg-gradient-to-r from-purple-100 to-white border-l-4 border-resume-purple rounded-2xl shadow-md p-8">
           <h2 className="text-2xl font-extrabold text-resume-purple mb-3">Open Source & Community</h2>
@@ -334,7 +209,7 @@ const TechStack = () => (
             Nowhile is built in public: every template, feature, and update is shaped by developers and users together. Our Github is open for contributions.
           </p>
           <p className="text-gray-900">
-            <b>Join the community:</b> Request features, report bugs, or contribute code and designs—everyone's input is valued.
+            <b>Join the community:</b> Request features, report bugs, or contribute code and designs—everyone’s input is valued.
           </p>
           <ul className="list-disc ml-8 mt-3 text-md text-blue-800">
             <li>100% open-source codebase</li>
@@ -344,7 +219,7 @@ const TechStack = () => (
           </ul>
         </div>
       </section> 
-      
+      {/* NEW: Performance and Security Section */}
       <section className="mb-16">
         <div className="bg-gradient-to-r from-yellow-100 via-resume-purple/20 to-blue-50 border-l-4 border-blue-400 rounded-2xl shadow-md p-8">
           <h2 className="text-2xl font-extrabold text-blue-600 mb-3">Performance and Security</h2>
@@ -359,7 +234,6 @@ const TechStack = () => (
           </ul>
         </div>
       </section>
-      
       <section className="mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 animate-fade-in">
           <div className="bg-white/90 p-8 rounded-2xl shadow-lg flex flex-col items-center">
@@ -384,14 +258,13 @@ const TechStack = () => (
           </div>
         </div>
       </section>
-      
       <section className="mb-16">
         <div className="bg-gradient-to-r from-resume-purple/10 via-blue-100/30 to-violet-200/30 p-8 rounded-3xl shadow-xl animate-fade-in">
           <h2 className="text-2xl font-bold text-center text-blue-600 mb-4">How it All Fits Together</h2>
           <p className="text-lg text-gray-700 text-center">
             Nowhile is built for speed, clarity, and usability. All the latest open-source technologies – from React's blazing-fast UI to Tailwind's utility classes and incredible iconography – come together for a seamless experience.<br />
             <br />
-            <b>Everything is processed right in your browser for privacy and instant feedback. AI tips? Export? Theme switch? It's all right here, all in the cloud.</b>
+            <b>Everything is processed right in your browser for privacy and instant feedback. AI tips? Export? Theme switch? It’s all right here, all in the cloud.</b>
           </p>
           {tripleStackContent}
         </div>
@@ -400,5 +273,4 @@ const TechStack = () => (
     <Footer />
   </div>
 );
-
 export default TechStack;
