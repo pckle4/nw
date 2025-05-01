@@ -4,9 +4,10 @@ import { ResumeData } from '@/types/resume';
 
 interface ColorfulTemplateProps {
   data: ResumeData;
+  showNowhileBranding?: boolean;
 }
 
-const ColorfulTemplate: React.FC<ColorfulTemplateProps> = ({ data }) => {
+const ColorfulTemplate: React.FC<ColorfulTemplateProps> = ({ data, showNowhileBranding = true }) => {
   const { personalInfo, experience, education, skills, projects } = data;
 
   return (
@@ -21,17 +22,21 @@ const ColorfulTemplate: React.FC<ColorfulTemplateProps> = ({ data }) => {
           {personalInfo.email && <span>{personalInfo.email}</span>}
           {personalInfo.location && <span>{personalInfo.location}</span>}
           {personalInfo.linkedin && <span>{personalInfo.linkedin}</span>}
+          {personalInfo.website && <span>{personalInfo.website}</span>}
+          {personalInfo.twitter && <span>{personalInfo.twitter}</span>}
         </div>
       </header>
       
       <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
         {/* Sidebar */}
         <div className="md:col-span-4 bg-resume-soft-blue p-5 space-y-4">
-          {/* Summary */}
-          {personalInfo.summary && (
+          {/* Summary / Career Objective */}
+          {(personalInfo.summary || personalInfo.objective) && (
             <section>
-              <h2 className="text-sm font-bold mb-2 text-gray-800 uppercase">About Me</h2>
-              <p className="text-xs leading-snug">{personalInfo.summary}</p>
+              <h2 className="text-sm font-bold mb-2 text-gray-800 uppercase">
+                {personalInfo.objective ? "Career Objective" : "About Me"}
+              </h2>
+              <p className="text-xs leading-snug">{personalInfo.objective || personalInfo.summary}</p>
             </section>
           )}
           
@@ -135,6 +140,19 @@ const ColorfulTemplate: React.FC<ColorfulTemplateProps> = ({ data }) => {
           )}
         </div>
       </div>
+      
+      {/* Nowhile Branding Footer */}
+      {showNowhileBranding && (
+        <div className="w-full py-2 px-4 mt-auto flex items-center justify-end">
+          <div className="text-[10px] text-gray-500 flex items-center">
+            <span>Made with</span>
+            <svg className="h-3 w-3 mx-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" />
+            </svg>
+            <span>Nowhile</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

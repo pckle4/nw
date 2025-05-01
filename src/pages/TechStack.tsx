@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   BookOpen, Code2, Paintbrush, Star, Sparkles, Users, TrendingUp, Download, Shield, Globe, Heart, Cpu, Pen, Lightbulb, 
-  ListCheck, SquareDashed, Move, WandSparkles, MousePointer, ListTodo, Wand, PenLine, Brain, Droplets, ClipboardList
+  ListCheck, SquareDashed, Move, WandSparkles, MousePointer, ListTodo, Wand, PenLine, Brain, Droplets, ClipboardList,
+  FileText, Database, Server
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -179,6 +180,113 @@ const tripleStackContent = (
   </div>
 );
 
+// New section explaining resume generation process
+const resumeGenerationProcess = (
+  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 shadow-md mb-10">
+    <h2 className="text-2xl font-bold text-center text-resume-purple mb-6">How Nowhile Generates Resumes</h2>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="space-y-4">
+        <h3 className="text-xl font-bold text-blue-700">Resume Rendering Pipeline</h3>
+        
+        <div className="bg-white/80 p-4 rounded-xl shadow-sm">
+          <div className="flex items-start gap-3 mb-2">
+            <Database className="h-6 w-6 text-resume-purple flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-gray-800">1. Data Collection & Validation</h4>
+              <p className="text-gray-700 text-sm">User data is collected through React Hook Form with Zod validation, ensuring all fields conform to expected formats. TypeScript interfaces provide strict type-checking across the application.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white/80 p-4 rounded-xl shadow-sm">
+          <div className="flex items-start gap-3 mb-2">
+            <Code2 className="h-6 w-6 text-blue-500 flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-gray-800">2. Template Selection & Component Tree</h4>
+              <p className="text-gray-700 text-sm">The ResumeTemplateRenderer serves as a switch mechanism that instantiates the appropriate template component based on user selection. Each template is a React component that receives the validated resume data.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white/80 p-4 rounded-xl shadow-sm">
+          <div className="flex items-start gap-3 mb-2">
+            <Paintbrush className="h-6 w-6 text-green-500 flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-gray-800">3. Responsive Layout Rendering</h4>
+              <p className="text-gray-700 text-sm">Tailwind CSS utility classes handle responsive layout, typography, and spacing. Each template uses carefully designed grid systems and flexbox layouts optimized for both screen viewing and print.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="space-y-4">
+        <h3 className="text-xl font-bold text-blue-700">Export Technologies</h3>
+        
+        <div className="bg-white/80 p-4 rounded-xl shadow-sm">
+          <div className="flex items-start gap-3 mb-2">
+            <FileText className="h-6 w-6 text-orange-500 flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-gray-800">4. DOM-to-Canvas Conversion</h4>
+              <p className="text-gray-700 text-sm">When exporting, html2canvas captures the rendered DOM elements at 4x scale for crisp output. Custom font handling ensures text renders beautifully, with antialiasing and optimized typography settings.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white/80 p-4 rounded-xl shadow-sm">
+          <div className="flex items-start gap-3 mb-2">
+            <Server className="h-6 w-6 text-purple-600 flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-gray-800">5. Canvas-to-Document Processing</h4>
+              <p className="text-gray-700 text-sm">The captured canvas is processed using jsPDF (for PDF) or direct download links (for PNG/JPG). PDF generation includes metadata, compression optimization, and A4 format standardization for professional printing.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white/80 p-4 rounded-xl shadow-sm">
+          <div className="flex items-start gap-3 mb-2">
+            <Download className="h-6 w-6 text-blue-700 flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="font-bold text-gray-800">6. Final Output Delivery</h4>
+              <p className="text-gray-700 text-sm">The download hook manages file naming (using the person's name when available), proper MIME types, and browser download API integration. Toast notifications track progress and confirm successful downloads.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div className="mt-8 bg-gradient-to-r from-yellow-50 to-green-50 p-5 rounded-xl">
+      <h3 className="text-xl font-bold text-center text-resume-purple mb-3">Technical Challenges Solved</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="bg-white/70 p-3 rounded-lg shadow-sm">
+          <h4 className="font-bold text-sm text-gray-800 mb-1">Font Rendering</h4>
+          <p className="text-xs text-gray-700">Custom font loading with proper antialiasing and text-rendering optimizations for crisp, professional output.</p>
+        </div>
+        <div className="bg-white/70 p-3 rounded-lg shadow-sm">
+          <h4 className="font-bold text-sm text-gray-800 mb-1">Layout Precision</h4>
+          <p className="text-xs text-gray-700">Pixel-perfect positioning using CSS Grid and Flexbox, with careful attention to margins and padding for print fidelity.</p>
+        </div>
+        <div className="bg-white/70 p-3 rounded-lg shadow-sm">
+          <h4 className="font-bold text-sm text-gray-800 mb-1">Scale Management</h4>
+          <p className="text-xs text-gray-700">4x rendering scale with downsampling for high-resolution outputs that look great on retina displays and in print.</p>
+        </div>
+        <div className="bg-white/70 p-3 rounded-lg shadow-sm">
+          <h4 className="font-bold text-sm text-gray-800 mb-1">Content Overflow</h4>
+          <p className="text-xs text-gray-700">Intelligent content scaling and overflow handling to ensure all user data fits appropriately on the A4 format.</p>
+        </div>
+        <div className="bg-white/70 p-3 rounded-lg shadow-sm">
+          <h4 className="font-bold text-sm text-gray-800 mb-1">Cross-Browser Support</h4>
+          <p className="text-xs text-gray-700">Specialized DOM handling ensures consistent rendering across Chrome, Firefox, Safari, and Edge.</p>
+        </div>
+        <div className="bg-white/70 p-3 rounded-lg shadow-sm">
+          <h4 className="font-bold text-sm text-gray-800 mb-1">Branding Integration</h4>
+          <p className="text-xs text-gray-700">Subtle "Made with Nowhile" branding added to exports while maintaining the professional aesthetic of the resume.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 const TechStack = () => (
   <div className="flex flex-col min-h-screen bg-gradient-to-tr from-slate-100 via-[#e5e9f6] to-[#fcfbfa] relative">
     {backgrounds}
@@ -187,6 +295,10 @@ const TechStack = () => (
       <h1 className="text-5xl md:text-6xl font-extrabold text-center mb-10 bg-clip-text text-transparent bg-gradient-to-r from-resume-purple via-yellow-400 to-blue-400 drop-shadow-lg">
         Technology Behind Nowhile
       </h1>
+      
+      {/* Add Resume Generation Process Section first */}
+      {resumeGenerationProcess}
+      
       <section className="mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 animate-fade-in">
           {stackSections.map((tech, i) => (
@@ -201,6 +313,7 @@ const TechStack = () => (
           ))}
         </div>
       </section>
+      
       {/* NEW: Community Section */}
       <section className="mb-12">
         <div className="bg-gradient-to-r from-purple-100 to-white border-l-4 border-resume-purple rounded-2xl shadow-md p-8">
@@ -219,6 +332,7 @@ const TechStack = () => (
           </ul>
         </div>
       </section> 
+      
       {/* NEW: Performance and Security Section */}
       <section className="mb-16">
         <div className="bg-gradient-to-r from-yellow-100 via-resume-purple/20 to-blue-50 border-l-4 border-blue-400 rounded-2xl shadow-md p-8">
@@ -234,6 +348,7 @@ const TechStack = () => (
           </ul>
         </div>
       </section>
+      
       <section className="mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 animate-fade-in">
           <div className="bg-white/90 p-8 rounded-2xl shadow-lg flex flex-col items-center">
@@ -258,13 +373,14 @@ const TechStack = () => (
           </div>
         </div>
       </section>
+      
       <section className="mb-16">
         <div className="bg-gradient-to-r from-resume-purple/10 via-blue-100/30 to-violet-200/30 p-8 rounded-3xl shadow-xl animate-fade-in">
           <h2 className="text-2xl font-bold text-center text-blue-600 mb-4">How it All Fits Together</h2>
           <p className="text-lg text-gray-700 text-center">
             Nowhile is built for speed, clarity, and usability. All the latest open-source technologies – from React's blazing-fast UI to Tailwind's utility classes and incredible iconography – come together for a seamless experience.<br />
             <br />
-            <b>Everything is processed right in your browser for privacy and instant feedback. AI tips? Export? Theme switch? It’s all right here, all in the cloud.</b>
+            <b>Everything is processed right in your browser for privacy and instant feedback. AI tips? Export? Theme switch? It's all right here, all in the cloud.</b>
           </p>
           {tripleStackContent}
         </div>
@@ -273,4 +389,5 @@ const TechStack = () => (
     <Footer />
   </div>
 );
+
 export default TechStack;
