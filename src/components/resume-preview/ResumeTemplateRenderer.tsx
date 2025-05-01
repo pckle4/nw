@@ -19,7 +19,7 @@ interface ResumeTemplateRendererProps {
 const ResumeTemplateRenderer: React.FC<ResumeTemplateRendererProps> = ({ 
   data, 
   templateId,
-  showNowhileBranding = true 
+  showNowhileBranding = false 
 }) => {
   switch (templateId) {
     case 'modern':

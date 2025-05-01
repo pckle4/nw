@@ -19,7 +19,12 @@ const resumeTips = [
   "Tailor your resume for each specific job application.",
   "Use ATS-friendly formatting to ensure your resume passes automated screening.",
   "Proofread your resume multiple times or ask someone else to review it.",
-  "Focus on achievements rather than just listing job responsibilities."
+  "Focus on achievements rather than just listing job responsibilities.",
+  "Use powerful action verbs to start bullet points (e.g., 'implemented', 'created', 'managed').",
+  "Include keywords from the job description to pass ATS screening.",
+  "Exclude references – simply state 'References available upon request'.",
+  "Remove outdated skills or irrelevant experience.",
+  "Include a LinkedIn profile that matches your resume information."
 ];
 
 const ResumePreview: React.FC<ResumePreviewProps> = ({ data, templateId }) => {
@@ -72,7 +77,7 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ data, templateId }) => {
               transformOrigin: 'top center'
             }}
           >
-            <ResumeTemplateRenderer data={data} templateId={templateId} />
+            <ResumeTemplateRenderer data={data} templateId={templateId} showNowhileBranding={false} />
           </div>
         </div>
       </div>
