@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { FileText, Sparkles, Home, Info, Menu, X, HelpCircle, Mail } from 'lucide-react';
+import { FileText, Sparkles, Home, Info, Menu, X, HelpCircle, Mail, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +25,7 @@ const mobileNavLinks = [
   { to: '/', label: 'Home', icon: <Home className="h-5 w-5" /> },
   { to: '/guide', label: 'Guide Me', icon: <HelpCircle className="h-5 w-5" /> },
   { to: '/contact', label: 'Contact', icon: <Mail className="h-5 w-5" /> },
+  { to: '/tech-stack', label: 'Tech Stack', icon: <Cpu className="h-5 w-5" /> },
   { href: '#about', label: 'About', icon: <Info className="h-5 w-5" /> },
 ];
 
@@ -146,6 +147,12 @@ const Header = () => {
                 <Link to="/guide" className={navigationMenuTriggerStyle()}>
                   <HelpCircle className="h-4 w-4 mr-2" />
                   Guide Me
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link to="/tech-stack" className={navigationMenuTriggerStyle()}>
+                  <Cpu className="h-4 w-4 mr-2" />
+                  Tech Stack
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>

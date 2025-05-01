@@ -63,10 +63,10 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ data, templateId }) => {
         </div>
       )}
       
-      <div className="flex-1 overflow-auto bg-gray-200 p-4 flex justify-center">
+      <div className="flex-1 overflow-auto bg-gray-200 p-4">
         <div 
-          className={`transition-all duration-300 ease-out flex items-start justify-center pt-4`}
-          style={{ transform: `scale(${scale})` }}
+          className="flex flex-col items-center gap-8 transition-all duration-300 ease-out pt-4"
+          style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }}
         >
           <div 
             ref={resumeRef}
@@ -74,7 +74,6 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ data, templateId }) => {
             style={{ 
               maxWidth: '800px',
               aspectRatio: '210/297', // A4 aspect ratio
-              transformOrigin: 'top center'
             }}
           >
             <ResumeTemplateRenderer data={data} templateId={templateId} showNowhileBranding={false} />
