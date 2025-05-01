@@ -14,12 +14,12 @@ interface FieldAiTipProps {
 const FieldAiTip: React.FC<FieldAiTipProps> = ({ tip }) => (
   <Tooltip>
     <TooltipTrigger asChild>
-      <span tabIndex={0} className="ml-1 cursor-pointer text-yellow-500 inline-flex align-middle hover:animate-bounce focus:outline-none">
+      <span tabIndex={0} className="ml-1 cursor-pointer text-yellow-500 inline-flex align-middle hover:animate-pulse focus:outline-none">
         <Lightbulb className="h-4 w-4" />
       </span>
     </TooltipTrigger>
-    <TooltipContent className="bg-white max-w-xs z-50 border shadow-lg text-gray-700">
-      <span className="text-xs">{tip}</span>
+    <TooltipContent className="bg-white max-w-xs z-50 border shadow-lg p-4 rounded-xl">
+      <span className="text-sm text-gray-700">{tip}</span>
     </TooltipContent>
   </Tooltip>
 );
