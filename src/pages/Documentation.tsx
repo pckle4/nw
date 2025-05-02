@@ -1,8 +1,7 @@
-
 import React from 'react';
 import {
-  FileText, Database, Paintbrush, Star, Component, Function, BookOpen,
-  Layers, Settings, CircleArrowRight, FileCode, Hook, ImageIcon, Download, 
+  FileText, Database, Paintbrush, Star, Component, Code, BookOpen,
+  Layers, Settings, CircleArrowRight, FileCode, Puzzle, ImageIcon, Download, 
   CirclePlay
 } from 'lucide-react';
 import Header from '@/components/Header';
@@ -799,7 +798,7 @@ export const useResumeDownload = (resumeRef: React.RefObject<HTMLDivElement>, da
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white/80 p-4 rounded-lg shadow">
               <h3 className="font-bold text-resume-purple mb-2 flex items-center gap-2">
-                <Function className="h-5 w-5" /> Core Framework
+                <Code className="h-5 w-5" /> Core Framework
               </h3>
               <ul className="space-y-1 text-sm">
                 <li className="flex items-center gap-1">
@@ -819,7 +818,7 @@ export const useResumeDownload = (resumeRef: React.RefObject<HTMLDivElement>, da
 
             <div className="bg-white/80 p-4 rounded-lg shadow">
               <h3 className="font-bold text-resume-purple mb-2 flex items-center gap-2">
-                <Hook className="h-5 w-5" /> Form & Validation
+                <Puzzle className="h-5 w-5" /> Form & Validation
               </h3>
               <ul className="space-y-1 text-sm">
                 <li className="flex items-center gap-1">
