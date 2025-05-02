@@ -1,8 +1,8 @@
 
 import React from 'react';
 import {
-  FileText, Code2, Database, Paintbrush, Star, Component, Function, Play, BookOpen,
-  Layers, Settings, CircleArrowRight, Search, FileCode, Hook, ImageIcon, Download, 
+  FileText, Database, Paintbrush, Star, Component, Function, BookOpen,
+  Layers, Settings, CircleArrowRight, FileCode, Hook, ImageIcon, Download, 
   CirclePlay
 } from 'lucide-react';
 import Header from '@/components/Header';
@@ -254,7 +254,7 @@ const Documentation = () => {
                     Enables consistent styling and theming capabilities.
                   </p>
                   <pre className="bg-white p-2 rounded-md mt-2 text-xs overflow-x-auto">
-                    <code>:root { --resume-primary: #8B5CF6; }</code>
+                    <code>{`:root { --resume-primary: #8B5CF6; }`}</code>
                   </pre>
                 </div>
                 
@@ -267,7 +267,7 @@ const Documentation = () => {
                     like custom gradients and print-optimized layouts.
                   </p>
                   <pre className="bg-white p-2 rounded-md mt-2 text-xs overflow-x-auto">
-                    <code>.bg-resume-gradient { ... }</code>
+                    <code>{`.bg-resume-gradient { ... }`}</code>
                   </pre>
                 </div>
               </div>
@@ -629,7 +629,7 @@ const renderTemplate = () => {
                         Special attention is paid to fonts, layout precision, and color accuracy.
                       </p>
                       <pre className="bg-gray-50 p-2 rounded-md mt-2 text-xs overflow-x-auto">
-                        <code>const canvas = await html2canvas(resumeRef.current, {scale: 4});</code>
+                        <code>const canvas = await html2canvas(resumeRef.current, {"{scale: 4}"});</code>
                       </pre>
                     </div>
                     
