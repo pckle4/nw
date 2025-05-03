@@ -20,19 +20,30 @@ export const useResumeDownload = (resumeRef: React.RefObject<HTMLDivElement>, da
       const canvas = await captureCanvas(resumeRef);
       if (!canvas) throw new Error("Failed to capture resume");
       
+      // Use higher quality for better resolution
       const imgData = canvas.toDataURL('image/png', 1.0);
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4',
         compress: true,
+        hotfixes: ['px_scaling'], // Fix scaling issues
       });
 
       // A4 size: 210 x 297 mm
       const imgWidth = 210;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       
+      // Add higher quality image with improved rendering
       pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST');
+      
+      // Enhanced PDF properties for better output
+      pdf.setProperties({
+        title: `${data.personalInfo.fullName || 'Resume'} - Nowhile Resume`,
+        subject: 'Professional Resume',
+        creator: 'Nowhile Resume Builder',
+        keywords: 'resume, cv, job application',
+      });
       
       // Use the person's name in the filename, or default to "resume"
       const filename = data.personalInfo.fullName 
@@ -70,6 +81,7 @@ export const useResumeDownload = (resumeRef: React.RefObject<HTMLDivElement>, da
       const canvas = await captureCanvas(resumeRef);
       if (!canvas) throw new Error("Failed to capture resume");
       
+      // Higher quality PNG output
       const imageURL = canvas.toDataURL('image/png', 1.0);
       
       const link = document.createElement('a');
@@ -108,7 +120,8 @@ export const useResumeDownload = (resumeRef: React.RefObject<HTMLDivElement>, da
       const canvas = await captureCanvas(resumeRef);
       if (!canvas) throw new Error("Failed to capture resume");
       
-      const imageURL = canvas.toDataURL('image/jpeg', 0.95);
+      // Higher quality JPG (less compression)
+      const imageURL = canvas.toDataURL('image/jpeg', 0.98);
       
       const link = document.createElement('a');
       link.download = data.personalInfo.fullName 

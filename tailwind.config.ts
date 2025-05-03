@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -119,10 +120,10 @@ export default {
 				},
 				'pulse-gentle': {
 					'0%, 100%': {
-						opacity: 1
+						opacity: '1'
 					},
 					'50%': {
-						opacity: 0.8
+						opacity: '0.8'
 					}
 				},
 				"float": {
@@ -131,6 +132,22 @@ export default {
 					},
 					"50%": {
 						transform: "translateY(-10px)",
+					},
+				},
+				"float-reverse": {
+					"0%, 100%": {
+						transform: "translateY(-5px)",
+					},
+					"50%": {
+						transform: "translateY(5px)",
+					},
+				},
+				"float-slow": {
+					"0%, 100%": {
+						transform: "translateY(0)",
+					},
+					"50%": {
+						transform: "translateY(-15px)",
 					},
 				},
 				"pulse-gentle": {
@@ -159,6 +176,46 @@ export default {
 						transform: "rotate(360deg)",
 					},
 				},
+				"bounce-slow": {
+					"0%, 100%": {
+						transform: "translateY(0)",
+					},
+					"50%": {
+						transform: "translateY(-20px)",
+					},
+				},
+				"ping-slow": {
+					"0%": {
+						transform: "scale(1)",
+						opacity: "1",
+					},
+					"50%": {
+						transform: "scale(1.2)",
+						opacity: "0.8",
+					},
+					"100%": {
+						transform: "scale(1)",
+						opacity: "1",
+					},
+				},
+				"spin-slow": {
+					"0%": {
+						transform: "rotate(0deg)",
+					},
+					"100%": {
+						transform: "rotate(360deg)",
+					},
+				},
+				"pulse-slow": {
+					"0%, 100%": {
+						opacity: "1",
+						transform: "scale(1)",
+					},
+					"50%": {
+						opacity: "0.7",
+						transform: "scale(0.9)",
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -167,16 +224,23 @@ export default {
 				'slide-in': 'slide-in 0.5s ease-out',
 				'pulse-gentle': 'pulse-gentle 3s infinite',
 				"float": "float 3s ease-in-out infinite",
+				"float-reverse": "float-reverse 3.5s ease-in-out infinite",
+				"float-slow": "float-slow 6s ease-in-out infinite",
 				"pulse-gentle": "pulse-gentle 3s infinite",
 				"slide-in-right": "slide-in-right 0.3s ease-out",
 				"rotate-360": "rotate-360 1s linear infinite",
+				"bounce-slow": "bounce-slow 4s infinite",
+				"ping-slow": "ping-slow 3s ease-in-out infinite",
+				"spin-slow": "spin-slow 12s linear infinite",
+				"pulse-slow": "pulse-slow 5s infinite",
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'purple-gradient': 'linear-gradient(102.3deg, rgba(147,39,143,1) 5.9%, rgba(234,172,232,1) 64%, rgba(246,219,245,1) 89%)',
 				'blue-gradient': 'linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%)',
 				'orange-gradient': 'linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%)',
-				'green-gradient': 'linear-gradient(90deg, hsla(59, 86%, 68%, 1) 0%, hsla(134, 36%, 53%, 1) 100%)'
+				'green-gradient': 'linear-gradient(90deg, hsla(59, 86%, 68%, 1) 0%, hsla(134, 36%, 53%, 1) 100%)',
+				'grid-pattern': 'linear-gradient(to right, #20202022 1px, transparent 1px), linear-gradient(to bottom, #20202022 1px, transparent 1px)'
 			}
 		}
 	},

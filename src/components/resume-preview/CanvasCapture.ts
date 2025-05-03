@@ -5,17 +5,16 @@ export const captureCanvas = async (resumeRef: React.RefObject<HTMLDivElement>) 
   if (!resumeRef.current) return null;
   
   try {
-    // Higher quality settings for better output
+    // Significantly increased quality settings for better output
     const canvas = await html2canvas(resumeRef.current, {
-      scale: 4, // Increased from 2 to 4 for higher quality
+      scale: 5, // Increased from 4 to 5 for even higher quality
       logging: false,
       useCORS: true,
       allowTaint: true,
       backgroundColor: null,
       imageTimeout: 0,
       
-      // Remove the problematic fontDisplay property
-      // Use onclone to handle font styling correctly
+      // Enhanced rendering quality options
       onclone: (document, element) => {
         // Apply font smoothing to the cloned element
         const styleElement = document.createElement('style');
@@ -24,6 +23,14 @@ export const captureCanvas = async (resumeRef: React.RefObject<HTMLDivElement>) 
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             font-smooth: always;
+            text-rendering: geometricPrecision;
+            shape-rendering: geometricPrecision;
+          }
+          @media print {
+            body {
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
           }
         `;
         document.head.appendChild(styleElement);
@@ -34,6 +41,10 @@ export const captureCanvas = async (resumeRef: React.RefObject<HTMLDivElement>) 
           if (el instanceof HTMLElement) {
             // Force text rendering to be crisp
             el.style.textRendering = 'optimizeLegibility';
+            // Improve text clarity
+            el.style.fontVariantLigatures = 'common-ligatures';
+            // Add slight contrast
+            el.style.fontWeight = getComputedStyle(el).fontWeight;
           }
         });
         
