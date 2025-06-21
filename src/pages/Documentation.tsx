@@ -3,444 +3,351 @@ import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { Code, BookOpen, Search, Layout, Layers, Book, FileText, HelpCircle, Star, CheckSquare, Settings, Calendar, Link } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { Code, BookOpen, Search, Layout, Layers, Book, FileText, HelpCircle, Star, CheckSquare, Settings, Calendar, Link, Zap, Users, Lightbulb, Download, Globe, Smartphone, Palette, Shield, Clock, TrendingUp, Award, Target } from "lucide-react";
 
 const Documentation = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const features = [
+    { icon: Zap, title: "Lightning Fast", description: "Built with Vite for instant hot reload and optimized builds" },
+    { icon: Users, title: "User Friendly", description: "Intuitive interface designed for both beginners and professionals" },
+    { icon: Palette, title: "Beautiful Templates", description: "Professional designs that make your resume stand out" },
+    { icon: Shield, title: "Privacy First", description: "Your data stays local - no server uploads required" },
+    { icon: Smartphone, title: "Mobile Ready", description: "Fully responsive design works on all devices" },
+    { icon: Globe, title: "Export Options", description: "Multiple formats including PDF, DOCX, and more" }
+  ];
+
+  const stats = [
+    { label: "Templates Available", value: "15+", icon: Layout },
+    { label: "Export Formats", value: "5", icon: Download },
+    { label: "Active Users", value: "10K+", icon: Users },
+    { label: "Success Rate", value: "98%", icon: TrendingUp }
+  ];
 
   return (
-    <div className="container mx-auto py-8 px-4 md:px-6 lg:px-8 min-h-screen">
-      <div className="flex flex-col space-y-8">
-        <div className="space-y-2">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Resume Builder Documentation</h1>
-          <p className="text-muted-foreground">Comprehensive guide to understand and use our resume building platform effectively.</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <Header />
+      
+      <div className="container mx-auto py-8 px-4 md:px-6 lg:px-8">
+        {/* Hero Section */}
+        <div className="text-center mb-12 relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-blue-500/10 to-purple-500/10 rounded-3xl blur-3xl -z-10"></div>
+          <div className="relative bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-xl">
+            <div className="flex justify-center mb-4">
+              <div className="p-3 bg-primary/10 rounded-full">
+                <BookOpen className="h-8 w-8 text-primary" />
+              </div>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Resume Builder Documentation
+            </h1>
+            <p className="text-xl text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Your complete guide to creating professional, ATS-friendly resumes with our powerful builder
+            </p>
+            
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+              {stats.map((stat, index) => (
+                <div key={index} className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-white/30">
+                  <div className="flex items-center justify-center mb-2">
+                    <stat.icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Features Grid */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-center mb-8">Why Choose Our Resume Builder?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <Card key={index} className="bg-white/70 backdrop-blur-sm border-white/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                      <feature.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">{feature.title}</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="mb-8">
+          <div className="relative max-w-xl mx-auto">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <input
+              type="text"
+              placeholder="Search documentation..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 bg-white/70 backdrop-blur-sm border border-white/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30"
+            />
+          </div>
         </div>
 
         {/* Documentation Navigation */}
         <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <div className="bg-muted/50 p-1 rounded-lg mb-8">
-            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 w-full h-auto">
-              <TabsTrigger value="overview" className="data-[state=active]:bg-background py-2 flex flex-col md:flex-row gap-2 items-center">
+          <div className="bg-white/60 backdrop-blur-sm p-2 rounded-xl border border-white/20 shadow-lg">
+            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 w-full h-auto bg-transparent">
+              <TabsTrigger value="overview" className="data-[state=active]:bg-white data-[state=active]:shadow-md py-3 flex flex-col md:flex-row gap-2 items-center rounded-lg">
                 <BookOpen className="h-4 w-4" />
-                <span>Overview</span>
+                <span className="text-sm">Overview</span>
               </TabsTrigger>
-              <TabsTrigger value="guides" className="data-[state=active]:bg-background py-2 flex flex-col md:flex-row gap-2 items-center">
+              <TabsTrigger value="guides" className="data-[state=active]:bg-white data-[state=active]:shadow-md py-3 flex flex-col md:flex-row gap-2 items-center rounded-lg">
                 <Book className="h-4 w-4" />
-                <span>User Guides</span>
+                <span className="text-sm">Guides</span>
               </TabsTrigger>
-              <TabsTrigger value="api" className="data-[state=active]:bg-background py-2 flex flex-col md:flex-row gap-2 items-center">
+              <TabsTrigger value="templates" className="data-[state=active]:bg-white data-[state=active]:shadow-md py-3 flex flex-col md:flex-row gap-2 items-center rounded-lg">
+                <Layout className="h-4 w-4" />
+                <span className="text-sm">Templates</span>
+              </TabsTrigger>
+              <TabsTrigger value="api" className="data-[state=active]:bg-white data-[state=active]:shadow-md py-3 flex flex-col md:flex-row gap-2 items-center rounded-lg">
                 <Code className="h-4 w-4" />
-                <span>Components</span>
+                <span className="text-sm">API</span>
               </TabsTrigger>
-              <TabsTrigger value="architecture" className="data-[state=active]:bg-background py-2 flex flex-col md:flex-row gap-2 items-center">
-                <Layers className="h-4 w-4" />
-                <span>Architecture</span>
-              </TabsTrigger>
-              <TabsTrigger value="choices" className="data-[state=active]:bg-background py-2 flex flex-col md:flex-row gap-2 items-center">
-                <Star className="h-4 w-4" />
-                <span>Tech Choices</span>
+              <TabsTrigger value="faq" className="data-[state=active]:bg-white data-[state=active]:shadow-md py-3 flex flex-col md:flex-row gap-2 items-center rounded-lg">
+                <HelpCircle className="h-4 w-4" />
+                <span className="text-sm">FAQ</span>
               </TabsTrigger>
             </TabsList>
           </div>
 
           {/* Overview Section */}
           <TabsContent value="overview" className="space-y-8 animate-fade-in">
-            <Card>
+            <Card className="bg-white/70 backdrop-blur-sm border-white/20 shadow-lg">
               <CardHeader>
-                <div className="flex items-center gap-2">
-                  <BookOpen className="h-5 w-5 text-primary" />
-                  <CardTitle>Resume Builder Platform Overview</CardTitle>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <BookOpen className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl">Platform Overview</CardTitle>
+                    <CardDescription>Everything you need to know about our resume builder</CardDescription>
+                  </div>
                 </div>
-                <CardDescription>
-                  A comprehensive introduction to our resume building application
-                </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-8">
+                {/* Progress Indicator */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold flex items-center gap-2">
+                    <Target className="h-5 w-5 text-primary" />
+                    Resume Building Process
+                  </h3>
+                  <div className="space-y-3">
+                    {[
+                      { step: "Personal Information", progress: 100, color: "bg-green-500" },
+                      { step: "Professional Experience", progress: 85, color: "bg-blue-500" },
+                      { step: "Education & Skills", progress: 70, color: "bg-yellow-500" },
+                      { step: "Template Selection", progress: 60, color: "bg-purple-500" },
+                      { step: "Final Review", progress: 45, color: "bg-red-500" }
+                    ].map((item, index) => (
+                      <div key={index} className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="font-medium">{item.step}</span>
+                          <span className="text-muted-foreground">{item.progress}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div 
+                            className={`h-2 rounded-full ${item.color} transition-all duration-500`}
+                            style={{ width: `${item.progress}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Key Features Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <h3 className="text-xl font-semibold flex items-center gap-2">
-                      <FileText className="h-5 w-5 text-primary" />
-                      Key Features
+                    <h3 className="text-lg font-semibold flex items-center gap-2">
+                      <Star className="h-5 w-5 text-primary" />
+                      Core Features
                     </h3>
-                    <ul className="space-y-2 ml-6 list-disc">
-                      <li>Interactive form-based resume creation</li>
-                      <li>Multiple professionally designed templates</li>
-                      <li>Real-time preview as you build</li>
-                      <li>AI-powered content suggestions and tips</li>
-                      <li>Export to PDF, DOCX and other formats</li>
-                      <li>Responsive design for all device types</li>
-                      <li>Section-based organization for structured resumes</li>
-                    </ul>
-                  </div>
-                  <div className="bg-muted/40 rounded-lg p-6 relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-5 bg-gradient-to-br from-primary to-secondary" />
-                    <h3 className="text-xl font-semibold mb-3">Platform Benefits</h3>
                     <div className="space-y-3">
-                      <div className="flex items-start gap-2">
-                        <CheckSquare className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                        <div>
-                          <p className="font-medium">Professional Results</p>
-                          <p className="text-sm text-muted-foreground">Industry-standard templates ensure your resume stands out</p>
+                      {[
+                        "Real-time preview updates",
+                        "Multiple export formats",
+                        "ATS-optimized templates",
+                        "AI-powered suggestions",
+                        "Mobile-responsive design"
+                      ].map((feature, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <CheckSquare className="h-4 w-4 text-green-500" />
+                          <span className="text-sm">{feature}</span>
                         </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <CheckSquare className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                        <div>
-                          <p className="font-medium">Time Efficiency</p>
-                          <p className="text-sm text-muted-foreground">Create polished resumes in minutes instead of hours</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <CheckSquare className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                        <div>
-                          <p className="font-medium">Content Guidance</p>
-                          <p className="text-sm text-muted-foreground">AI suggestions help you highlight important skills and achievements</p>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
-                </div>
-
-                <div className="rounded-lg border p-4 mt-6">
-                  <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                    <Layout className="h-5 w-5 text-primary" />
-                    Application Structure
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                    <div className="space-y-2">
-                      <h4 className="font-medium">Form Section</h4>
-                      <p className="text-muted-foreground">Interactive form for information entry with context-aware fields</p>
+                  
+                  <div className="bg-gradient-to-br from-primary/5 to-blue-500/5 rounded-lg p-6 border border-primary/20">
+                    <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                      <Award className="h-5 w-5 text-primary" />
+                      Success Metrics
+                    </h3>
+                    <div className="space-y-4">
+                      {[
+                        { label: "Interview Rate Increase", value: "3x", icon: TrendingUp },
+                        { label: "Time Saved", value: "75%", icon: Clock },
+                        { label: "User Satisfaction", value: "4.9/5", icon: Star }
+                      ].map((metric, index) => (
+                        <div key={index} className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <metric.icon className="h-4 w-4 text-primary" />
+                            <span className="text-sm font-medium">{metric.label}</span>
+                          </div>
+                          <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                            {metric.value}
+                          </Badge>
+                        </div>
+                      ))}
                     </div>
-                    <div className="space-y-2">
-                      <h4 className="font-medium">Preview Panel</h4>
-                      <p className="text-muted-foreground">Real-time rendering of resume with zoom and pan capabilities</p>
-                    </div>
-                    <div className="space-y-2">
-                      <h4 className="font-medium">Template Gallery</h4>
-                      <p className="text-muted-foreground">Collection of professionally designed resume templates</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold">Interactive Walk-through</h3>
-                  <div className="relative rounded-lg bg-muted/30 border p-4 overflow-hidden">
-                    <div className="animate-pulse absolute top-2 right-2 bg-primary/10 rounded-full p-1">
-                      <HelpCircle className="h-4 w-4 text-primary" />
-                    </div>
-                    <ol className="space-y-3 ml-6 list-decimal">
-                      <li className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-                        <span className="font-medium">Personal Information:</span> Begin by entering your contact details and personal summary
-                      </li>
-                      <li className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
-                        <span className="font-medium">Professional Experience:</span> Add your work history with achievements
-                      </li>
-                      <li className="animate-fade-in" style={{ animationDelay: "0.3s" }}>
-                        <span className="font-medium">Education & Skills:</span> Include academic credentials and relevant skills
-                      </li>
-                      <li className="animate-fade-in" style={{ animationDelay: "0.4s" }}>
-                        <span className="font-medium">Template Selection:</span> Choose from multiple professional design templates
-                      </li>
-                      <li className="animate-fade-in" style={{ animationDelay: "0.5s" }}>
-                        <span className="font-medium">Preview & Download:</span> Review your resume and export in your preferred format
-                      </li>
-                    </ol>
                   </div>
                 </div>
               </CardContent>
-              <CardFooter className="border-t pt-6 flex justify-between">
-                <div className="text-sm text-muted-foreground">Last updated: May 10, 2025</div>
-                <div className="text-sm">
-                  <Link to="/guide" className="text-primary hover:underline flex items-center gap-1">
-                    <Link className="h-4 w-4" />
-                    <span>View Detailed Guide</span>
-                  </Link>
-                </div>
-              </CardFooter>
             </Card>
           </TabsContent>
 
-          {/* User Guides Section */}
+          {/* Quick Start Guides */}
           <TabsContent value="guides" className="space-y-8 animate-fade-in">
-            <Card>
+            <Card className="bg-white/70 backdrop-blur-sm border-white/20 shadow-lg">
               <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Book className="h-5 w-5 text-primary" />
-                  <CardTitle>Getting Started with Resume Builder</CardTitle>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Book className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl">Step-by-Step Guides</CardTitle>
+                    <CardDescription>Detailed instructions to help you create the perfect resume</CardDescription>
+                  </div>
                 </div>
-                <CardDescription>
-                  Step-by-step instructions for creating your perfect resume
-                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger className="hover:bg-muted/50 px-4 rounded-md -mx-4 font-medium">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-primary" />
-                        Setting Up Your Resume
+                  <AccordionItem value="getting-started" className="border border-white/20 rounded-lg mb-4 bg-white/30 backdrop-blur-sm">
+                    <AccordionTrigger className="hover:bg-white/50 px-6 py-4 rounded-t-lg font-medium">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-green-100 rounded-lg">
+                          <Lightbulb className="h-4 w-4 text-green-600" />
+                        </div>
+                        Getting Started - Your First Resume
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="pt-4 pb-2 space-y-4">
-                      <div className="rounded-lg border p-4 bg-muted/20">
-                        <h4 className="font-medium text-lg mb-2">Personal Information Section</h4>
-                        <p className="mb-3">Start by filling out your personal details to create the header of your resume:</p>
-                        <ul className="space-y-2 ml-6 list-disc">
-                          <li><span className="font-medium">Full Name:</span> Use your complete professional name</li>
-                          <li><span className="font-medium">Contact Information:</span> Include email, phone, and optionally LinkedIn</li>
-                          <li><span className="font-medium">Professional Title:</span> Your current position or target role</li>
-                          <li><span className="font-medium">Summary:</span> 2-3 sentence overview of your professional profile</li>
-                        </ul>
-                        <div className="mt-4 rounded border p-3 bg-background">
-                          <p className="text-sm text-muted-foreground italic">
-                            💡 Pro Tip: Keep your summary concise and focused on your most relevant qualifications for the target position.
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="rounded-lg border p-4">
-                          <h4 className="font-medium mb-2">Best Practices</h4>
-                          <ul className="space-y-1 ml-5 list-disc text-sm">
-                            <li>Use a professional email address</li>
-                            <li>Include city and state (full address not necessary)</li>
-                            <li>Verify all contact information is current</li>
-                            <li>Create a headline that matches job targets</li>
+                    <AccordionContent className="px-6 pb-6 space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-3">
+                          <h4 className="font-semibold text-lg">Step 1: Personal Information</h4>
+                          <ul className="space-y-2 ml-4 list-disc text-sm">
+                            <li>Enter your full name and professional title</li>
+                            <li>Add contact information (email, phone, location)</li>
+                            <li>Write a compelling 2-3 sentence summary</li>
+                            <li>Include relevant social profiles (LinkedIn, portfolio)</li>
                           </ul>
-                        </div>
-                        <div className="rounded-lg border p-4">
-                          <h4 className="font-medium mb-2">Common Mistakes to Avoid</h4>
-                          <ul className="space-y-1 ml-5 list-disc text-sm">
-                            <li>Using unprofessional email addresses</li>
-                            <li>Including outdated contact information</li>
-                            <li>Making your summary too long or generic</li>
-                            <li>Using an unclear professional title</li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div className="rounded-lg p-4 bg-primary/5 border border-primary/20">
-                        <div className="flex items-start gap-3">
-                          <div className="mt-1 bg-primary/10 p-2 rounded-full">
-                            <Settings className="h-4 w-4 text-primary" />
-                          </div>
-                          <div>
-                            <h4 className="font-medium mb-1">Interactive Features</h4>
-                            <p className="text-sm">
-                              Notice the real-time preview on the right updates as you type. You can toggle between templates at any time to see how your
-                              information appears in different layouts.
+                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                            <p className="text-sm text-blue-800">
+                              💡 <strong>Pro Tip:</strong> Use keywords from your target job description in your summary
                             </p>
                           </div>
+                        </div>
+                        <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 border">
+                          <h5 className="font-medium mb-2">Example Summary:</h5>
+                          <p className="text-sm italic text-gray-700">
+                            "Results-driven Software Developer with 5+ years of experience in full-stack development. 
+                            Specialized in React, Node.js, and cloud technologies with a track record of delivering 
+                            scalable solutions that improve user experience by 40%."
+                          </p>
                         </div>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
 
-                  <AccordionItem value="item-2">
-                    <AccordionTrigger className="hover:bg-muted/50 px-4 rounded-md -mx-4 font-medium">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-primary" />
+                  <AccordionItem value="experience" className="border border-white/20 rounded-lg mb-4 bg-white/30 backdrop-blur-sm">
+                    <AccordionTrigger className="hover:bg-white/50 px-6 py-4 rounded-t-lg font-medium">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-blue-100 rounded-lg">
+                          <Settings className="h-4 w-4 text-blue-600" />
+                        </div>
                         Adding Professional Experience
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="pt-4 pb-2 space-y-4">
-                      <div className="space-y-3">
-                        <p>
-                          The Professional Experience section is often considered the most important part of your resume. 
-                          It showcases your work history and accomplishments to potential employers.
-                        </p>
-                        
-                        <div className="rounded-lg border p-4">
-                          <h4 className="font-medium mb-2">Step-by-Step Experience Entry</h4>
-                          <ol className="space-y-2 ml-6 list-decimal">
-                            <li><span className="font-medium">Click "Add Experience"</span> to create a new entry</li>
-                            <li><span className="font-medium">Enter company name</span> and your position title</li>
-                            <li><span className="font-medium">Specify employment dates</span> (month/year format recommended)</li>
-                            <li><span className="font-medium">Add location</span> information (city, state, remote)</li>
-                            <li><span className="font-medium">Describe responsibilities and achievements</span> using bullet points</li>
-                          </ol>
-                        </div>
-                        
-                        <div className="bg-muted/20 rounded-lg p-4">
-                          <h4 className="font-medium mb-2">Achievement-Focused Descriptions</h4>
-                          <p className="mb-2">Use the STAR method to create compelling bullet points:</p>
-                          <ul className="space-y-1 ml-6 list-disc">
-                            <li><span className="font-medium">Situation:</span> Context for your action</li>
-                            <li><span className="font-medium">Task:</span> What you needed to accomplish</li>
-                            <li><span className="font-medium">Action:</span> Steps you took to address it</li>
-                            <li><span className="font-medium">Result:</span> Measurable outcomes (use numbers when possible)</li>
-                          </ul>
-                          
-                          <div className="mt-3 border rounded p-3 bg-background">
-                            <p className="text-sm font-medium">Example:</p>
-                            <p className="text-sm italic text-muted-foreground">
-                              "Led redesign of customer support workflow, reducing response time by 43% and increasing satisfaction scores from 3.2 to 4.7 out of 5."
-                            </p>
+                    <AccordionContent className="px-6 pb-6 space-y-6">
+                      <div className="space-y-4">
+                        <h4 className="font-semibold text-lg">How to Structure Your Experience</h4>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                          <div className="space-y-4">
+                            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                              <h5 className="font-medium text-green-800 mb-2">✅ Do This</h5>
+                              <ul className="space-y-1 text-sm text-green-700">
+                                <li>• Use action verbs (Led, Developed, Increased)</li>
+                                <li>• Include specific metrics and numbers</li>
+                                <li>• Focus on achievements, not just duties</li>
+                                <li>• Use reverse chronological order</li>
+                              </ul>
+                            </div>
+                            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                              <h5 className="font-medium text-red-800 mb-2">❌ Avoid This</h5>
+                              <ul className="space-y-1 text-sm text-red-700">
+                                <li>• Generic job descriptions</li>
+                                <li>• Using passive voice</li>
+                                <li>• Listing irrelevant experiences</li>
+                                <li>• Including salary information</li>
+                              </ul>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                        <div className="flex items-start gap-3">
-                          <div className="mt-1 bg-primary/10 p-2 rounded-full">
-                            <HelpCircle className="h-4 w-4 text-primary" />
-                          </div>
-                          <div>
-                            <h4 className="font-medium mb-1">AI Tips Feature</h4>
-                            <p className="text-sm">
-                              Look for the AI suggestion tips that appear when you're filling out experience details. These can help you craft
-                              more impactful descriptions and highlight overlooked achievements.
-                            </p>
+                          <div className="bg-white border rounded-lg p-4">
+                            <h5 className="font-medium mb-3">Example Experience Entry:</h5>
+                            <div className="space-y-2 text-sm">
+                              <div className="font-medium">Senior Frontend Developer</div>
+                              <div className="text-gray-600">TechCorp Inc. | Jan 2021 - Present</div>
+                              <ul className="space-y-1 ml-4 list-disc text-gray-700">
+                                <li>Led development of React-based dashboard, improving user engagement by 45%</li>
+                                <li>Mentored 3 junior developers, reducing code review time by 30%</li>
+                                <li>Implemented automated testing suite, achieving 95% code coverage</li>
+                              </ul>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
 
-                  <AccordionItem value="item-3">
-                    <AccordionTrigger className="hover:bg-muted/50 px-4 rounded-md -mx-4 font-medium">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-primary" />
-                        Adding Education & Skills
+                  <AccordionItem value="templates" className="border border-white/20 rounded-lg mb-4 bg-white/30 backdrop-blur-sm">
+                    <AccordionTrigger className="hover:bg-white/50 px-6 py-4 rounded-t-lg font-medium">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-purple-100 rounded-lg">
+                          <Palette className="h-4 w-4 text-purple-600" />
+                        </div>
+                        Choosing the Right Template
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-3">
-                          <h4 className="font-medium">Education Section</h4>
-                          <div className="rounded-lg border p-4">
-                            <h5 className="text-sm font-medium mb-2">Key Information to Include:</h5>
-                            <ul className="space-y-1 ml-5 list-disc text-sm">
-                              <li>Degree name and major/concentration</li>
-                              <li>Institution name and location</li>
-                              <li>Graduation date (or expected date)</li>
-                              <li>GPA (if above 3.5), honors, relevant coursework</li>
-                              <li>Certifications and continuing education</li>
-                            </ul>
+                    <AccordionContent className="px-6 pb-6 space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {[
+                          { name: "Modern", industry: "Tech & Startups", color: "from-blue-500 to-cyan-500" },
+                          { name: "Minimal", industry: "Finance & Law", color: "from-gray-600 to-gray-800" },
+                          { name: "Colorful", industry: "Creative & Marketing", color: "from-pink-500 to-purple-500" }
+                        ].map((template, index) => (
+                          <div key={index} className="bg-white rounded-lg border p-4 hover:shadow-md transition-shadow">
+                            <div className={`h-24 rounded-lg bg-gradient-to-br ${template.color} mb-3`}></div>
+                            <h5 className="font-medium">{template.name}</h5>
+                            <p className="text-sm text-gray-600">{template.industry}</p>
                           </div>
-                          <div className="p-3 bg-muted/20 rounded border">
-                            <p className="text-sm text-muted-foreground">
-                              For experienced professionals, keep education brief. For recent graduates, you may expand this section with relevant projects,
-                              coursework, and academic achievements.
-                            </p>
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-3">
-                          <h4 className="font-medium">Skills Section</h4>
-                          <div className="rounded-lg border p-4">
-                            <h5 className="text-sm font-medium mb-2">Effective Skills Organization:</h5>
-                            <ul className="space-y-1 ml-5 list-disc text-sm">
-                              <li>Group skills by categories (Technical, Soft Skills, Languages)</li>
-                              <li>List most relevant skills to job target first</li>
-                              <li>Be specific with technical skills and tools</li>
-                              <li>Include proficiency levels when appropriate</li>
-                              <li>Match keywords from job descriptions when relevant</li>
-                            </ul>
-                          </div>
-                          <div className="p-3 bg-muted/20 rounded border">
-                            <p className="text-sm text-muted-foreground">
-                              Our template system will automatically format your skills in the most visually appealing way for each template style.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="rounded-lg p-4 bg-primary/5 border border-primary/20">
-                        <div className="flex items-start gap-3">
-                          <div className="mt-1 bg-primary/10 p-2 rounded-full">
-                            <Settings className="h-4 w-4 text-primary" />
-                          </div>
-                          <div>
-                            <h4 className="font-medium mb-1">Skill Suggestions</h4>
-                            <p className="text-sm">
-                              As you type, our system will suggest relevant skills based on your industry and job titles. You can quickly add these
-                              suggestions to your skills list with a single click.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="item-4">
-                    <AccordionTrigger className="hover:bg-muted/50 px-4 rounded-md -mx-4 font-medium">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-primary" />
-                        Selecting Templates & Downloading
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="space-y-4">
-                      <div className="space-y-3">
-                        <p>
-                          Our resume builder offers multiple professionally designed templates to showcase your information in the most effective way.
-                        </p>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div className="rounded-lg border p-4 hover:bg-muted/20 transition-colors">
-                            <h4 className="font-medium mb-2">Modern Template</h4>
-                            <p className="text-sm text-muted-foreground mb-2">
-                              Clean, contemporary design with strategic use of color and typography.
-                            </p>
-                            <p className="text-sm italic">Ideal for: Tech, design, and creative fields</p>
-                          </div>
-                          <div className="rounded-lg border p-4 hover:bg-muted/20 transition-colors">
-                            <h4 className="font-medium mb-2">Minimal Template</h4>
-                            <p className="text-sm text-muted-foreground mb-2">
-                              Classic, elegant layout with refined typography and subtle formatting.
-                            </p>
-                            <p className="text-sm italic">Ideal for: Executive, legal, finance, and traditional industries</p>
-                          </div>
-                          <div className="rounded-lg border p-4 hover:bg-muted/20 transition-colors">
-                            <h4 className="font-medium mb-2">Colorful Template</h4>
-                            <p className="text-sm text-muted-foreground mb-2">
-                              Bold, vibrant design with distinctive sections and modern layout.
-                            </p>
-                            <p className="text-sm italic">Ideal for: Marketing, sales, hospitality, and creative positions</p>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-muted/20 rounded-lg p-4 mt-3">
-                          <h4 className="font-medium mb-2">Selecting the Right Template</h4>
-                          <p className="mb-2 text-sm">Consider these factors when choosing your template:</p>
-                          <ul className="space-y-1 ml-6 list-disc text-sm">
-                            <li><span className="font-medium">Industry standards:</span> Some fields prefer conservative designs while others value creativity</li>
-                            <li><span className="font-medium">Content volume:</span> Some templates handle more text better than others</li>
-                            <li><span className="font-medium">Personal brand:</span> Choose a design that reflects your professional persona</li>
-                            <li><span className="font-medium">Readability:</span> Ensure your information is clearly presented and easily scannable</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div className="rounded-lg border p-4">
-                        <h4 className="font-medium mb-3">Downloading Your Resume</h4>
-                        <div className="space-y-3">
-                          <p className="text-sm">
-                            Once you've completed your resume, you can download it in several formats:
-                          </p>
-                          
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-2">
-                            <div className="p-3 border rounded bg-background">
-                              <p className="font-medium text-sm">PDF Format</p>
-                              <p className="text-xs text-muted-foreground">Universal format that preserves all formatting</p>
-                            </div>
-                            <div className="p-3 border rounded bg-background">
-                              <p className="font-medium text-sm">DOCX Format</p>
-                              <p className="text-xs text-muted-foreground">Editable in Microsoft Word or Google Docs</p>
-                            </div>
-                            <div className="p-3 border rounded bg-background">
-                              <p className="font-medium text-sm">TXT Format</p>
-                              <p className="text-xs text-muted-foreground">Plain text for ATS compatibility</p>
-                            </div>
-                          </div>
-                          
-                          <div className="bg-primary/5 border border-primary/20 rounded p-3 mt-2">
-                            <p className="text-sm">
-                              <span className="font-medium">Tip:</span> For most job applications, PDF is recommended as it ensures your formatting remains consistent across devices.
-                            </p>
-                          </div>
-                        </div>
+                        ))}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -449,601 +356,258 @@ const Documentation = () => {
             </Card>
           </TabsContent>
 
-          {/* Components Section */}
-          <TabsContent value="api" className="space-y-8 animate-fade-in">
-            <Card>
+          {/* Templates Section */}
+          <TabsContent value="templates" className="space-y-8 animate-fade-in">
+            <Card className="bg-white/70 backdrop-blur-sm border-white/20 shadow-lg">
               <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Code className="h-5 w-5 text-primary" />
-                  <CardTitle>Component Documentation</CardTitle>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Layout className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl">Resume Templates</CardTitle>
+                    <CardDescription>Professional designs for every industry and career level</CardDescription>
+                  </div>
                 </div>
-                <CardDescription>
-                  Detailed information on the core components of the Resume Builder
-                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { 
+                      name: "Modern Professional", 
+                      category: "Tech & Engineering",
+                      features: ["Clean layout", "Skills visualization", "Project showcase"],
+                      color: "from-blue-400 to-blue-600",
+                      popular: true
+                    },
+                    { 
+                      name: "Executive Minimal", 
+                      category: "Leadership & Management",
+                      features: ["Conservative design", "Achievement focus", "Professional typography"],
+                      color: "from-gray-500 to-gray-700",
+                      popular: false
+                    },
+                    { 
+                      name: "Creative Colorful", 
+                      category: "Design & Marketing",
+                      features: ["Bold colors", "Creative sections", "Portfolio integration"],
+                      color: "from-purple-400 to-pink-600",
+                      popular: false
+                    },
+                    { 
+                      name: "Academic Scholar", 
+                      category: "Education & Research",
+                      features: ["Publication list", "Research focus", "Conference sections"],
+                      color: "from-green-400 to-emerald-600",
+                      popular: false
+                    },
+                    { 
+                      name: "Sales Professional", 
+                      category: "Sales & Business",
+                      features: ["Metrics highlight", "Achievement focus", "Client testimonials"],
+                      color: "from-orange-400 to-red-500",
+                      popular: true
+                    },
+                    { 
+                      name: "Healthcare Specialist", 
+                      category: "Medical & Healthcare",
+                      features: ["Certification focus", "Clinical experience", "Professional references"],
+                      color: "from-teal-400 to-cyan-500",
+                      popular: false
+                    }
+                  ].map((template, index) => (
+                    <Card key={index} className="relative overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group bg-white/80 backdrop-blur-sm border-white/30">
+                      {template.popular && (
+                        <div className="absolute top-3 right-3 z-10">
+                          <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white border-0 shadow-lg">
+                            <Star className="h-3 w-3 mr-1" />
+                            Popular
+                          </Badge>
+                        </div>
+                      )}
+                      <div className={`h-32 bg-gradient-to-br ${template.color} relative overflow-hidden`}>
+                        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+                        <div className="absolute bottom-2 left-2">
+                          <div className="w-8 h-1 bg-white/60 rounded mb-1"></div>
+                          <div className="w-12 h-1 bg-white/40 rounded mb-1"></div>
+                          <div className="w-6 h-1 bg-white/40 rounded"></div>
+                        </div>
+                      </div>
+                      <CardContent className="p-4">
+                        <h3 className="font-semibold mb-1">{template.name}</h3>
+                        <p className="text-sm text-muted-foreground mb-3">{template.category}</p>
+                        <div className="space-y-2">
+                          {template.features.map((feature, featureIndex) => (
+                            <div key={featureIndex} className="flex items-center gap-2">
+                              <CheckSquare className="h-3 w-3 text-green-500" />
+                              <span className="text-xs text-gray-600">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <Button className="w-full mt-4 bg-gradient-to-r from-primary to-blue-600 hover:shadow-lg transition-all duration-300" size="sm">
+                          Preview Template
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* API Documentation */}
+          <TabsContent value="api" className="space-y-8 animate-fade-in">
+            <Card className="bg-white/70 backdrop-blur-sm border-white/20 shadow-lg">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Code className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl">API Reference</CardTitle>
+                    <CardDescription>Technical documentation for developers and advanced users</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Core Components</h3>
+                    <div className="space-y-3">
+                      {[
+                        { name: "ResumeForm", description: "Main form container for data input", props: "data, onChange, onSubmit" },
+                        { name: "TemplateRenderer", description: "Renders resume with selected template", props: "template, data, preview" },
+                        { name: "ExportManager", description: "Handles PDF and DOCX exports", props: "format, data, filename" }
+                      ].map((component, index) => (
+                        <div key={index} className="bg-gray-50 rounded-lg p-4 border">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Code className="h-4 w-4 text-primary" />
+                            <span className="font-mono text-sm font-medium">{component.name}</span>
+                          </div>
+                          <p className="text-sm text-gray-600 mb-2">{component.description}</p>
+                          <div className="text-xs text-gray-500">
+                            <span className="font-medium">Props:</span> {component.props}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Data Schema</h3>
+                    <div className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto">
+                      <pre className="text-sm">
+{`interface ResumeData {
+  personalInfo: {
+    name: string;
+    email: string;
+    phone: string;
+    location: string;
+    summary: string;
+  };
+  experience: Array<{
+    company: string;
+    position: string;
+    startDate: string;
+    endDate: string;
+    description: string[];
+  }>;
+  education: Array<{
+    institution: string;
+    degree: string;
+    graduationDate: string;
+  }>;
+  skills: string[];
+}`}
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* FAQ Section */}
+          <TabsContent value="faq" className="space-y-8 animate-fade-in">
+            <Card className="bg-white/70 backdrop-blur-sm border-white/20 shadow-lg">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <HelpCircle className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl">Frequently Asked Questions</CardTitle>
+                    <CardDescription>Find answers to common questions about our resume builder</CardDescription>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
-                <div className="space-y-8">
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-semibold">Form Components</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="rounded-lg border p-4">
-                        <h4 className="font-medium mb-2">ResumeForm</h4>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          The main form container that orchestrates all input sections and manages form state.
-                        </p>
-                        <div className="bg-muted p-3 rounded text-sm font-mono overflow-x-auto">
-                          {`<ResumeForm
-  initialData={initialResumeData}
-  onSave={handleSaveResume}
-  onChange={handleFormChange}
-/>`}
-                        </div>
-                        <div className="mt-3">
-                          <h5 className="text-sm font-medium">Props:</h5>
-                          <ul className="space-y-1 mt-1">
-                            <li className="text-sm"><span className="font-mono text-xs">initialData</span>: Initial resume data object</li>
-                            <li className="text-sm"><span className="font-mono text-xs">onSave</span>: Function called when form is submitted</li>
-                            <li className="text-sm"><span className="font-mono text-xs">onChange</span>: Function called on any form field change</li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="rounded-lg border p-4">
-                        <h4 className="font-medium mb-2">PersonalInfoForm</h4>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          Form section for collecting user's personal and contact information.
-                        </p>
-                        <div className="bg-muted p-3 rounded text-sm font-mono overflow-x-auto">
-                          {`<PersonalInfoForm
-  data={personalData}
-  onChange={handlePersonalInfoChange}
-  errors={formErrors.personalInfo}
-/>`}
-                        </div>
-                        <div className="mt-3">
-                          <h5 className="text-sm font-medium">Props:</h5>
-                          <ul className="space-y-1 mt-1">
-                            <li className="text-sm"><span className="font-mono text-xs">data</span>: Personal information data object</li>
-                            <li className="text-sm"><span className="font-mono text-xs">onChange</span>: Function to handle field changes</li>
-                            <li className="text-sm"><span className="font-mono text-xs">errors</span>: Validation errors object</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-semibold">Preview Components</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="rounded-lg border p-4">
-                        <h4 className="font-medium mb-2">ResumePreview</h4>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          Container component that renders the selected template with the current resume data.
-                        </p>
-                        <div className="bg-muted p-3 rounded text-sm font-mono overflow-x-auto">
-                          {`<ResumePreview
-  resumeData={currentResumeData}
-  templateId={selectedTemplate}
-  zoom={zoomLevel}
-/>`}
-                        </div>
-                        <div className="mt-3">
-                          <h5 className="text-sm font-medium">Props:</h5>
-                          <ul className="space-y-1 mt-1">
-                            <li className="text-sm"><span className="font-mono text-xs">resumeData</span>: Complete resume data object</li>
-                            <li className="text-sm"><span className="font-mono text-xs">templateId</span>: ID of the selected template</li>
-                            <li className="text-sm"><span className="font-mono text-xs">zoom</span>: Preview zoom level (0.5-2.0)</li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="rounded-lg border p-4">
-                        <h4 className="font-medium mb-2">ResumeTemplateRenderer</h4>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          Maps resume data to the correct template component and renders it.
-                        </p>
-                        <div className="bg-muted p-3 rounded text-sm font-mono overflow-x-auto">
-                          {`<ResumeTemplateRenderer
-  templateId="modern"
-  resumeData={resumeData}
-/>`}
-                        </div>
-                        <div className="mt-3">
-                          <h5 className="text-sm font-medium">Props:</h5>
-                          <ul className="space-y-1 mt-1">
-                            <li className="text-sm"><span className="font-mono text-xs">templateId</span>: Template identifier string</li>
-                            <li className="text-sm"><span className="font-mono text-xs">resumeData</span>: Complete resume data object</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-semibold">Utility Components</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="rounded-lg border p-4">
-                        <h4 className="font-medium mb-2">TemplateSelector</h4>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          Grid of template options with preview thumbnails.
-                        </p>
-                        <div className="bg-muted p-3 rounded text-sm font-mono overflow-x-auto">
-                          {`<TemplateSelector
-  templates={availableTemplates}
-  selectedId={currentTemplate}
-  onSelect={handleTemplateChange}
-/>`}
-                        </div>
-                        <div className="mt-3">
-                          <h5 className="text-sm font-medium">Props:</h5>
-                          <ul className="space-y-1 mt-1">
-                            <li className="text-sm"><span className="font-mono text-xs">templates</span>: Array of template objects</li>
-                            <li className="text-sm"><span className="font-mono text-xs">selectedId</span>: ID of currently selected template</li>
-                            <li className="text-sm"><span className="font-mono text-xs">onSelect</span>: Function to handle template selection</li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="rounded-lg border p-4">
-                        <h4 className="font-medium mb-2">AiTips</h4>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          Displays contextual AI-powered suggestions for resume content.
-                        </p>
-                        <div className="bg-muted p-3 rounded text-sm font-mono overflow-x-auto">
-                          {`<AiTips
-  section="experience"
-  fieldValue={currentInput}
-  position={jobTitle}
-/>`}
-                        </div>
-                        <div className="mt-3">
-                          <h5 className="text-sm font-medium">Props:</h5>
-                          <ul className="space-y-1 mt-1">
-                            <li className="text-sm"><span className="font-mono text-xs">section</span>: Current form section identifier</li>
-                            <li className="text-sm"><span className="font-mono text-xs">fieldValue</span>: Current input value</li>
-                            <li className="text-sm"><span className="font-mono text-xs">position</span>: Job title context (optional)</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Architecture Section */}
-          <TabsContent value="architecture" className="space-y-8 animate-fade-in">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Layers className="h-5 w-5 text-primary" />
-                  <CardTitle>System Architecture</CardTitle>
-                </div>
-                <CardDescription>
-                  Overview of the Resume Builder's technical architecture and data flow
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold">Application Structure</h3>
-                  <div className="overflow-hidden rounded-lg border">
-                    <div className="p-4 bg-muted/30">
-                      <div className="relative w-full h-[300px] bg-background rounded-lg border overflow-hidden">
-                        {/* Architecture Diagram */}
-                        <div className="absolute inset-0 p-6 flex flex-col">
-                          <div className="border-b pb-2 mb-4">
-                            <div className="font-medium text-center">Resume Builder Architecture</div>
-                          </div>
-                          <div className="flex-1 flex gap-2">
-                            <div className="w-1/3 flex flex-col gap-2">
-                              <div className="bg-primary/10 rounded p-2 border border-primary/30 text-center text-sm">
-                                User Interface Layer
-                              </div>
-                              <div className="flex-1 bg-muted/20 rounded p-2 border text-xs space-y-2">
-                                <div className="bg-background rounded p-1 border">Form Components</div>
-                                <div className="bg-background rounded p-1 border">Preview Components</div>
-                                <div className="bg-background rounded p-1 border">Template Selector</div>
-                              </div>
-                            </div>
-
-                            <div className="w-1/3 flex flex-col gap-2">
-                              <div className="bg-primary/10 rounded p-2 border border-primary/30 text-center text-sm">
-                                Business Logic Layer
-                              </div>
-                              <div className="flex-1 bg-muted/20 rounded p-2 border text-xs space-y-2">
-                                <div className="bg-background rounded p-1 border">State Management</div>
-                                <div className="bg-background rounded p-1 border">Form Validation</div>
-                                <div className="bg-background rounded p-1 border">Template Rendering</div>
-                                <div className="bg-background rounded p-1 border">Export Utilities</div>
-                              </div>
-                            </div>
-
-                            <div className="w-1/3 flex flex-col gap-2">
-                              <div className="bg-primary/10 rounded p-2 border border-primary/30 text-center text-sm">
-                                Data Layer
-                              </div>
-                              <div className="flex-1 bg-muted/20 rounded p-2 border text-xs space-y-2">
-                                <div className="bg-background rounded p-1 border">Resume Schema</div>
-                                <div className="bg-background rounded p-1 border">Local Storage</div>
-                                <div className="bg-background rounded p-1 border">Template Definitions</div>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Data Flow Arrows */}
-                          <div className="absolute top-1/2 left-[33%] transform -translate-y-1/2">
-                            <div className="border-t-2 border-r-2 border-primary/30 w-4 h-8 border-dashed"></div>
-                            <div className="border-b-2 border-r-2 border-primary/30 w-4 h-8 border-dashed"></div>
-                          </div>
-                          <div className="absolute top-1/2 left-[66%] transform -translate-y-1/2">
-                            <div className="border-t-2 border-r-2 border-primary/30 w-4 h-8 border-dashed"></div>
-                            <div className="border-b-2 border-r-2 border-primary/30 w-4 h-8 border-dashed"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    The Resume Builder follows a layered architecture pattern with clear separation of concerns between the UI components, business logic,
-                    and data management.
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold">Data Flow</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="rounded-lg border p-4">
-                      <h4 className="font-medium mb-2">Form to Preview Flow</h4>
-                      <ol className="space-y-2 ml-6 list-decimal text-sm">
-                        <li>User enters data into form fields</li>
-                        <li>OnChange handlers update application state</li>
-                        <li>State changes trigger re-rendering of preview</li>
-                        <li>Template renderer processes data into visual format</li>
-                        <li>Preview updates in real-time as user types</li>
-                      </ol>
-                      <div className="mt-4 p-3 bg-muted/20 rounded border text-sm">
-                        <p><span className="font-medium">Key Benefit:</span> This real-time flow provides immediate feedback to users about how their resume will appear.</p>
-                      </div>
-                    </div>
-                    <div className="rounded-lg border p-4">
-                      <h4 className="font-medium mb-2">Export Process Flow</h4>
-                      <ol className="space-y-2 ml-6 list-decimal text-sm">
-                        <li>User selects export format (PDF, DOCX, etc.)</li>
-                        <li>System captures current template render</li>
-                        <li>Conversion utility processes the capture</li>
-                        <li>Output is formatted according to chosen format</li>
-                        <li>File is generated and provided to user for download</li>
-                      </ol>
-                      <div className="mt-4 p-3 bg-muted/20 rounded border text-sm">
-                        <p><span className="font-medium">Technical Note:</span> Export uses HTML-to-PDF and HTML-to-DOCX libraries to maintain visual fidelity across formats.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold">Core Technologies</h3>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full border-collapse">
-                      <thead>
-                        <tr className="bg-muted/50">
-                          <th className="px-4 py-2 text-left border text-sm font-medium">Category</th>
-                          <th className="px-4 py-2 text-left border text-sm font-medium">Technology</th>
-                          <th className="px-4 py-2 text-left border text-sm font-medium">Purpose</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="px-4 py-2 border text-sm font-medium bg-muted/20">Frontend Framework</td>
-                          <td className="px-4 py-2 border text-sm">React</td>
-                          <td className="px-4 py-2 border text-sm">Component-based UI rendering and state management</td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border text-sm font-medium bg-muted/20">Build Tool</td>
-                          <td className="px-4 py-2 border text-sm">Vite</td>
-                          <td className="px-4 py-2 border text-sm">Fast development server and optimized builds</td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border text-sm font-medium bg-muted/20">Styling</td>
-                          <td className="px-4 py-2 border text-sm">Tailwind CSS</td>
-                          <td className="px-4 py-2 border text-sm">Utility-first CSS for responsive design</td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border text-sm font-medium bg-muted/20">UI Components</td>
-                          <td className="px-4 py-2 border text-sm">shadcn/ui</td>
-                          <td className="px-4 py-2 border text-sm">Accessible component library with Radix UI primitives</td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border text-sm font-medium bg-muted/20">Type Safety</td>
-                          <td className="px-4 py-2 border text-sm">TypeScript</td>
-                          <td className="px-4 py-2 border text-sm">Static type checking and improved developer experience</td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border text-sm font-medium bg-muted/20">Export Utilities</td>
-                          <td className="px-4 py-2 border text-sm">html2canvas, jsPDF</td>
-                          <td className="px-4 py-2 border text-sm">HTML to PDF conversion for resume exports</td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border text-sm font-medium bg-muted/20">Storage</td>
-                          <td className="px-4 py-2 border text-sm">Local Storage</td>
-                          <td className="px-4 py-2 border text-sm">Persistent data storage for resume drafts</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Technology Choices Section */}
-          <TabsContent value="choices" className="space-y-8 animate-fade-in">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Star className="h-5 w-5 text-primary" />
-                  <CardTitle>Technology Choices</CardTitle>
-                </div>
-                <CardDescription>
-                  Rationale behind our technology stack and architectural decisions
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold">Core Framework Decisions</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="rounded-lg border p-4 bg-muted/10">
-                      <div className="flex justify-between items-start">
-                        <h4 className="font-medium">React</h4>
-                        <div className="bg-primary/10 p-1.5 rounded">
-                          <Code className="h-4 w-4 text-primary" />
-                        </div>
-                      </div>
-                      <p className="text-sm mt-2 mb-3">
-                        React was chosen as our primary framework for several compelling reasons:
-                      </p>
-                      <ul className="space-y-2 ml-6 list-disc text-sm">
-                        <li><span className="font-medium">Component architecture</span> - Perfect for breaking down the complex UI of resume sections</li>
-                        <li><span className="font-medium">Virtual DOM</span> - Provides optimal rendering performance for real-time preview</li>
-                        <li><span className="font-medium">Mature ecosystem</span> - Wide range of libraries for form handling and PDF generation</li>
-                        <li><span className="font-medium">Developer experience</span> - Large community and extensive documentation</li>
-                      </ul>
-                      <div className="mt-4 p-3 bg-background border rounded">
-                        <p className="text-sm">
-                          <span className="font-medium">Alternative considered:</span> Vue.js offered similar capabilities, but React's more extensive
-                          ecosystem for document generation and form handling made it the superior choice for this application.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="rounded-lg border p-4 bg-muted/10">
-                      <div className="flex justify-between items-start">
-                        <h4 className="font-medium">TypeScript</h4>
-                        <div className="bg-primary/10 p-1.5 rounded">
-                          <Code className="h-4 w-4 text-primary" />
-                        </div>
-                      </div>
-                      <p className="text-sm mt-2 mb-3">
-                        TypeScript provides crucial benefits for a complex form-based application:
-                      </p>
-                      <ul className="space-y-2 ml-6 list-disc text-sm">
-                        <li><span className="font-medium">Type safety</span> - Ensures resume data structure consistency across components</li>
-                        <li><span className="font-medium">Developer tooling</span> - Enhanced IDE support with autocompletion and error detection</li>
-                        <li><span className="font-medium">Clearer interfaces</span> - Self-documenting code with explicit props and state types</li>
-                        <li><span className="font-medium">Refactoring confidence</span> - Type checking catches potential errors during refactors</li>
-                      </ul>
-                      <div className="mt-4 p-3 bg-background border rounded">
-                        <p className="text-sm">
-                          <span className="font-medium">Implementation insight:</span> Our resume data schema is fully typed, preventing inconsistencies
-                          in data structures that could cause rendering errors in templates.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold">UI and Styling Decisions</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="rounded-lg border p-4 bg-muted/10">
-                      <div className="flex justify-between items-start">
-                        <h4 className="font-medium">Tailwind CSS</h4>
-                        <div className="bg-primary/10 p-1.5 rounded">
-                          <Code className="h-4 w-4 text-primary" />
-                        </div>
-                      </div>
-                      <p className="text-sm mt-2 mb-3">
-                        Tailwind CSS was selected for several key advantages:
-                      </p>
-                      <ul className="space-y-2 ml-6 list-disc text-sm">
-                        <li><span className="font-medium">Utility-first approach</span> - Provides flexibility for complex template styling</li>
-                        <li><span className="font-medium">Design consistency</span> - Enforces a consistent design system through utility classes</li>
-                        <li><span className="font-medium">Performance</span> - Generates minimal CSS, optimizing page load times</li>
-                        <li><span className="font-medium">Responsive design</span> - Built-in responsive utilities for mobile-friendly interface</li>
-                      </ul>
-                      <div className="mt-4 p-3 bg-background border rounded">
-                        <p className="text-sm">
-                          <span className="font-medium">Alternative considered:</span> CSS-in-JS libraries like Styled Components offered component 
-                          styling, but Tailwind's performance benefits and rapid development capabilities were preferred.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="rounded-lg border p-4 bg-muted/10">
-                      <div className="flex justify-between items-start">
-                        <h4 className="font-medium">shadcn/ui Components</h4>
-                        <div className="bg-primary/10 p-1.5 rounded">
-                          <Code className="h-4 w-4 text-primary" />
-                        </div>
-                      </div>
-                      <p className="text-sm mt-2 mb-3">
-                        shadcn/ui was chosen to provide high-quality UI components:
-                      </p>
-                      <ul className="space-y-2 ml-6 list-disc text-sm">
-                        <li><span className="font-medium">Accessibility</span> - Built on Radix UI primitives for robust accessibility support</li>
-                        <li><span className="font-medium">Customizability</span> - Direct access to component source code for tailored modifications</li>
-                        <li><span className="font-medium">Tailwind integration</span> - Seamless combination with our utility-first CSS approach</li>
-                        <li><span className="font-medium">Modern design</span> - Contemporary, clean aesthetic aligned with application goals</li>
-                      </ul>
-                      <div className="mt-4 p-3 bg-background border rounded">
-                        <p className="text-sm">
-                          <span className="font-medium">Implementation insight:</span> Components like Tabs, Accordion, and Cards provide consistent 
-                          interaction patterns while maintaining design flexibility across the application.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold">Export and Document Generation</h3>
-                  <div className="rounded-lg border p-4 bg-muted/10">
-                    <h4 className="font-medium mb-3">PDF Generation Approach</h4>
-                    <p className="text-sm mb-4">
-                      For exporting resumes to PDF format, we considered several approaches before selecting our current implementation:
-                    </p>
-
-                    <div className="space-y-4">
-                      <div className="p-3 border rounded bg-background">
-                        <h5 className="text-sm font-medium mb-1">HTML-to-PDF Conversion (Selected)</h5>
-                        <p className="text-xs text-muted-foreground mb-2">
-                          Uses html2canvas to capture the rendered template and jsPDF to create the document.
-                        </p>
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            <CheckSquare className="h-3 w-3 text-primary" />
-                            <p className="text-xs">Maintains exact visual fidelity with preview</p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <CheckSquare className="h-3 w-3 text-primary" />
-                            <p className="text-xs">Client-side processing without server dependencies</p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <CheckSquare className="h-3 w-3 text-primary" />
-                            <p className="text-xs">Supports all visual elements including custom fonts and graphics</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="p-3 border rounded bg-muted/30">
-                        <h5 className="text-sm font-medium mb-1">Server-side Rendering (Considered)</h5>
-                        <p className="text-xs text-muted-foreground mb-2">
-                          Would use a Node.js server with Puppeteer or similar headless browser technology.
-                        </p>
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            <CheckSquare className="h-3 w-3 text-muted-foreground" />
-                            <p className="text-xs text-muted-foreground">Higher quality rendering but requires server infrastructure</p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <CheckSquare className="h-3 w-3 text-muted-foreground" />
-                            <p className="text-xs text-muted-foreground">More processing power for complex documents</p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <CheckSquare className="h-3 w-3 text-muted-foreground" />
-                            <p className="text-xs text-muted-foreground">Better for high-volume usage</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="p-3 border rounded bg-muted/30">
-                        <h5 className="text-sm font-medium mb-1">Template-Based Generation (Considered)</h5>
-                        <p className="text-xs text-muted-foreground mb-2">
-                          Would use predefined PDF templates with data insertion points.
-                        </p>
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            <CheckSquare className="h-3 w-3 text-muted-foreground" />
-                            <p className="text-xs text-muted-foreground">Fastest performance but limited design flexibility</p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <CheckSquare className="h-3 w-3 text-muted-foreground" />
-                            <p className="text-xs text-muted-foreground">Consistent output quality across all browsers</p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <CheckSquare className="h-3 w-3 text-muted-foreground" />
-                            <p className="text-xs text-muted-foreground">Less processing overhead</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 p-3 bg-primary/5 border border-primary/20 rounded">
-                      <p className="text-sm">
-                        <span className="font-medium">Decision rationale:</span> The HTML-to-PDF approach was selected to prioritize visual consistency
-                        between preview and final document, while maintaining a serverless architecture that works entirely in the browser.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold">State Management Considerations</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="rounded-lg border p-4">
-                      <h4 className="font-medium mb-2">React Context (Selected)</h4>
-                      <p className="text-sm text-muted-foreground mb-3">
-                        We chose React Context API combined with the useReducer hook for our application's state management.
-                      </p>
-                      <div className="space-y-2">
-                        <div className="flex items-start gap-2">
-                          <CheckSquare className="h-4 w-4 text-primary mt-0.5" />
-                          <div>
-                            <p className="text-sm font-medium">Right-sized solution</p>
-                            <p className="text-xs text-muted-foreground">Provides the necessary state sharing without external dependencies</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <CheckSquare className="h-4 w-4 text-primary mt-0.5" />
-                          <div>
-                            <p className="text-sm font-medium">TypeScript integration</p>
-                            <p className="text-xs text-muted-foreground">Strong typing for actions and state with built-in React features</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <CheckSquare className="h-4 w-4 text-primary mt-0.5" />
-                          <div>
-                            <p className="text-sm font-medium">Reduced bundle size</p>
-                            <p className="text-xs text-muted-foreground">No additional state management libraries required</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="rounded-lg border p-4 bg-muted/30">
-                      <h4 className="font-medium mb-2">Redux (Considered)</h4>
-                      <p className="text-sm text-muted-foreground mb-3">
-                        We evaluated Redux as an alternative state management solution.
-                      </p>
-                      <div className="space-y-2">
-                        <div className="flex items-start gap-2">
-                          <CheckSquare className="h-4 w-4 text-muted-foreground mt-0.5" />
-                          <div>
-                            <p className="text-sm font-medium text-muted-foreground">More structured state management</p>
-                            <p className="text-xs text-muted-foreground">Provides strict patterns for state updates</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <CheckSquare className="h-4 w-4 text-muted-foreground mt-0.5" />
-                          <div>
-                            <p className="text-sm font-medium text-muted-foreground">Better for larger applications</p>
-                            <p className="text-xs text-muted-foreground">More suitable for complex state with many components</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <CheckSquare className="h-4 w-4 text-muted-foreground mt-0.5" />
-                          <div>
-                            <p className="text-sm font-medium text-muted-foreground">Developer tools</p>
-                            <p className="text-xs text-muted-foreground">Excellent debugging capabilities with Redux DevTools</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="mt-3 p-2 bg-background border text-xs rounded">
-                        Ultimately not selected due to additional complexity and bundle size concerns for our specific use case.
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Accordion type="single" collapsible className="w-full">
+                  {[
+                    {
+                      question: "Is my data secure and private?",
+                      answer: "Yes, absolutely. All your resume data is processed locally in your browser. We don't store or transmit your personal information to our servers. Your privacy is our top priority."
+                    },
+                    {
+                      question: "Can I export my resume in different formats?",
+                      answer: "Yes, you can export your resume in multiple formats including PDF, DOCX, and plain text. PDF is recommended for most job applications as it preserves formatting across all devices."
+                    },
+                    {
+                      question: "Are the templates ATS-friendly?",
+                      answer: "All our templates are designed to be ATS (Applicant Tracking System) friendly. They use standard fonts, proper heading structures, and avoid complex graphics that might confuse automated systems."
+                    },
+                    {
+                      question: "Can I save multiple versions of my resume?",
+                      answer: "Currently, the resume builder stores your data locally in your browser. You can create different versions by exporting them with different filenames or using browser profiles."
+                    },
+                    {
+                      question: "Does the resume builder work on mobile devices?",
+                      answer: "Yes, our resume builder is fully responsive and works great on tablets and smartphones. However, for the best experience, we recommend using a desktop or laptop computer."
+                    },
+                    {
+                      question: "How do I choose the right template for my industry?",
+                      answer: "We provide guidance for each template. Generally, use Modern for tech roles, Minimal for conservative industries like finance/law, and Colorful for creative positions. Consider your industry norms and company culture."
+                    }
+                  ].map((faq, index) => (
+                    <AccordionItem key={index} value={`faq-${index}`} className="border border-white/20 rounded-lg mb-4 bg-white/30 backdrop-blur-sm">
+                      <AccordionTrigger className="hover:bg-white/50 px-6 py-4 rounded-t-lg text-left">
+                        <span className="font-medium">{faq.question}</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-6 pb-4 text-gray-700">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </CardContent>
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Call to Action */}
+        <div className="mt-16 text-center">
+          <Card className="bg-gradient-to-r from-primary/10 via-blue-500/10 to-purple-500/10 border-white/20 backdrop-blur-sm">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold mb-4">Ready to Build Your Perfect Resume?</h2>
+              <p className="text-muted-foreground mb-6">
+                Join thousands of professionals who have successfully landed their dream jobs with our resume builder.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button size="lg" className="bg-gradient-to-r from-primary to-blue-600 hover:shadow-lg transition-all duration-300">
+                  <FileText className="h-5 w-5 mr-2" />
+                  Start Building Now
+                </Button>
+                <Button variant="outline" size="lg" className="border-white/30 hover:bg-white/20">
+                  <Download className="h-5 w-5 mr-2" />
+                  View Examples
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
+      
+      <Footer />
     </div>
   );
 };
