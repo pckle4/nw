@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import {
   BookOpen, Code2, Paintbrush, Star, Sparkles, Users, TrendingUp, Download, Shield, Globe, Heart, Cpu, Pen, Lightbulb, 
@@ -621,8 +622,8 @@ const FileTreeHierarchy = () => {
         <div
           className={cn(
             "flex items-center gap-2 py-2 px-3 rounded-lg cursor-pointer transition-all duration-300",
-            "hover:bg-slate-100 group",
-            activeDataFlow === node.id && "bg-blue-100 scale-105 shadow-md"
+            "hover:bg-gray-700/50 group",
+            activeDataFlow === node.id && "bg-blue-500/20 scale-105 shadow-md"
           )}
           style={{ paddingLeft: `${depth * 16 + 12}px` }}
           onClick={() => {
@@ -635,28 +636,28 @@ const FileTreeHierarchy = () => {
         >
           {node.type === 'folder' && (
             expandedNodes.has(node.id) ? 
-              <ChevronDown className="h-4 w-4 text-slate-500" /> : 
-              <ChevronRight className="h-4 w-4 text-slate-500" />
+              <ChevronDown className="h-4 w-4 text-gray-300" /> : 
+              <ChevronRight className="h-4 w-4 text-gray-300" />
           )}
           
           <span className={cn(
             "transition-colors duration-300",
-            node.dataRole === 'input' && "text-blue-600",
-            node.dataRole === 'collector' && "text-green-600",
-            node.dataRole === 'renderer' && "text-purple-600",
-            node.dataRole === 'exporter' && "text-red-600",
-            node.dataRole === 'template' && "text-orange-600",
-            !node.dataRole && "text-slate-600"
+            node.dataRole === 'input' && "text-blue-400",
+            node.dataRole === 'collector' && "text-green-400",
+            node.dataRole === 'renderer' && "text-purple-400",
+            node.dataRole === 'exporter' && "text-red-400",
+            node.dataRole === 'template' && "text-orange-400",
+            !node.dataRole && "text-gray-400"
           )}>
             {node.icon}
           </span>
           
-          <span className="text-sm font-medium text-slate-800 group-hover:text-slate-900">
+          <span className="text-sm font-medium text-gray-200 group-hover:text-white transition-colors">
             {node.name}
           </span>
           
           {node.description && (
-            <span className="text-xs text-slate-500 ml-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <span className="text-xs text-gray-400 ml-2 opacity-0 group-hover:opacity-100 transition-opacity">
               {node.description}
             </span>
           )}
@@ -711,7 +712,7 @@ const FileTreeHierarchy = () => {
         </div>
       </div>
       
-      <div className="bg-slate-900 rounded-xl p-6 font-mono text-sm text-slate-100 max-h-96 overflow-auto">
+      <div className="bg-gray-900 rounded-xl p-6 font-mono text-sm max-h-96 overflow-auto border border-gray-700">
         {renderFileTree(fileStructure)}
       </div>
       
