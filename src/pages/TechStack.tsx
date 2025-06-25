@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import {
   BookOpen, Code2, Paintbrush, Star, Sparkles, Users, TrendingUp, Download, Shield, Globe, Heart, Cpu, Pen, Lightbulb, 
@@ -151,6 +150,270 @@ const AnimatedCounter = ({ target, label, suffix = "" }: { target: number; label
         {count}{suffix}
       </div>
       <div className="text-gray-600 font-medium">{label}</div>
+    </div>
+  );
+};
+
+// TypeScript & Type Safety Section
+const TypeScriptSection = () => {
+  const [activeFeature, setActiveFeature] = useState(0);
+  
+  const typeSafetyFeatures = [
+    {
+      title: "Compile-Time Error Detection",
+      icon: <AlertCircle className="h-6 w-6" />,
+      color: "from-red-400 to-red-600",
+      description: "Catch errors before they reach production",
+      example: `// TypeScript catches this error at compile time
+interface ResumeData {
+  name: string;
+  email: string;
+}
+
+const resume: ResumeData = {
+  name: "John Doe",
+  emial: "john@example.com" // Error: 'emial' doesn't exist
+};`,
+      benefits: ["Prevents runtime crashes", "Reduces debugging time", "Improves code reliability"]
+    },
+    {
+      title: "Intelligent Code Completion",
+      icon: <Brain className="h-6 w-6" />,
+      color: "from-blue-400 to-blue-600",
+      description: "VS Code provides accurate suggestions based on types",
+      example: `// TypeScript knows all available properties
+const handleFormSubmit = (data: ResumeFormData) => {
+  data. // IntelliSense shows: name, email, experience, education
+};`,
+      benefits: ["Faster development", "Fewer typos", "Better developer experience"]
+    },
+    {
+      title: "Safe Refactoring",
+      icon: <RefreshCw className="h-6 w-6" />,
+      color: "from-green-400 to-green-600",
+      description: "Rename properties across entire codebase safely",
+      example: `// Renaming 'personalInfo' to 'profile' updates everywhere
+interface ResumeData {
+  profile: PersonalInfo; // Was: personalInfo
+  experience: Experience[];
+}`,
+      benefits: ["Confident code changes", "No broken references", "Automated updates"]
+    },
+    {
+      title: "Component Prop Validation",
+      icon: <Component className="h-6 w-6" />,
+      color: "from-purple-400 to-purple-600",
+      description: "Ensure components receive correct props",
+      example: `interface TemplateProps {
+  resumeData: ResumeData;
+  theme: 'modern' | 'minimal' | 'colorful';
+}
+
+// TypeScript ensures props match the interface
+<ModernTemplate resumeData={data} theme="modern" />`,
+      benefits: ["Prevents prop errors", "Self-documenting components", "Better team collaboration"]
+    }
+  ];
+
+  const whyTypeScript = [
+    {
+      title: "Scalability",
+      icon: <TrendingUp className="h-5 w-5 text-blue-500" />,
+      description: "As your resume builder grows, TypeScript helps manage complexity"
+    },
+    {
+      title: "Team Collaboration",
+      icon: <Users className="h-5 w-5 text-green-500" />,
+      description: "Types serve as documentation for other developers"
+    },
+    {
+      title: "Maintainability",
+      icon: <Wrench className="h-5 w-5 text-orange-500" />,
+      description: "Easier to modify and extend features without breaking existing code"
+    },
+    {
+      title: "Performance",
+      icon: <Zap className="h-5 w-5 text-yellow-500" />,
+      description: "Better tree-shaking and bundle optimization"
+    }
+  ];
+
+  return (
+    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 shadow-2xl">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          Why TypeScript with React?
+        </h2>
+        <p className="text-gray-600 text-lg max-w-3xl mx-auto mb-8">
+          TypeScript transforms JavaScript development by adding static type checking, 
+          making our resume builder more reliable, maintainable, and developer-friendly.
+        </p>
+        
+        {/* What is Type Safety */}
+        <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <Shield className="h-8 w-8 text-blue-600" />
+            <h3 className="text-2xl font-bold text-gray-800">What is Type Safety?</h3>
+          </div>
+          <p className="text-gray-700 text-left leading-relaxed mb-6">
+            Type safety is a programming concept that prevents type-related errors by ensuring that 
+            operations are only performed on compatible data types. In our resume builder, this means:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6">
+              <h4 className="font-bold text-green-800 mb-3 flex items-center gap-2">
+                <CheckCircle className="h-5 w-5" />
+                With TypeScript
+              </h4>
+              <ul className="text-green-700 space-y-2 text-sm">
+                <li>• Variables have defined types (string, number, boolean)</li>
+                <li>• Function parameters are validated</li>
+                <li>• Object properties are checked</li>
+                <li>• Errors caught during development</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-r from-red-50 to-rose-50 rounded-xl p-6">
+              <h4 className="font-bold text-red-800 mb-3 flex items-center gap-2">
+                <AlertCircle className="h-5 w-5" />
+                Without TypeScript
+              </h4>
+              <ul className="text-red-700 space-y-2 text-sm">
+                <li>• Runtime errors from type mismatches</li>
+                <li>• Undefined property access</li>
+                <li>• Function called with wrong arguments</li>
+                <li>• Bugs discovered by users</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Why We Chose TypeScript */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {whyTypeScript.map((reason, index) => (
+            <div key={index} className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+              <div className="flex items-center gap-3 mb-3">
+                {reason.icon}
+                <h4 className="font-bold text-gray-800">{reason.title}</h4>
+              </div>
+              <p className="text-gray-600 text-sm">{reason.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Interactive Type Safety Features */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Feature selector */}
+        <div className="space-y-4">
+          <h3 className="text-2xl font-bold text-gray-800 mb-6">Type Safety in Action</h3>
+          {typeSafetyFeatures.map((feature, index) => (
+            <div
+              key={index}
+              className={cn(
+                "p-4 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105",
+                activeFeature === index 
+                  ? `bg-gradient-to-r ${feature.color} text-white shadow-lg` 
+                  : "bg-white hover:shadow-md border border-gray-200"
+              )}
+              onClick={() => setActiveFeature(index)}
+            >
+              <div className="flex items-center gap-4">
+                <div className={cn(
+                  "p-2 rounded-lg",
+                  activeFeature === index ? "bg-white/20" : "bg-gray-100"
+                )}>
+                  <span className={cn(
+                    activeFeature === index ? "text-white" : "text-gray-600"
+                  )}>
+                    {feature.icon}
+                  </span>
+                </div>
+                <div>
+                  <h4 className={cn(
+                    "font-bold text-lg",
+                    activeFeature === index ? "text-white" : "text-gray-800"
+                  )}>
+                    {feature.title}
+                  </h4>
+                  <p className={cn(
+                    "text-sm",
+                    activeFeature === index ? "text-white/80" : "text-gray-600"
+                  )}>
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Feature details */}
+        <div className="bg-white rounded-xl p-6 shadow-md">
+          <div className={cn(
+            "inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6 bg-gradient-to-r",
+            typeSafetyFeatures[activeFeature].color,
+            "text-white"
+          )}>
+            {typeSafetyFeatures[activeFeature].icon}
+            {typeSafetyFeatures[activeFeature].title}
+          </div>
+          
+          <div className="mb-6">
+            <h4 className="font-bold text-gray-800 mb-3">Code Example:</h4>
+            <div className="bg-gray-900 rounded-lg p-4 font-mono text-sm">
+              <pre className="text-gray-100 whitespace-pre-wrap">
+                {typeSafetyFeatures[activeFeature].example}
+              </pre>
+            </div>
+          </div>
+          
+          <div>
+            <h4 className="font-bold text-gray-800 mb-3">Benefits:</h4>
+            <div className="space-y-2">
+              {typeSafetyFeatures[activeFeature].benefits.map((benefit, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700">{benefit}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Real-world Impact */}
+      <div className="mt-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+        <h3 className="text-2xl font-bold mb-6 text-center">Real-World Impact in Our Resume Builder</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Code className="h-8 w-8" />
+            </div>
+            <h4 className="font-bold mb-2">Zero Runtime Type Errors</h4>
+            <p className="text-blue-100 text-sm">
+              Our resume forms never crash due to unexpected data types
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Rocket className="h-8 w-8" />
+            </div>
+            <h4 className="font-bold mb-2">50% Faster Development</h4>
+            <p className="text-blue-100 text-sm">
+              IntelliSense and error detection speed up feature development
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Shield className="h-8 w-8" />
+            </div>
+            <h4 className="font-bold mb-2">100% API Contract Safety</h4>
+            <p className="text-blue-100 text-sm">
+              All API responses are validated against TypeScript interfaces
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -983,6 +1246,11 @@ const TechStack = () => {
               <AnimatedCounter target={99} label="Uptime" suffix="%" />
             </div>
           </AnimatedHeadline>
+        </section>
+
+        {/* TypeScript Section */}
+        <section className="mb-20">
+          <TypeScriptSection />
         </section>
 
         {/* File Tree Hierarchy Section */}
