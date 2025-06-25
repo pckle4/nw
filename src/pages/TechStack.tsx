@@ -6,7 +6,7 @@ import {
   Send, GitCommit, Workflow, AlertCircle, LayoutDashboard, Save, Component, Blocks, Award, ArrowRight, AlignJustify,
   Play, Pause, RotateCcw, CheckCircle, Eye, Edit3, Palette, FileDown, Settings, ArrowDown, ChevronRight, Layers,
   Target, Zap as ZapIcon, Circle, Square, Triangle, Hexagon, Diamond, ChevronDown, Folder, Link, CornerDownRight,
-  ArrowRightLeft, RefreshCw, Package, Wrench
+  ArrowRightLeft, RefreshCw, Package, Wrench, Briefcase, GraduationCap, Layout, Minimize2, ZoomIn
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -530,7 +530,7 @@ const FileTreeHierarchy = () => {
                   id: 'minimal-template',
                   name: 'MinimalTemplate.tsx',
                   type: 'file',
-                  icon: <Minimize className="h-4 w-4" />,
+                  icon: <Minimize2 className="h-4 w-4" />,
                   description: 'Minimal design template',
                   dataRole: 'template'
                 },
